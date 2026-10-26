@@ -11,6 +11,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
+
     <!-- Styles & Scripts via Vite -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -39,14 +42,7 @@
             
             <!-- Left: Logo & Brand Name -->
             <a href="{{ route('home') }}" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 rounded-2xl bg-[#FFF9ED] border-2 border-[#FBD688] flex items-center justify-center text-amber-500 shadow-2xs group-hover:scale-105 transition-transform duration-200">
-                    <!-- Flowchart squircle logo icon -->
-                    <svg class="w-5 h-5 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="3" y="4" width="18" height="16" rx="6" />
-                        <path d="M7 12h10" />
-                        <path d="M12 8v8" />
-                    </svg>
-                </div>
+                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-9 h-9 group-hover:scale-105 transition-transform duration-200">
                 <div class="flex flex-col">
                     <span class="font-extrabold text-[17px] text-slate-900 tracking-tight leading-snug">Flowchart Lab</span>
                     <span class="font-bold text-[10px] tracking-wider text-[#EA580C] uppercase leading-none mt-0.5">SMK ALGORITMA VISUAL</span>
@@ -61,7 +57,7 @@
                 <a href="{{ route('materi') }}" class="bg-[#F4F1EA] text-slate-900 font-bold px-4 py-1.5 rounded-full text-[13px] shadow-2xs transition">
                     Materi
                 </a>
-                <a href="{{ route('home') }}#simulasi" class="text-slate-600 hover:text-slate-900 font-semibold px-3.5 py-1.5 rounded-full text-[13px] transition hover:bg-white">
+                <a href="{{ route('simulasi') }}" class="text-slate-600 hover:text-slate-900 font-semibold px-3.5 py-1.5 rounded-full text-[13px] transition hover:bg-white">
                     Simulasi
                 </a>
                 
@@ -150,7 +146,7 @@
             @endauth
             <a href="{{ route('home') }}" class="block px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50">Beranda</a>
             <a href="{{ route('materi') }}" class="block px-3 py-2 rounded-xl text-sm font-bold bg-[#F4F1EA] text-slate-900">Materi Standar Flowchart</a>
-            <a href="{{ route('home') }}#simulasi" class="block px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50">Simulasi Interaktif</a>
+            <a href="{{ route('simulasi') }}" class="block px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50">Simulasi Interaktif</a>
             <a href="#quiz" onclick="openQuizModal('all')" class="block px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50">Quiz Interaktif</a>
         </div>
     </header>
@@ -172,16 +168,6 @@
                             <line x1="12" y1="17" x2="12" y2="21"/>
                         </svg>
                         <span>MODUL 01: STANDARISASI ANSI / ISO</span>
-                    </div>
-
-                    <!-- Right Badges -->
-                    <div class="flex items-center gap-2 sm:gap-2.5">
-                        <span class="bg-[#FFF1F2] border border-[#FECDD3] text-[#E11D48] font-black text-[10px] sm:text-[11px] uppercase tracking-wider px-3.5 py-1 rounded-full">
-                            STANDAR KURIKULUM
-                        </span>
-                        <span class="bg-[#FFF9EC] border border-[#FDE68A] text-[#92400E] font-bold text-[10px] sm:text-[11px] px-3.5 py-1 rounded-full">
-                            Dasar Pemrograman RPL
-                        </span>
                     </div>
                 </div>
 
@@ -470,121 +456,76 @@
                 <!-- Two Column Layout: Diagram on Left, Step Explanations on Right -->
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
-                    <!-- LEFT COLUMN: DIAGRAM VISUAL -->
-                    <div class="lg:col-span-6 bg-[#FFFDF7] border-2 border-[#FDE68A] rounded-[28px] p-6 sm:p-8 flex flex-col items-center shadow-xs">
-                        
-                        <!-- 1. Mulai (Terminator) -->
-                        <div class="border-2 border-rose-400 bg-white text-rose-600 font-extrabold text-xs px-9 py-2 rounded-full shadow-2xs">
-                            Mulai
-                        </div>
+                    <!-- LEFT COLUMN: DIAGRAM VISUAL (Saling terhubung presisi antar simbol) -->
+                    <div class="lg:col-span-6 bg-[#FFFDF7] border-2 border-[#FDE68A] rounded-[28px] p-4 sm:p-6 flex flex-col items-center justify-center shadow-xs">
+                        <svg class="w-full max-w-[420px] h-auto drop-shadow-2xs" viewBox="0 0 400 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- 1. Mulai (Oval merah/pink) -->
+                            <rect x="150" y="10" width="100" height="34" rx="17" fill="#FFFFFF" stroke="#F43F5E" stroke-width="2.2" />
+                            <text x="200" y="32" text-anchor="middle" font-size="12" font-weight="800" font-family="'Plus Jakarta Sans', sans-serif" fill="#E11D48">Mulai</text>
 
-                        <!-- Down Arrow -->
-                        <div class="flex flex-col items-center my-0.5">
-                            <div class="w-0.5 h-5 bg-slate-800"></div>
-                            <div class="w-0 h-0 border-x-[4px] border-x-transparent border-t-[6px] border-t-slate-800"></div>
-                        </div>
+                            <!-- Arrow down 1: Mulai -> Input -->
+                            <line x1="200" y1="44" x2="200" y2="64" stroke="#1E293B" stroke-width="2" />
+                            <polygon points="196,64 200,72 204,64" fill="#1E293B" />
 
-                        <!-- 2. Input Bilangan Bulat (Input/Output) -->
-                        <div class="border-2 border-sky-400 bg-white text-sky-800 font-extrabold text-xs px-8 py-2.5 -skew-x-12 rounded shadow-2xs">
-                            <span class="skew-x-12 inline-block">Input Bilangan Bulat</span>
-                        </div>
+                            <!-- 2. Input Bilangan Bulat (Jajar Genjang biru) -->
+                            <polygon points="142,72 272,72 258,112 128,112" fill="#FFFFFF" stroke="#0284C7" stroke-width="2.2" />
+                            <text x="200" y="96" text-anchor="middle" font-size="11" font-weight="700" font-family="'Plus Jakarta Sans', sans-serif" fill="#0F172A">Input Bilangan Bulat</text>
 
-                        <!-- Down Arrow -->
-                        <div class="flex flex-col items-center my-0.5">
-                            <div class="w-0.5 h-5 bg-slate-800"></div>
-                            <div class="w-0 h-0 border-x-[4px] border-x-transparent border-t-[6px] border-t-slate-800"></div>
-                        </div>
+                            <!-- Arrow down 2: Input -> Hitung -->
+                            <line x1="200" y1="112" x2="200" y2="134" stroke="#1E293B" stroke-width="2" />
+                            <polygon points="196,134 200,142 204,134" fill="#1E293B" />
 
-                        <!-- 3. Hitung: Sisa = Bilangan % 2 (Process) -->
-                        <div class="border-2 border-sky-400 bg-white text-slate-800 font-bold text-xs px-6 py-2.5 rounded shadow-2xs">
-                            Hitung: Sisa = Bilangan % 2
-                        </div>
+                            <!-- 3. Hitung: Sisa = Bilangan % 2 (Persegi Panjang biru) -->
+                            <rect x="100" y="142" width="200" height="40" rx="3" fill="#FFFFFF" stroke="#0284C7" stroke-width="2.2" />
+                            <text x="200" y="167" text-anchor="middle" font-size="11" font-weight="700" font-family="'Plus Jakarta Sans', sans-serif" fill="#0F172A">Hitung: Sisa = Bilangan % 2</text>
 
-                        <!-- Down Arrow -->
-                        <div class="flex flex-col items-center my-0.5">
-                            <div class="w-0.5 h-5 bg-slate-800"></div>
-                            <div class="w-0 h-0 border-x-[4px] border-x-transparent border-t-[6px] border-t-slate-800"></div>
-                        </div>
+                            <!-- Arrow down 3: Hitung -> Decision -->
+                            <line x1="200" y1="182" x2="200" y2="204" stroke="#1E293B" stroke-width="2" />
+                            <polygon points="196,204 200,212 204,204" fill="#1E293B" />
 
-                        <!-- 4. Decision Diamond -->
-                        <div class="relative w-44 h-20 flex items-center justify-center my-1">
-                            <svg class="absolute inset-0 w-full h-full text-red-500" viewBox="0 0 176 80" fill="none">
-                                <polygon points="88,4 170,40 88,76 6,40" fill="#FFFFFF" stroke="#EF4444" stroke-width="2.2" stroke-linejoin="round"/>
-                            </svg>
-                            <span class="relative z-10 text-red-600 font-extrabold text-xs text-center leading-snug">
-                                Apakah<br>Sisa == 0 ?
-                            </span>
-                        </div>
+                            <!-- 4. Decision Diamond (Apakah Sisa == 0 ?) -->
+                            <polygon points="200,212 265,248 200,284 135,248" fill="#FFFFFF" stroke="#EF4444" stroke-width="2.2" />
+                            <text x="200" y="242" text-anchor="middle" font-size="10.5" font-weight="800" font-family="'Plus Jakarta Sans', sans-serif" fill="#DC2626">Apakah</text>
+                            <text x="200" y="256" text-anchor="middle" font-size="10.5" font-weight="800" font-family="'Plus Jakarta Sans', sans-serif" fill="#DC2626">Sisa == 0 ?</text>
 
-                        <!-- Branching Arrows (Left & Right) -->
-                        <div class="w-full max-w-[280px] sm:max-w-[320px] relative mt-1">
+                            <!-- Cabang Kiri: Ya (True) langsung dari vertex kiri diamond (135, 248) -->
+                            <line x1="135" y1="248" x2="65" y2="248" stroke="#1E293B" stroke-width="2" />
+                            <rect x="70" y="230" width="56" height="15" rx="3" fill="#059669" />
+                            <text x="98" y="241" text-anchor="middle" font-size="8.5" font-weight="800" font-family="'Plus Jakarta Sans', sans-serif" fill="#FFFFFF">Ya (True)</text>
                             
-                            <!-- Branch connector lines -->
-                            <div class="w-full flex justify-between items-center relative">
-                                <!-- Left Branch (True / Ya) -->
-                                <div class="flex-1 flex flex-col items-center">
-                                    <div class="w-full flex justify-end">
-                                        <div class="h-0.5 w-1/2 bg-slate-800"></div>
-                                    </div>
-                                    <div class="w-full flex items-center justify-start pl-2">
-                                        <div class="w-0.5 h-4 bg-slate-800"></div>
-                                    </div>
-                                    <!-- Ya Badge -->
-                                    <span class="bg-[#059669] text-white text-[9px] font-black px-2.5 py-0.5 rounded-full my-1 shadow-2xs">
-                                        Ya (True)
-                                    </span>
-                                    <div class="w-0.5 h-3 bg-slate-800"></div>
-                                    <div class="w-0 h-0 border-x-[4px] border-x-transparent border-t-[6px] border-t-slate-800 mb-1"></div>
-                                    
-                                    <!-- Cetak Genap -->
-                                    <div class="border-2 border-slate-700 bg-white text-slate-900 font-bold text-xs px-4 py-2 rounded shadow-2xs text-center w-full max-w-[125px]">
-                                        Cetak "Genap"
-                                    </div>
-                                    <div class="w-0.5 h-5 bg-slate-800 mt-1"></div>
-                                </div>
+                            <line x1="65" y1="248" x2="65" y2="320" stroke="#1E293B" stroke-width="2" />
+                            <polygon points="61,320 65,328 69,320" fill="#1E293B" />
 
-                                <!-- Center Spacer from diamond point -->
+                            <!-- Cabang Kanan: Tidak (False) langsung dari vertex kanan diamond (265, 248) -->
+                            <line x1="265" y1="248" x2="335" y2="248" stroke="#1E293B" stroke-width="2" />
+                            <rect x="274" y="230" width="60" height="15" rx="3" fill="#DC2626" />
+                            <text x="304" y="241" text-anchor="middle" font-size="8.5" font-weight="800" font-family="'Plus Jakarta Sans', sans-serif" fill="#FFFFFF">Tidak (False)</text>
+                            
+                            <line x1="335" y1="248" x2="335" y2="320" stroke="#1E293B" stroke-width="2" />
+                            <polygon points="331,320 335,328 339,320" fill="#1E293B" />
 
-                                <!-- Right Branch (False / Tidak) -->
-                                <div class="flex-1 flex flex-col items-center">
-                                    <div class="w-full flex justify-start">
-                                        <div class="h-0.5 w-1/2 bg-slate-800"></div>
-                                    </div>
-                                    <div class="w-full flex items-center justify-end pr-2">
-                                        <div class="w-0.5 h-4 bg-slate-800"></div>
-                                    </div>
-                                    <!-- Tidak Badge -->
-                                    <span class="bg-[#DC2626] text-white text-[9px] font-black px-2.5 py-0.5 rounded-full my-1 shadow-2xs">
-                                        Tidak (False)
-                                    </span>
-                                    <div class="w-0.5 h-3 bg-slate-800"></div>
-                                    <div class="w-0 h-0 border-x-[4px] border-x-transparent border-t-[6px] border-t-slate-800 mb-1"></div>
+                            <!-- 5. Cetak "Genap" (Jajar Genjang di kiri) -->
+                            <polygon points="18,328 122,328 112,368 8,368" fill="#FFFFFF" stroke="#0F172A" stroke-width="2.2" />
+                            <text x="65" y="352" text-anchor="middle" font-size="11" font-weight="700" font-family="'Plus Jakarta Sans', sans-serif" fill="#0F172A">Cetak "Genap"</text>
 
-                                    <!-- Cetak Ganjil -->
-                                    <div class="border-2 border-slate-700 bg-white text-slate-900 font-bold text-xs px-4 py-2 rounded shadow-2xs text-center w-full max-w-[125px]">
-                                        Cetak "Ganjil"
-                                    </div>
-                                    <div class="w-0.5 h-5 bg-slate-800 mt-1"></div>
-                                </div>
-                            </div>
+                            <!-- 6. Cetak "Ganjil" (Jajar Genjang di kanan) -->
+                            <polygon points="288,328 392,328 382,368 278,368" fill="#FFFFFF" stroke="#0F172A" stroke-width="2.2" />
+                            <text x="335" y="352" text-anchor="middle" font-size="11" font-weight="700" font-family="'Plus Jakarta Sans', sans-serif" fill="#0F172A">Cetak "Ganjil"</text>
 
-                            <!-- Horizontal convergence line to Selesai -->
-                            <div class="w-full flex justify-center relative">
-                                <div class="w-[190px] sm:w-[220px] h-0.5 bg-slate-800"></div>
-                            </div>
-                        </div>
+                            <!-- 7. Selesai (Oval merah di tengah) -->
+                            <rect x="150" y="413" width="100" height="34" rx="17" fill="#FFFFFF" stroke="#F43F5E" stroke-width="2.2" />
+                            <text x="200" y="435" text-anchor="middle" font-size="12" font-weight="800" font-family="'Plus Jakarta Sans', sans-serif" fill="#E11D48">Selesai</text>
 
-                        <!-- Down Arrow to Selesai -->
-                        <div class="flex flex-col items-center my-0.5">
-                            <div class="w-0.5 h-5 bg-slate-800"></div>
-                            <div class="w-0 h-0 border-x-[4px] border-x-transparent border-t-[6px] border-t-slate-800"></div>
-                        </div>
+                            <!-- Arrow dari Cetak "Genap" ke sisi kiri Selesai -->
+                            <line x1="65" y1="368" x2="65" y2="430" stroke="#1E293B" stroke-width="2" />
+                            <line x1="65" y1="430" x2="142" y2="430" stroke="#1E293B" stroke-width="2" />
+                            <polygon points="142,426 150,430 142,434" fill="#1E293B" />
 
-                        <!-- 5. Selesai (Terminator) -->
-                        <div class="border-2 border-rose-400 bg-white text-rose-600 font-extrabold text-xs px-9 py-2 rounded-full shadow-2xs">
-                            Selesai
-                        </div>
-
+                            <!-- Arrow dari Cetak "Ganjil" ke sisi kanan Selesai -->
+                            <line x1="335" y1="368" x2="335" y2="430" stroke="#1E293B" stroke-width="2" />
+                            <line x1="335" y1="430" x2="258" y2="430" stroke="#1E293B" stroke-width="2" />
+                            <polygon points="258,426 250,430 258,434" fill="#1E293B" />
+                        </svg>
                     </div>
 
                     <!-- RIGHT COLUMN: ALGORITMA LANGKAH BERTAHAP & CTA -->
@@ -656,7 +597,7 @@
                                 <div class="font-extrabold text-sm sm:text-base text-white">Sudah menguasai simbol?</div>
                                 <div class="text-xs text-zinc-400 mt-0.5">Uji langsung dengan merakit Flowchart secara interaktif.</div>
                             </div>
-                            <a href="{{ route('home') }}#simulasi" class="w-full sm:w-auto bg-[#10B981] hover:bg-[#059669] text-white font-extrabold text-xs uppercase tracking-wider px-6 py-3 rounded-full flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/25 transition-all duration-200 hover:scale-105 active:scale-95 shrink-0">
+                            <a href="{{ route('simulasi') }}" class="w-full sm:w-auto bg-[#10B981] hover:bg-[#059669] text-white font-extrabold text-xs uppercase tracking-wider px-6 py-3 rounded-full flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/25 transition-all duration-200 hover:scale-105 active:scale-95 shrink-0">
                                 <span>Lanjut ke Simulasi</span>
                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
@@ -679,9 +620,7 @@
             
             <!-- Left: Logo & Copyright -->
             <div class="flex flex-col sm:flex-row items-center gap-3.5">
-                <div class="w-9 h-9 rounded-xl bg-white flex items-center justify-center text-slate-900 font-black text-lg shadow-sm">
-                    F
-                </div>
+                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-5 h-5">
                 <div>
                     <div class="text-white font-extrabold text-base tracking-tight">Flowchart Lab SMK</div>
                     <div class="text-xs text-slate-400 mt-0.5">

@@ -15,6 +15,10 @@ Route::get('/materi', function () {
     return view('materi');
 })->name('materi');
 
+Route::get('/simulasi', function () {
+    return view('simulasi');
+})->name('simulasi');
+
 // Authentication Routes
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
