@@ -1,0 +1,617 @@
+[
+  {
+    "question_number": 1,
+    "level": "Mudah",
+    "question_text": "Simbol ini dipakai untuk apa?",
+    "symbol_type": "terminator",
+    "options": [
+      { "id": "A", "text": "Menandai awal atau akhir alur" },
+      { "id": "B", "text": "Menghitung nilai" },
+      { "id": "C", "text": "Mengajukan pertanyaan ya/tidak" },
+      { "id": "D", "text": "Menampilkan data" }
+    ],
+    "correct_key": "A",
+    "explanation": "Terminator (oval) menandai mulai dan selesai.",
+    "points": 5
+  },
+  {
+    "question_number": 2,
+    "level": "Mudah",
+    "question_text": "Simbol ini dipakai untuk apa?",
+    "symbol_type": "input_output",
+    "options": [
+      { "id": "A", "text": "Mengajukan pertanyaan" },
+      { "id": "B", "text": "Melakukan perhitungan" },
+      { "id": "C", "text": "Memasukkan atau menampilkan data" },
+      { "id": "D", "text": "Menandai akhir alur" }
+    ],
+    "correct_key": "C",
+    "explanation": "Jajar genjang adalah Input/Output.",
+    "points": 5
+  },
+  {
+    "question_number": 3,
+    "level": "Mudah",
+    "question_text": "Simbol ini dipakai untuk apa?",
+    "symbol_type": "decision",
+    "options": [
+      { "id": "A", "text": "Menandai awal alur" },
+      { "id": "B", "text": "Menampilkan hasil" },
+      { "id": "C", "text": "Menghitung nilai" },
+      { "id": "D", "text": "Membuat alur bercabang berdasarkan pertanyaan ya/tidak" }
+    ],
+    "correct_key": "D",
+    "explanation": "Belah ketupat adalah Keputusan.",
+    "points": 5
+  },
+  {
+    "question_number": 4,
+    "level": "Mudah",
+    "question_text": "Simbol ini dipakai untuk apa?",
+    "symbol_type": "process",
+    "options": [
+      { "id": "A", "text": "Menandai akhir alur" },
+      { "id": "B", "text": "Melakukan perhitungan atau pengolahan data" },
+      { "id": "C", "text": "Menampilkan data" },
+      { "id": "D", "text": "Mengajukan pertanyaan" }
+    ],
+    "correct_key": "B",
+    "explanation": "Persegi panjang adalah Proses.",
+    "points": 5
+  },
+  {
+    "question_number": 5,
+    "level": "Mudah",
+    "question_text": "Simbol yang menandai awal flowchart adalah…",
+    "symbol_type": null,
+    "options": [
+      { "id": "A", "text": "Proses" },
+      { "id": "B", "text": "Keputusan" },
+      { "id": "C", "text": "Terminator" },
+      { "id": "D", "text": "Input/Output" }
+    ],
+    "correct_key": "C",
+    "explanation": "Awal dan akhir flowchart memakai Terminator.",
+    "points": 5
+  },
+  {
+    "question_number": 6,
+    "level": "Mudah",
+    "question_text": "Simbol Keputusan punya berapa jalur keluar?",
+    "symbol_type": null,
+    "options": [
+      { "id": "A", "text": "Satu" },
+      { "id": "B", "text": "Dua (Ya dan Tidak)" },
+      { "id": "C", "text": "Tiga" },
+      { "id": "D", "text": "Tidak ada" }
+    ],
+    "correct_key": "B",
+    "explanation": "Keputusan bercabang menjadi Ya dan Tidak.",
+    "points": 5
+  },
+  {
+    "question_number": 7,
+    "level": "Mudah",
+    "question_text": "Langkah “Input nama siswa” memakai simbol…",
+    "symbol_type": null,
+    "options": [
+      { "id": "A", "text": "Proses" },
+      { "id": "B", "text": "Input/Output" },
+      { "id": "C", "text": "Keputusan" },
+      { "id": "D", "text": "Terminator" }
+    ],
+    "correct_key": "B",
+    "explanation": "Memasukkan data memakai Input/Output.",
+    "points": 5
+  },
+  {
+    "question_number": 8,
+    "level": "Mudah",
+    "question_text": "Mengapa flowchart dibuat sebelum menulis kode?",
+    "symbol_type": null,
+    "options": [
+      { "id": "A", "text": "Supaya kode lebih panjang" },
+      { "id": "B", "text": "Karena diwajibkan komputer" },
+      { "id": "C", "text": "Agar program lebih cepat" },
+      { "id": "D", "text": "Merencanakan alur logika agar kesalahan berkurang" }
+    ],
+    "correct_key": "D",
+    "explanation": "Flowchart membantu merencanakan logika sebelum coding.",
+    "points": 5
+  },
+  {
+    "question_number": 9,
+    "level": "Sedang",
+    "question_text": "Langkah “total = harga × jumlah” memakai simbol…",
+    "symbol_type": null,
+    "options": [
+      { "id": "A", "text": "Terminator" },
+      { "id": "B", "text": "Proses" },
+      { "id": "C", "text": "Input/Output" },
+      { "id": "D", "text": "Keputusan" }
+    ],
+    "correct_key": "B",
+    "explanation": "Perhitungan memakai simbol Proses.",
+    "points": 5
+  },
+  {
+    "question_number": 10,
+    "level": "Sedang",
+    "question_text": "Langkah “nilai >= 75 ?” memakai simbol…",
+    "symbol_type": null,
+    "options": [
+      { "id": "A", "text": "Proses" },
+      { "id": "B", "text": "Terminator" },
+      { "id": "C", "text": "Keputusan" },
+      { "id": "D", "text": "Input/Output" }
+    ],
+    "correct_key": "C",
+    "explanation": "Pertanyaan ya/tidak memakai Keputusan.",
+    "points": 5
+  },
+  {
+    "question_number": 11,
+    "level": "Sedang",
+    "question_text": "Urutan yang benar untuk menghitung luas persegi panjang adalah…",
+    "symbol_type": null,
+    "options": [
+      { "id": "A", "text": "Mulai → Cetak luas → Hitung luas → Input panjang dan lebar → Selesai" },
+      { "id": "B", "text": "Mulai → Hitung luas → Input panjang dan lebar → Cetak luas → Selesai" },
+      { "id": "C", "text": "Input panjang dan lebar → Mulai → Hitung luas → Cetak luas → Selesai" },
+      { "id": "D", "text": "Mulai → Input panjang dan lebar → Hitung luas → Cetak luas → Selesai" }
+    ],
+    "correct_key": "D",
+    "explanation": "Data dimasukkan dulu, lalu dihitung, lalu ditampilkan.",
+    "points": 5
+  },
+  {
+    "question_number": 12,
+    "level": "Sedang",
+    "question_text": "Langkah “Cetak hasil” (menampilkan hasil ke layar) memakai simbol…",
+    "symbol_type": null,
+    "options": [
+      { "id": "A", "text": "Input/Output" },
+      { "id": "B", "text": "Proses" },
+      { "id": "C", "text": "Keputusan" },
+      { "id": "D", "text": "Terminator" }
+    ],
+    "correct_key": "A",
+    "explanation": "Menampilkan data memakai Input/Output.",
+    "points": 5
+  },
+  {
+    "question_number": 13,
+    "level": "Sedang",
+    "question_text": "Pada percabangan “usia >= 17 ?”, jalur Tidak dipakai ketika…",
+    "symbol_type": null,
+    "options": [
+      { "id": "A", "text": "Usia lebih dari atau sama dengan 17" },
+      { "id": "B", "text": "Usia tidak dimasukkan" },
+      { "id": "C", "text": "Usia kurang dari 17" },
+      { "id": "D", "text": "Program selesai" }
+    ],
+    "correct_key": "C",
+    "explanation": "Jalur Tidak dipakai bila kondisi tidak terpenuhi, yaitu usia di bawah 17.",
+    "points": 5
+  },
+  {
+    "question_number": 14,
+    "level": "Sedang",
+    "question_text": "Manakah yang BUKAN fungsi simbol Proses?",
+    "symbol_type": null,
+    "options": [
+      { "id": "A", "text": "Menjumlahkan dua nilai" },
+      { "id": "B", "text": "Menghitung luas" },
+      { "id": "C", "text": "Menampilkan hasil ke layar" },
+      { "id": "D", "text": "Mengubah nilai variabel" }
+    ],
+    "correct_key": "C",
+    "explanation": "Menampilkan hasil adalah fungsi Input/Output.",
+    "points": 5
+  },
+  {
+    "question_number": 15,
+    "level": "Sedang",
+    "question_text": "Flowchart tanpa simbol Terminator di awal bermasalah karena…",
+    "symbol_type": null,
+    "options": [
+      { "id": "A", "text": "Program pasti error" },
+      { "id": "B", "text": "Pembaca tidak tahu titik mulai alur" },
+      { "id": "C", "text": "Hasil perhitungan salah" },
+      { "id": "D", "text": "Tidak ada masalah" }
+    ],
+    "correct_key": "B",
+    "explanation": "Terminator awal menunjukkan titik mulai alur.",
+    "points": 5
+  },
+  {
+    "question_number": 16,
+    "level": "Sulit",
+    "question_text": "Alur: Mulai → Input nilai → Cetak “Lulus” → nilai >= 75 ? → Selesai. Kesalahan utamanya adalah…",
+    "symbol_type": null,
+    "options": [
+      { "id": "A", "text": "Simbol Input salah" },
+      { "id": "B", "text": "Hasil dicetak sebelum kondisi diperiksa" },
+      { "id": "C", "text": "Tidak ada simbol Proses" },
+      { "id": "D", "text": "Simbol Selesai salah" }
+    ],
+    "correct_key": "B",
+    "explanation": "Kondisi harus diperiksa lebih dulu sebelum hasil dicetak.",
+    "points": 5
+  },
+  {
+    "question_number": 17,
+    "level": "Sulit",
+    "question_text": "Nilai dikategorikan menjadi A, B, dan C. Minimal berapa simbol Keputusan yang dibutuhkan?",
+    "symbol_type": null,
+    "options": [
+      { "id": "A", "text": "Satu" },
+      { "id": "B", "text": "Tiga" },
+      { "id": "C", "text": "Dua" },
+      { "id": "D", "text": "Empat" }
+    ],
+    "correct_key": "C",
+    "explanation": "Tiga kategori membutuhkan dua keputusan bertingkat.",
+    "points": 5
+  },
+  {
+    "question_number": 18,
+    "level": "Sulit",
+    "question_text": "Pada pemeriksaan “nilai >= 85 ?” lalu “nilai >= 75 ?”, bila urutannya dibalik (>= 75 diperiksa lebih dulu), akibatnya…",
+    "symbol_type": null,
+    "options": [
+      { "id": "A", "text": "Nilai 60 masuk kategori A" },
+      { "id": "B", "text": "Tidak ada perubahan hasil" },
+      { "id": "C", "text": "Program tidak bisa berjalan" },
+      { "id": "D", "text": "Nilai 90 masuk kategori B padahal seharusnya A" }
+    ],
+    "correct_key": "D",
+    "explanation": "Nilai 90 sudah memenuhi >= 75 sehingga tidak pernah sampai ke pemeriksaan A.",
+    "points": 5
+  },
+  {
+    "question_number": 19,
+    "level": "Sulit",
+    "question_text": "Siswa menggambar belah ketupat dengan satu jalur keluar “Lanjut”. Yang kurang adalah…",
+    "symbol_type": null,
+    "options": [
+      { "id": "A", "text": "Jalur Ya dan Tidak untuk dua kemungkinan jawaban" },
+      { "id": "B", "text": "Simbol Terminator" },
+      { "id": "C", "text": "Simbol Proses" },
+      { "id": "D", "text": "Warna simbol" }
+    ],
+    "correct_key": "A",
+    "explanation": "Keputusan harus punya dua jalur: Ya dan Tidak.",
+    "points": 5
+  },
+  {
+    "question_number": 20,
+    "level": "Sulit",
+    "question_text": "Untuk kasus “nilai >= 75 cetak Lulus, selain itu cetak Remedial”, pernyataan yang benar adalah…",
+    "symbol_type": null,
+    "options": [
+      { "id": "A", "text": "Perlu dua simbol Keputusan" },
+      { "id": "B", "text": "Hasil “Remedial” dicetak sebelum nilai dimasukkan" },
+      { "id": "C", "text": "Tidak perlu simbol Input" },
+      { "id": "D", "text": "Kedua hasil dicetak setelah simbol Keputusan, lewat jalur Ya dan Tidak" }
+    ],
+    "correct_key": "D",
+    "explanation": "Hasil dicetak setelah kondisi diperiksa, sesuai jalur Ya atau Tidak.",
+    "points": 5
+  },
+  {
+    "question_number": 21,
+    "level": "Mudah",
+    "question_text": "Manakah tulisan yang tepat berada di dalam simbol Terminator?",
+    "symbol_type": "terminator",
+    "options": [
+      { "id": "A", "text": "Selesai" },
+      { "id": "B", "text": "total = a + b" },
+      { "id": "C", "text": "nilai >= 75 ?" },
+      { "id": "D", "text": "Input nama" }
+    ],
+    "correct_key": "A",
+    "explanation": "Terminator berisi penanda awal atau akhir alur, seperti “Mulai” dan “Selesai”.",
+    "points": 5
+  },
+  {
+    "question_number": 22,
+    "level": "Mudah",
+    "question_text": "Garis berpanah pada flowchart berfungsi untuk…",
+    "symbol_type": null,
+    "options": [
+      { "id": "A", "text": "Menunjukkan arah alur dari satu langkah ke langkah berikutnya" },
+      { "id": "B", "text": "Menghitung nilai" },
+      { "id": "C", "text": "Menandai akhir program" },
+      { "id": "D", "text": "Mengajukan pertanyaan ya/tidak" }
+    ],
+    "correct_key": "A",
+    "explanation": "Panah menghubungkan simbol dan menunjukkan arah jalannya alur.",
+    "points": 5
+  },
+  {
+    "question_number": 23,
+    "level": "Mudah",
+    "question_text": "Flowchart adalah…",
+    "symbol_type": null,
+    "options": [
+      { "id": "A", "text": "Bahasa pemrograman" },
+      { "id": "B", "text": "Program pengolah angka" },
+      { "id": "C", "text": "Diagram yang menggambarkan urutan langkah penyelesaian masalah" },
+      { "id": "D", "text": "Perangkat keras komputer" }
+    ],
+    "correct_key": "C",
+    "explanation": "Flowchart adalah diagram alur yang menggambarkan langkah-langkah penyelesaian masalah.",
+    "points": 5
+  },
+  {
+    "question_number": 24,
+    "level": "Mudah",
+    "question_text": "Flowchart umumnya dibaca dari…",
+    "symbol_type": null,
+    "options": [
+      { "id": "A", "text": "Bawah ke atas" },
+      { "id": "B", "text": "Kanan ke kiri" },
+      { "id": "C", "text": "Mana saja secara acak" },
+      { "id": "D", "text": "Atas ke bawah" }
+    ],
+    "correct_key": "D",
+    "explanation": "Alur flowchart umumnya mengalir dari atas ke bawah, mulai dari Terminator awal.",
+    "points": 5
+  },
+  {
+    "question_number": 25,
+    "level": "Mudah",
+    "question_text": "Isi yang tepat untuk simbol Keputusan adalah…",
+    "symbol_type": "decision",
+    "options": [
+      { "id": "A", "text": "Nama pengguna" },
+      { "id": "B", "text": "Pertanyaan atau kondisi yang dijawab Ya atau Tidak" },
+      { "id": "C", "text": "Hasil perhitungan" },
+      { "id": "D", "text": "Kata “Mulai”" }
+    ],
+    "correct_key": "B",
+    "explanation": "Simbol Keputusan berisi kondisi yang jawabannya hanya Ya atau Tidak.",
+    "points": 5
+  },
+  {
+    "question_number": 26,
+    "level": "Mudah",
+    "question_text": "Pada flowchart sederhana, jumlah simbol Terminator yang umumnya dipakai adalah…",
+    "symbol_type": "terminator",
+    "options": [
+      { "id": "A", "text": "Satu" },
+      { "id": "B", "text": "Tiga" },
+      { "id": "C", "text": "Dua, yaitu untuk Mulai dan Selesai" },
+      { "id": "D", "text": "Tidak ada" }
+    ],
+    "correct_key": "C",
+    "explanation": "Satu Terminator menandai awal dan satu lagi menandai akhir alur.",
+    "points": 5
+  },
+  {
+    "question_number": 27,
+    "level": "Mudah",
+    "question_text": "Mengapa flowchart memakai simbol baku?",
+    "symbol_type": null,
+    "options": [
+      { "id": "A", "text": "Agar gambar terlihat berwarna" },
+      { "id": "B", "text": "Agar komputer bisa langsung menjalankannya" },
+      { "id": "C", "text": "Agar tidak perlu memakai panah" },
+      { "id": "D", "text": "Agar mudah dipahami oleh siapa pun yang membacanya" }
+    ],
+    "correct_key": "D",
+    "explanation": "Simbol baku membuat flowchart dapat dibaca dan dipahami orang lain dengan cara yang sama.",
+    "points": 5
+  },
+  {
+    "question_number": 28,
+    "level": "Sedang",
+    "question_text": "Pada keputusan “nilai >= 75 ?”, hasil “Lulus” dicetak lewat jalur…",
+    "symbol_type": "decision",
+    "options": [
+      { "id": "A", "text": "Ya" },
+      { "id": "B", "text": "Tidak" },
+      { "id": "C", "text": "Ya dan Tidak sekaligus" },
+      { "id": "D", "text": "Tidak lewat jalur mana pun" }
+    ],
+    "correct_key": "A",
+    "explanation": "Kondisi terpenuhi berarti alur mengikuti jalur Ya.",
+    "points": 5
+  },
+  {
+    "question_number": 29,
+    "level": "Sedang",
+    "question_text": "Pada flowchart untuk menghitung rata-rata dua nilai a dan b, rumus yang tepat di simbol Proses adalah…",
+    "symbol_type": "process",
+    "options": [
+      { "id": "A", "text": "rata = (a + b) × 2" },
+      { "id": "B", "text": "rata = a + b" },
+      { "id": "C", "text": "rata = a + b / 2" },
+      { "id": "D", "text": "rata = (a + b) / 2" }
+    ],
+    "correct_key": "D",
+    "explanation": "Kedua nilai dijumlahkan lebih dulu (dalam tanda kurung), baru dibagi 2. Tanpa kurung, hanya b yang dibagi 2.",
+    "points": 5
+  },
+  {
+    "question_number": 30,
+    "level": "Sedang",
+    "question_text": "Untuk menentukan sebuah bilangan ganjil atau genap, flowchart minimal memerlukan simbol Keputusan sebanyak…",
+    "symbol_type": "decision",
+    "options": [
+      { "id": "A", "text": "Nol" },
+      { "id": "B", "text": "Dua" },
+      { "id": "C", "text": "Satu" },
+      { "id": "D", "text": "Tiga" }
+    ],
+    "correct_key": "C",
+    "explanation": "Cukup satu pertanyaan (misalnya “bilangan habis dibagi 2 ?”) dengan dua jalur, Ya dan Tidak.",
+    "points": 5
+  },
+  {
+    "question_number": 31,
+    "level": "Sedang",
+    "question_text": "Pernyataan yang benar tentang simbol Input/Output adalah…",
+    "symbol_type": "input_output",
+    "options": [
+      { "id": "A", "text": "Hanya untuk menampilkan data" },
+      { "id": "B", "text": "Hanya untuk memasukkan data" },
+      { "id": "C", "text": "Dipakai untuk membuat percabangan" },
+      { "id": "D", "text": "Dipakai untuk memasukkan data maupun menampilkan hasil" }
+    ],
+    "correct_key": "D",
+    "explanation": "Jajar genjang mewakili proses input sekaligus output.",
+    "points": 5
+  },
+  {
+    "question_number": 32,
+    "level": "Sedang",
+    "question_text": "Dua panah yang keluar dari simbol Keputusan harus diberi label…",
+    "symbol_type": "decision",
+    "options": [
+      { "id": "A", "text": "Ya dan Tidak" },
+      { "id": "B", "text": "Mulai dan Selesai" },
+      { "id": "C", "text": "Input dan Output" },
+      { "id": "D", "text": "Proses dan Hasil" }
+    ],
+    "correct_key": "A",
+    "explanation": "Label Ya dan Tidak menunjukkan jalur untuk setiap kemungkinan jawaban kondisi.",
+    "points": 5
+  },
+  {
+    "question_number": 33,
+    "level": "Sedang",
+    "question_text": "Alur: Mulai → Input a, b → Proses “hasil = a + b” → Cetak hasil → Selesai. Agar program menghitung perkalian, bagian yang diubah adalah…",
+    "symbol_type": "process",
+    "options": [
+      { "id": "A", "text": "Simbol Terminator" },
+      { "id": "B", "text": "Rumus pada simbol Proses" },
+      { "id": "C", "text": "Simbol Input" },
+      { "id": "D", "text": "Arah panah" }
+    ],
+    "correct_key": "B",
+    "explanation": "Operasi hitung berada di simbol Proses, jadi rumusnya yang diganti menjadi “hasil = a × b”.",
+    "points": 5
+  },
+  {
+    "question_number": 34,
+    "level": "Sedang",
+    "question_text": "Flowchart untuk mencetak bilangan terbesar dari dua bilangan a dan b. Isi simbol Keputusan yang tepat adalah…",
+    "symbol_type": "decision",
+    "options": [
+      { "id": "A", "text": "a + b ?" },
+      { "id": "B", "text": "Cetak a ?" },
+      { "id": "C", "text": "a > b ?" },
+      { "id": "D", "text": "Input a ?" }
+    ],
+    "correct_key": "C",
+    "explanation": "Perbandingan “a > b ?” menghasilkan jawaban Ya atau Tidak sehingga cocok untuk Keputusan.",
+    "points": 5
+  },
+  {
+    "question_number": 35,
+    "level": "Sulit",
+    "question_text": "Alur: Mulai → Input nilai → nilai >= 75 ? (Ya: Cetak “Lulus”, Tidak: Cetak “Remedial”) → Selesai. Jika nilai yang dimasukkan 60, yang tercetak adalah…",
+    "symbol_type": null,
+    "options": [
+      { "id": "A", "text": "Lulus" },
+      { "id": "B", "text": "Lulus dan Remedial" },
+      { "id": "C", "text": "Tidak ada yang tercetak" },
+      { "id": "D", "text": "Remedial" }
+    ],
+    "correct_key": "D",
+    "explanation": "Nilai 60 tidak memenuhi kondisi, sehingga alur lewat jalur Tidak dan mencetak “Remedial”.",
+    "points": 5
+  },
+  {
+    "question_number": 36,
+    "level": "Sulit",
+    "question_text": "Alur: Input a dan b → a > b ? (Ya: Proses “selisih = a − b”, Tidak: Proses “selisih = b − a”) → Cetak selisih. Jika a = 3 dan b = 9, yang tercetak adalah…",
+    "symbol_type": null,
+    "options": [
+      { "id": "A", "text": "−6" },
+      { "id": "B", "text": "12" },
+      { "id": "C", "text": "6" },
+      { "id": "D", "text": "3" }
+    ],
+    "correct_key": "C",
+    "explanation": "Karena 3 > 9 tidak terpenuhi, alur lewat jalur Tidak sehingga selisih = 9 − 3 = 6.",
+    "points": 5
+  },
+  {
+    "question_number": 37,
+    "level": "Sulit",
+    "question_text": "Alur menukar nilai a dan b: Proses “a = b”, lalu Proses “b = a”. Kesalahannya adalah…",
+    "symbol_type": null,
+    "options": [
+      { "id": "A", "text": "Tidak ada kesalahan, nilai berhasil tertukar" },
+      { "id": "B", "text": "Nilai awal a tertimpa sehingga keduanya sama dengan nilai awal b" },
+      { "id": "C", "text": "Kurang simbol Keputusan" },
+      { "id": "D", "text": "Kurang simbol Terminator" }
+    ],
+    "correct_key": "B",
+    "explanation": "Setelah a diisi dengan b, nilai awal a hilang. Perlu variabel bantu untuk menyimpannya lebih dulu.",
+    "points": 5
+  },
+  {
+    "question_number": 38,
+    "level": "Sulit",
+    "question_text": "Pada flowchart Lulus/Remedial, label jalur tertukar: jalur Ya dari “nilai >= 75 ?” menuju Cetak “Remedial”, sedangkan jalur Tidak menuju Cetak “Lulus”. Jika nilai yang dimasukkan 90, yang tercetak adalah…",
+    "symbol_type": null,
+    "options": [
+      { "id": "A", "text": "Remedial, padahal seharusnya Lulus" },
+      { "id": "B", "text": "Lulus, sesuai dengan yang seharusnya" },
+      { "id": "C", "text": "Lulus dan Remedial" },
+      { "id": "D", "text": "Tidak ada yang tercetak" }
+    ],
+    "correct_key": "A",
+    "explanation": "Nilai 90 memenuhi kondisi sehingga mengikuti jalur Ya, tetapi jalur itu salah diarahkan ke hasil Remedial. Label jalur harus sesuai dengan tujuannya.",
+    "points": 5
+  },
+  {
+    "question_number": 39,
+    "level": "Sulit",
+    "question_text": "Pada percabangan Lulus/Remedial, setelah masing-masing hasil dicetak, kedua jalur sebaiknya…",
+    "symbol_type": null,
+    "options": [
+      { "id": "A", "text": "Berhenti tanpa Terminator" },
+      { "id": "B", "text": "Dibiarkan menggantung" },
+      { "id": "C", "text": "Kembali ke Mulai" },
+      { "id": "D", "text": "Bertemu kembali menuju satu Terminator Selesai" }
+    ],
+    "correct_key": "D",
+    "explanation": "Setiap jalur harus berakhir di titik akhir yang jelas, dan kedua cabang boleh bertemu di satu Terminator.",
+    "points": 5
+  },
+  {
+    "question_number": 40,
+    "level": "Sulit",
+    "question_text": "Alur: Input x = 10 → Proses “x = x + 5” → Proses “x = x × 2” → Cetak x. Nilai yang tercetak adalah…",
+    "symbol_type": null,
+    "options": [
+      { "id": "A", "text": "30" },
+      { "id": "B", "text": "25" },
+      { "id": "C", "text": "20" },
+      { "id": "D", "text": "15" }
+    ],
+    "correct_key": "A",
+    "explanation": "Langkah pertama: 10 + 5 = 15. Langkah kedua: 15 × 2 = 30. Urutan proses menentukan hasil akhir.",
+    "points": 5
+  },
+  {
+    "question_number": 41,
+    "level": "Sulit",
+    "question_text": "Aturan kategori: nilai >= 85 cetak “A”, nilai >= 75 cetak “B”, selain itu cetak “C”. Pemeriksaan dilakukan berurutan dari >= 85. Untuk nilai 80, yang tercetak adalah…",
+    "symbol_type": null,
+    "options": [
+      { "id": "A", "text": "A" },
+      { "id": "B", "text": "B" },
+      { "id": "C", "text": "C" },
+      { "id": "D", "text": "Tidak ada" }
+    ],
+    "correct_key": "B",
+    "explanation": "Nilai 80 tidak memenuhi >= 85 (jalur Tidak), tetapi memenuhi >= 75 (jalur Ya), sehingga tercetak “B”.",
+    "points": 5
+  }
+]

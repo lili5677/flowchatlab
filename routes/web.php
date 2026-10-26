@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\QuizController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -28,3 +29,13 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
+
+// Quiz Routes (Protected by Auth)
+Route::middleware('auth')->prefix('quiz')->name('quiz.')->group(function () {
+    Route::get('/', [QuizController::class, 'index'])->name('index');
+    Route::post('/retry', [QuizController::class, 'retry'])->name('retry');
+    Route::get('/{attempt}', [QuizController::class, 'show'])->name('show');
+    Route::post('/{attempt}/answer', [QuizController::class, 'answer'])->name('answer');
+    Route::post('/{attempt}/finish', [QuizController::class, 'finish'])->name('finish');
+    Route::get('/hasil/{attempt}', [QuizController::class, 'result'])->name('result');
+});
