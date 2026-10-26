@@ -7,10 +7,11 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['name', 'email', 'password', 'role', 'school'])]
+#[Fillable(['name', 'email', 'password', 'role', 'school', 'points', 'nis', 'kelas'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -27,6 +28,37 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'points' => 'integer',
         ];
+    }
+
+    /**
+     * Get all quiz attempts for the user.
+     *
+     * @return HasMany<QuizAttempt, $this>
+     */
+    public function quizAttempts(): HasMany
+    {
+        return $this->hasMany(QuizAttempt::class);
+    }
+
+    /**
+     * Get formatted NIS with fallback.
+     */
+    public function getDisplayNisAttribute(): string
+    {
+        return $this->nis ?: '220914';
+    }
+
+    /**
+     * Get formatted Class with fallback.
+     */
+    public function getDisplayKelasAttribute(): string
+    {
+        if (! empty($this->kelas)) {
+            return $this->kelas;
+        }
+
+        return $this->school ? 'Kelas X RPL ('.$this->school.')' : 'Kelas X Rekayasa Perangkat Lunak 1';
     }
 }

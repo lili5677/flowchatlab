@@ -79,7 +79,7 @@
                     </button>
                     <!-- Dropdown Menu (Stays open when clicked) -->
                     <div id="quiz-dropdown-menu" class="absolute left-0 mt-2 w-52 bg-white rounded-2xl shadow-xl border border-slate-100 py-2 hidden transition-all z-50">
-                        <a href="#quiz-pengetahuan" onclick="openQuizModal('pengetahuan'); closeQuizDropdown();" class="flex items-center gap-2.5 px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-amber-50 hover:text-amber-800 transition">
+                        <a href="{{ route('quiz.index') }}" class="flex items-center gap-2.5 px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-amber-50 hover:text-amber-800 transition">
                             <span class="w-6 h-6 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center text-[11px]">📖</span>
                             <span>Quiz Pengetahuan</span>
                         </a>
@@ -93,6 +93,7 @@
 
             <!-- Right: User Profile -->
             <div class="flex items-center gap-3 sm:gap-4">
+
                 <!-- User Profile Info -->
                 <div class="flex items-center gap-2.5 pl-1 sm:pl-2">
                     @auth
@@ -683,16 +684,16 @@
 
             <div class="py-4 space-y-3">
                 <!-- Option 1: Quiz Pengetahuan -->
-                <div onclick="startQuiz('Quiz Pengetahuan Teori Simbol')" class="p-4 rounded-2xl border-2 border-amber-200 bg-amber-50/60 hover:bg-amber-100/70 transition cursor-pointer flex items-center gap-3.5 group">
+                <a href="{{ route('quiz.index') }}" class="p-4 rounded-2xl border-2 border-amber-200 bg-amber-50/60 hover:bg-amber-100/70 transition cursor-pointer flex items-center gap-3.5 group block">
                     <div class="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center text-lg shadow-sm">
                         📖
                     </div>
                     <div class="flex-1">
                         <div class="font-extrabold text-slate-900 text-sm group-hover:text-amber-900">Quiz Pengetahuan</div>
-                        <div class="text-xs text-slate-500">10 Soal pilihan ganda identifikasi simbol & pseudocode</div>
+                        <div class="text-xs text-slate-500">20 Soal pilihan ganda identifikasi simbol & pseudocode</div>
                     </div>
                     <span class="text-amber-600 font-extrabold text-xs">Mulai →</span>
-                </div>
+                </a>
 
                 <!-- Option 2: Quiz Keterampilan -->
                 <div onclick="startQuiz('Quiz Keterampilan Praktik Alur')" class="p-4 rounded-2xl border-2 border-emerald-200 bg-emerald-50/60 hover:bg-emerald-100/70 transition cursor-pointer flex items-center gap-3.5 group">
