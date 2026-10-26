@@ -3,13 +3,16 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Flowchart Lab SMK - Media Belajar Logika Algoritma Visual Siswa SMK</title>
+    <title>Flowchart Lab SMK - Media Belajar Logika Algoritma Visual</title>
     <meta name="description" content="Media belajar interaktif logika dan algoritma alur kerja khusus siswa SMK. Standar ANSI/ISO 5807, gamifikasi terstruktur, dan Kurikulum Merdeka SMK.">
 
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
 
     <!-- Styles & Scripts via Vite -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -40,14 +43,8 @@
             
             <!-- Left: Logo & Brand Name -->
             <a href="{{ route('home') }}" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 rounded-2xl bg-[#FFF9ED] border-2 border-[#FBD688] flex items-center justify-center text-amber-500 shadow-2xs group-hover:scale-105 transition-transform duration-200">
-                    <!-- Flowchart squircle logo icon -->
-                    <svg class="w-5 h-5 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="3" y="4" width="18" height="16" rx="6" />
-                        <path d="M7 12h10" />
-                        <path d="M12 8v8" />
-                    </svg>
-                </div>
+                <!-- Flowchart squircle logo icon -->
+                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-8 h-8">    
                 <div class="flex flex-col">
                     <span class="font-extrabold text-[17px] text-slate-900 tracking-tight leading-snug">Flowchart Lab</span>
                     <span class="font-bold text-[10px] tracking-wider text-[#EA580C] uppercase leading-none mt-0.5">SMK ALGORITMA VISUAL</span>
@@ -62,7 +59,7 @@
                 <a href="{{ route('materi') }}" class="text-slate-600 hover:text-slate-900 font-semibold px-3.5 py-1.5 rounded-full text-[13px] transition hover:bg-white">
                     Materi
                 </a>
-                <a href="#simulasi" class="text-slate-600 hover:text-slate-900 font-semibold px-3.5 py-1.5 rounded-full text-[13px] transition hover:bg-white">
+                <a href="{{ route('simulasi') }}" class="text-slate-600 hover:text-slate-900 font-semibold px-3.5 py-1.5 rounded-full text-[13px] transition hover:bg-white">
                     Simulasi
                 </a>
                 
@@ -151,7 +148,7 @@
             @endauth
             <a href="{{ route('home') }}" class="block px-3 py-2 rounded-xl text-sm font-bold bg-[#F4F1EA] text-slate-900">Beranda</a>
             <a href="{{ route('materi') }}" class="block px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50">Materi Standar Flowchart</a>
-            <a href="#simulasi" class="block px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50">Simulasi Interaktif</a>
+            <a href="{{ route('simulasi') }}" class="block px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50">Simulasi Interaktif</a>
             <a href="#quiz" onclick="openQuizModal('all')" class="block px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50">Quiz Interaktif</a>
         </div>
     </header>
@@ -160,29 +157,6 @@
         <!-- ================= HERO SECTION ================= -->
         <section class="pt-10 sm:pt-14 pb-8 sm:pb-12 bg-white relative">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-
-                <!-- 3 Top Category Badges -->
-                <div class="inline-flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 mb-6">
-                    <!-- Badge 1: Modul Interaktif -->
-                    <div class="bg-[#10B981] text-white font-extrabold text-[11px] sm:text-xs uppercase tracking-wider px-3.5 py-1.5 rounded-full inline-flex items-center gap-1.5 shadow-sm shadow-emerald-500/20">
-                        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="2" y="3" width="20" height="14" rx="2"/>
-                            <line x1="8" y1="21" x2="16" y2="21"/>
-                            <line x1="12" y1="17" x2="12" y2="21"/>
-                        </svg>
-                        <span>Modul Interaktif</span>
-                    </div>
-
-                    <!-- Badge 2: Dasar Kejuruan SMK -->
-                    <div class="bg-[#FDF3E3] border border-[#FDE3B8] text-[#C27803] font-extrabold text-[11px] sm:text-xs uppercase tracking-wider px-3.5 py-1.5 rounded-full">
-                        <span>Dasar Kejuruan SMK</span>
-                    </div>
-
-                    <!-- Badge 3: Kurikulum Merdeka -->
-                    <div class="bg-[#FCE8ED] border border-[#F8CBD6] text-[#D83A61] font-extrabold text-[11px] sm:text-xs uppercase tracking-wider px-3.5 py-1.5 rounded-full">
-                        <span>Kurikulum Merdeka</span>
-                    </div>
-                </div>
 
                 <!-- Main Hero Headline -->
                 <h1 class="text-4xl sm:text-5xl lg:text-[54px] font-black text-slate-900 tracking-tight leading-[1.12]">
@@ -232,14 +206,14 @@
 
                     <div class="inline-flex items-center gap-2">
                         <span class="text-amber-500 text-sm">🏆</span>
-                        <span>Gamifikasi Terstruktur</span>
+                        <span>Gamifikasi</span>
                     </div>
 
                     <span class="text-slate-300 hidden sm:inline">▪</span>
 
                     <div class="inline-flex items-center gap-2">
                         <span class="text-rose-500 text-sm">✔</span>
-                        <span>Kurikulum Merdeka SMK</span>
+                        <span>Berstandar Kompetensi</span>
                     </div>
                 </div>
 
@@ -263,20 +237,9 @@
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-7">
                     <!-- Left: Avatar Icon & Title -->
                     <div class="flex items-center gap-3.5">
-                        <div class="w-11 h-11 rounded-full bg-white flex items-center justify-center text-[#EF4444] font-black text-2xl shadow-sm shrink-0">
-                            F
-                        </div>
                         <div>
                             <div class="text-[11px] font-black uppercase tracking-wider text-amber-950/80">MODUL PEMBELAJARAN</div>
                             <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Pilih Jalur Belajar Kamu</h2>
-                        </div>
-                    </div>
-
-                    <!-- Right: Interaktif Pill Badge -->
-                    <div>
-                        <div class="bg-[#FFF3CD]/90 backdrop-blur-xs text-slate-900 border border-[#FDE68A] font-bold text-xs px-4 py-2 rounded-full inline-flex items-center gap-1.5 shadow-2xs">
-                            <span class="text-amber-600">⚡</span>
-                            <span>Interaktif & Langsung Dinilai</span>
                         </div>
                     </div>
                 </div>
@@ -402,12 +365,12 @@
                         </div>
 
                         <!-- Action Button -->
-                        <button type="button" onclick="openSimulationQuickModal()" class="w-full bg-[#10B981] hover:bg-[#059669] text-white font-extrabold text-xs sm:text-[13px] uppercase tracking-wider py-3.5 rounded-full flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/25 transition-all duration-200 hover:scale-[1.01] active:scale-[0.99] cursor-pointer">
+                        <a href="{{ route('simulasi') }}" class="w-full bg-[#10B981] hover:bg-[#059669] text-white font-extrabold text-xs sm:text-[13px] uppercase tracking-wider py-3.5 rounded-full flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/25 transition-all duration-200 hover:scale-[1.01] active:scale-[0.99] cursor-pointer">
                             <span>MULAI SIMULASI</span>
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
                             </svg>
-                        </button>
+                        </a>
                     </div>
 
                     <!-- CARD 3: QUIZ INTERAKTIF -->
@@ -461,37 +424,6 @@
                     </div>
 
                 </div>
-
-                <!-- ================= STANDAR KOMPETENSI ALGORITMA SMK BANNER ================= -->
-                <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-lg shadow-amber-950/10 border border-white flex flex-col md:flex-row items-start md:items-center justify-between gap-5 transition hover:shadow-xl">
-                    <!-- Left: Graduation Icon & Competency Info -->
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-2xl bg-[#FFF9EC] border border-[#FDE6B7] flex items-center justify-center text-[#D97706] shrink-0 shadow-2xs">
-                            <!-- Graduation Cap / Mortarboard SVG -->
-                            <svg class="w-6 h-6 text-[#D97706]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
-                                <path d="M6 12v5c3 3 9 3 12 0v-5"/>
-                            </svg>
-                        </div>
-                        <div>
-                            <h4 class="font-extrabold text-slate-900 text-base sm:text-lg">Standar Kompetensi Algoritma SMK</h4>
-                            <p class="text-xs sm:text-[13px] text-slate-500 max-w-xl mt-0.5 leading-relaxed">
-                                Memahami simbol terminasi, proses berulang (loop), seleksi kondisi IF-ELSE, dan integrasi pseudocode.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Right: Two Status Badges -->
-                    <div class="flex flex-wrap items-center gap-2.5 shrink-0 self-end md:self-center">
-                        <span class="bg-[#FFF8EA] text-[#B87A04] border border-[#FCE2A7] font-bold text-xs px-4 py-2 rounded-full shadow-2xs">
-                            3 Modul Lengkap
-                        </span>
-                        <span class="bg-[#E8FAF0] text-[#0A9655] border border-[#BFF1D3] font-bold text-xs px-4 py-2 rounded-full shadow-2xs">
-                            Autocheck Otomatis
-                        </span>
-                    </div>
-                </div>
-
             </div>
         </section>
     </main>
@@ -501,10 +433,8 @@
         <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
             
             <!-- Left: Logo & Copyright -->
-            <div class="flex flex-col sm:flex-row items-center gap-3.5">
-                <div class="w-9 h-9 rounded-xl bg-white flex items-center justify-center text-slate-900 font-black text-lg shadow-sm">
-                    F
-                </div>
+            <div class="flex flex-col sm:flex-row items-center gap-3.5"> 
+                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-5 h-5">
                 <div>
                     <div class="text-white font-extrabold text-base tracking-tight">Flowchart Lab SMK</div>
                     <div class="text-xs text-slate-400 mt-0.5">
