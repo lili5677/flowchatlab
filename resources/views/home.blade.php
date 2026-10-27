@@ -83,7 +83,7 @@
                             <span class="w-6 h-6 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center text-[11px]">📖</span>
                             <span>Quiz Pengetahuan</span>
                         </a>
-                        <a href="#quiz-keterampilan" onclick="openQuizModal('keterampilan'); closeQuizDropdown();" class="flex items-center gap-2.5 px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-emerald-50 hover:text-emerald-800 transition">
+                        <a href="{{ route('quiz.keterampilan') }}" class="flex items-center gap-2.5 px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-emerald-50 hover:text-emerald-800 transition">
                             <span class="w-6 h-6 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center text-[11px]">🧩</span>
                             <span>Quiz Keterampilan</span>
                         </a>
@@ -695,16 +695,16 @@
                 </div>
 
                 <!-- Option 2: Quiz Keterampilan -->
-                <div onclick="startQuiz('Quiz Keterampilan Praktik Alur')" class="p-4 rounded-2xl border-2 border-emerald-200 bg-emerald-50/60 hover:bg-emerald-100/70 transition cursor-pointer flex items-center gap-3.5 group">
+                <a href="{{ route('quiz.keterampilan') }}" class="p-4 rounded-2xl border-2 border-emerald-200 bg-emerald-50/60 hover:bg-emerald-100/70 transition cursor-pointer flex items-center gap-3.5 group">
                     <div class="w-10 h-10 rounded-xl bg-emerald-500 text-white flex items-center justify-center text-lg shadow-sm">
                         📋
                     </div>
                     <div class="flex-1">
                         <div class="font-extrabold text-slate-900 text-sm group-hover:text-emerald-900">Quiz Keterampilan</div>
-                        <div class="text-xs text-slate-500">Tantangan drag-and-drop menyusun algoritma perulangan</div>
+                        <div class="text-xs text-slate-500">Tantangan praktik menyusun flowchart algoritma visual</div>
                     </div>
                     <span class="text-emerald-600 font-extrabold text-xs">Mulai →</span>
-                </div>
+                </a>
             </div>
 
             <button type="button" onclick="closeModal('modal-quiz')" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2.5 rounded-full text-xs">
