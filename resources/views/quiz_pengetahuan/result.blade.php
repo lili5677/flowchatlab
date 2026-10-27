@@ -17,54 +17,48 @@
 <body class="min-h-screen bg-gradient-to-b from-amber-400 via-amber-200 to-amber-100 text-slate-900 flex flex-col antialiased selection:bg-amber-300 selection:text-amber-950">
 
     <!-- ================= NAVBAR ================= -->
-    <header class="w-full bg-white/95 backdrop-blur-md sticky top-0 z-40 border-b border-amber-200/60 shadow-xs transition-all">
+    <header class="w-full bg-white/95 backdrop-blur-md sticky top-0 z-40 border-b border-slate-100 transition-all">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             
             <!-- Left: Logo & Brand Name -->
             <a href="{{ route('home') }}" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 rounded-2xl bg-amber-50 border-2 border-amber-300 flex items-center justify-center text-amber-600 shadow-2xs group-hover:scale-105 transition-transform duration-200">
-                    <svg class="w-5 h-5 text-amber-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="3" y="4" width="18" height="16" rx="6" />
-                        <path d="M7 12h10" />
-                        <path d="M12 8v8" />
-                    </svg>
-                </div>
+                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-9 h-9 group-hover:scale-105 transition-transform duration-200">
                 <div class="flex flex-col">
                     <span class="font-extrabold text-[17px] text-slate-900 tracking-tight leading-snug">Flowchart Lab</span>
-                    <span class="font-bold text-[10px] tracking-wider text-orange-600 uppercase leading-none mt-0.5">SMK ALGORITMA VISUAL</span>
+                    <span class="font-bold text-[10px] tracking-wider text-[#EA580C] uppercase leading-none mt-0.5">ALGORITMA VISUAL</span>
                 </div>
             </a>
 
             <!-- Center Navigation (Desktop) -->
-            <nav class="hidden md:flex items-center gap-1.5 bg-slate-100/80 p-1.5 rounded-full border border-slate-200/80">
-                <a href="{{ route('home') }}" class="text-slate-600 hover:text-slate-900 font-semibold px-3.5 py-1.5 rounded-full text-[13px] transition hover:bg-white">
+            <nav class="hidden md:flex items-center gap-1.5 bg-slate-50/70 p-1.5 rounded-full border border-slate-100">
+                <a href="{{ route('home') }}" class="bg-[#F4F1EA] text-slate-900 font-bold px-4 py-1.5 rounded-full text-[13px] shadow-2xs transition">
                     Beranda
                 </a>
                 <a href="{{ route('materi') }}" class="text-slate-600 hover:text-slate-900 font-semibold px-3.5 py-1.5 rounded-full text-[13px] transition hover:bg-white">
                     Materi
                 </a>
-                <a href="{{ route('home') }}#simulasi" class="text-slate-600 hover:text-slate-900 font-semibold px-3.5 py-1.5 rounded-full text-[13px] transition hover:bg-white">
+                <a href="{{ route('simulasi') }}" class="text-slate-600 hover:text-slate-900 font-semibold px-3.5 py-1.5 rounded-full text-[13px] transition hover:bg-white">
                     Simulasi
                 </a>
                 
-                <!-- Quiz Link -->
+                <!-- Quiz Dropdown -->
                 <div class="relative" id="quiz-dropdown-wrapper">
                     <button type="button" 
                             id="quiz-dropdown-btn" 
                             onclick="toggleQuizDropdown(event)" 
-                            class="bg-amber-100 text-amber-900 font-bold px-4 py-1.5 rounded-full text-[13px] shadow-2xs transition inline-flex items-center gap-1.5 cursor-pointer">
+                            class="text-slate-600 hover:text-slate-900 font-semibold px-3.5 py-1.5 rounded-full text-[13px] transition hover:bg-white inline-flex items-center gap-1.5 cursor-pointer">
                         <span>Quiz</span>
-                        <svg id="quiz-dropdown-arrow" class="w-3.5 h-3.5 text-amber-700 transition-transform duration-200" viewBox="0 0 20 20" fill="currentColor">
+                        <svg id="quiz-dropdown-arrow" class="w-3.5 h-3.5 text-slate-400 transition-transform duration-200" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
                         </svg>
                     </button>
-                    <!-- Dropdown Menu -->
+                    <!-- Dropdown Menu (Stays open when clicked) -->
                     <div id="quiz-dropdown-menu" class="absolute left-0 mt-2 w-52 bg-white rounded-2xl shadow-xl border border-slate-100 py-2 hidden transition-all z-50">
-                        <a href="{{ route('quiz.index') }}" class="flex items-center gap-2.5 px-4 py-2.5 text-xs font-bold text-amber-900 bg-amber-50/80 transition">
-                            <span class="w-6 h-6 rounded-lg bg-amber-200 text-amber-800 flex items-center justify-center text-[11px]">📖</span>
+                        <a href="{{ route('quiz.index') }}" class="flex items-center gap-2.5 px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-amber-50 hover:text-amber-800 transition">
+                            <span class="w-6 h-6 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center text-[11px]">📖</span>
                             <span>Quiz Pengetahuan</span>
                         </a>
-                        <a href="{{ route('home') }}#simulasi" class="flex items-center gap-2.5 px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-emerald-50 hover:text-emerald-800 transition">
+                        <a href="#quiz-keterampilan" onclick="openQuizModal('keterampilan'); closeQuizDropdown();" class="flex items-center gap-2.5 px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-emerald-50 hover:text-emerald-800 transition">
                             <span class="w-6 h-6 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center text-[11px]">🧩</span>
                             <span>Quiz Keterampilan</span>
                         </a>
@@ -492,24 +486,25 @@
 
     </main>
 
-    <!-- ================= FOOTER ================= -->
-    <footer class="bg-zinc-900 text-slate-400 py-10 px-4 sm:px-6 lg:px-8 border-t border-zinc-800 mt-12">
+     <!-- ================= FOOTER ================= -->
+    <footer class="bg-[#18181B] text-slate-400 py-10 px-4 sm:px-6 lg:px-8 border-t border-zinc-800">
         <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
-            <div class="flex flex-col sm:flex-row items-center gap-3.5">
-                <div class="w-9 h-9 rounded-xl bg-white flex items-center justify-center text-slate-900 font-black text-lg shadow-sm">
-                    F
-                </div>
+            
+            <!-- Left: Logo & Copyright -->
+            <div class="flex flex-col sm:flex-row items-center gap-3.5"> 
+                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-10 h-10 object-contain">
                 <div>
-                    <div class="text-white font-extrabold text-base tracking-tight">Flowchart Lab SMK</div>
+                    <div class="text-white font-extrabold text-base tracking-tight">Flowchart Lab</div>
                     <div class="text-xs text-slate-400 mt-0.5">
-                        &copy; 2025 Flowchart Lab. Media Pembelajaran Logika Algoritma Vokasi Indonesia.
+                        &copy; 2026 Flowchart Lab. Media Pembelajaran Logika Algoritma Vokasi Indonesia.
                     </div>
                 </div>
             </div>
+
+            <!-- Right: Navigation Links -->
             <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-8 text-xs sm:text-[13px] font-medium text-slate-400">
-                <a href="#panduan" onclick="alert('Panduan terstruktur untuk guru mata pelajaran Pemrograman Dasar & Algoritma SMK.')" class="hover:text-white transition">Panduan Guru</a>
                 <a href="{{ route('materi') }}" class="hover:text-white transition">Dokumentasi Simbol</a>
-                <a href="#bantuan" onclick="alert('Pusat bantuan Flowchart Lab SMK.')" class="hover:text-white transition">Bantuan</a>
+                <a href="#bantuan" onclick="openInfoModal('Pusat Bantuan', 'Butuh bantuan seputar pengerjaan flowchart atau simulasi? Hubungi tim pendamping lab atau baca FAQ seputar aturan ANSI/ISO 5807.')" class="hover:text-white transition">Bantuan</a>
             </div>
         </div>
     </footer>

@@ -43,17 +43,16 @@
             
             <!-- Left: Logo & Brand Name -->
             <a href="{{ route('home') }}" class="flex items-center gap-3 group">
-                <!-- Flowchart squircle logo icon -->
-                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-8 h-8">    
+                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-9 h-9 group-hover:scale-105 transition-transform duration-200">
                 <div class="flex flex-col">
                     <span class="font-extrabold text-[17px] text-slate-900 tracking-tight leading-snug">Flowchart Lab</span>
-                    <span class="font-bold text-[10px] tracking-wider text-[#EA580C] uppercase leading-none mt-0.5">SMK ALGORITMA VISUAL</span>
+                    <span class="font-bold text-[10px] tracking-wider text-[#EA580C] uppercase leading-none mt-0.5">ALGORITMA VISUAL</span>
                 </div>
             </a>
 
             <!-- Center Navigation (Desktop) -->
             <nav class="hidden md:flex items-center gap-1.5 bg-slate-50/70 p-1.5 rounded-full border border-slate-100">
-                <a href="{{ route('home') }}" class="bg-[#F4F1EA] text-slate-900 font-bold px-4 py-1.5 rounded-full text-[13px] shadow-2xs transition">
+                <a href="{{ route('home') }}" class="bg-amber-100 text-amber-900 font-bold px-4 py-1.5 rounded-full text-[13px] shadow-2xs transition">
                     Beranda
                 </a>
                 <a href="{{ route('materi') }}" class="text-slate-600 hover:text-slate-900 font-semibold px-3.5 py-1.5 rounded-full text-[13px] transition hover:bg-white">
@@ -429,28 +428,26 @@
         </section>
     </main>
 
-    <!-- ================= FOOTER ================= -->
+     <!-- ================= FOOTER ================= -->
     <footer class="bg-[#18181B] text-slate-400 py-10 px-4 sm:px-6 lg:px-8 border-t border-zinc-800">
         <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
             
             <!-- Left: Logo & Copyright -->
             <div class="flex flex-col sm:flex-row items-center gap-3.5"> 
-                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-5 h-5">
+                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-10 h-10 object-contain">
                 <div>
-                    <div class="text-white font-extrabold text-base tracking-tight">Flowchart Lab SMK</div>
+                    <div class="text-white font-extrabold text-base tracking-tight">Flowchart Lab</div>
                     <div class="text-xs text-slate-400 mt-0.5">
-                        &copy; 2025 Flowchart Lab. Media Pembelajaran Logika Algoritma Vokasi Indonesia.
+                        &copy; 2026 Flowchart Lab. Media Pembelajaran Logika Algoritma Vokasi Indonesia.
                     </div>
                 </div>
             </div>
 
             <!-- Right: Navigation Links -->
             <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-8 text-xs sm:text-[13px] font-medium text-slate-400">
-                <a href="#panduan" onclick="openInfoModal('Panduan Guru', 'Panduan terstruktur untuk guru mata pelajaran Pemrograman Dasar & Algoritma SMK dalam mendampingi siswa, melihat laporan autocheck, dan memantau tugas.')" class="hover:text-white transition">Panduan Guru</a>
                 <a href="{{ route('materi') }}" class="hover:text-white transition">Dokumentasi Simbol</a>
                 <a href="#bantuan" onclick="openInfoModal('Pusat Bantuan', 'Butuh bantuan seputar pengerjaan flowchart atau simulasi? Hubungi tim pendamping lab atau baca FAQ seputar aturan ANSI/ISO 5807.')" class="hover:text-white transition">Bantuan</a>
             </div>
-
         </div>
     </footer>
 
