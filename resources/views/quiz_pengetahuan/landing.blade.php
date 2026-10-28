@@ -33,7 +33,7 @@
             <nav class="hidden md:flex items-center gap-1.5 bg-slate-100/80 p-1.5 rounded-full border border-slate-200/80">
                 <a href="{{ route('home') }}" class="text-slate-600 hover:text-slate-900 font-semibold px-3.5 py-1.5 rounded-full text-[13px] transition hover:bg-white">Beranda</a>
                 <a href="{{ route('materi') }}" class="text-slate-600 hover:text-slate-900 font-semibold px-3.5 py-1.5 rounded-full text-[13px] transition hover:bg-white">Materi</a>
-                <a href="{{ route('simulasi') }}#simulasi" class="text-slate-600 hover:text-slate-900 font-semibold px-3.5 py-1.5 rounded-full text-[13px] transition hover:bg-white">Simulasi</a>
+                <a href="{{ route('simulasi') }}" class="text-slate-600 hover:text-slate-900 font-semibold px-3.5 py-1.5 rounded-full text-[13px] transition hover:bg-white">Simulasi</a>
                 <div class="relative" id="quiz-dropdown-wrapper">
                     <button type="button" id="quiz-dropdown-btn" onclick="toggleQuizDropdown(event)"
                             class="bg-amber-100 text-amber-900 font-bold px-4 py-1.5 rounded-full text-[13px] shadow-2xs transition inline-flex items-center gap-1.5 cursor-pointer">
@@ -47,7 +47,7 @@
                             <span class="w-6 h-6 rounded-lg bg-amber-200 text-amber-800 flex items-center justify-center text-[11px]">📖</span>
                             <span>Quiz Pengetahuan</span>
                         </a>
-                        <a href="{{ route('home') }}#simulasi" class="flex items-center gap-2.5 px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-emerald-50 hover:text-emerald-800 transition">
+                        <a href="{{ route('quiz.keterampilan') }}" class="flex items-center gap-2.5 px-4 py-2.5 text-xs font-bold text-emerald-800 bg-emerald-50/70 transition">
                             <span class="w-6 h-6 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center text-[11px]">🧩</span>
                             <span>Quiz Keterampilan</span>
                         </a>

@@ -79,7 +79,7 @@
                             <span class="w-6 h-6 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center text-[11px]">📖</span>
                             <span>Quiz Pengetahuan</span>
                         </a>
-                        <a href="#quiz-keterampilan" onclick="openQuizModal('keterampilan'); closeQuizDropdown();" class="flex items-center gap-2.5 px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-emerald-50 hover:text-emerald-800 transition">
+                        <a href="{{ route('quiz.keterampilan') }}" class="flex items-center gap-2.5 px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-emerald-50 hover:text-emerald-800 transition">
                             <span class="w-6 h-6 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center text-[11px]">🧩</span>
                             <span>Quiz Keterampilan</span>
                         </a>
@@ -187,12 +187,12 @@
                     </a>
 
                     <!-- Button 2: Buka Simulasi Cepat -->
-                    <button type="button" onclick="openSimulationQuickModal()" class="w-full sm:w-auto bg-[#FFF9EC] hover:bg-[#FFF3D6] border border-[#FDE6B7] text-slate-800 font-bold text-sm px-6 py-3.5 rounded-full inline-flex items-center justify-center gap-2.5 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 shadow-2xs cursor-pointer">
-                        <span class="w-5 h-5 rounded-full bg-[#F59E0B] text-white flex items-center justify-center text-[10px] pl-0.5 shadow-2xs">
+                    <a href="{{ route('simulasi') }}" class="w-full sm:w-auto bg-[#F59E0B] hover:bg-[#D97706] text-white font-extrabold text-sm uppercase tracking-wide px-8 py-3.5 rounded-full inline-flex items-center justify-center gap-2.5 shadow-lg shadow-amber-500/25 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
+                        <span class="w-5 h-5 rounded-full bg-white/20 text-white flex items-center justify-center text-[10px] pl-0.5">
                             ▶
                         </span>
-                        <span>Buka Simulasi Cepat</span>
-                    </button>
+                        <span>SIMULASI CEPAT</span>
+                    </a>
                 </div>
 
                 <!-- Trust Badges / Checkpoints -->
@@ -451,65 +451,7 @@
         </div>
     </footer>
 
-    <!-- ================= INTERACTIVE MODALS ================= -->
-
-    <!-- Modal 1: Quick Simulation Modal (Buka Simulasi Cepat) -->
-    <div id="modal-simulasi" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-7 shadow-2xl border border-slate-100 animate-in fade-in zoom-in-95 duration-200">
-            <div class="flex items-center justify-between pb-4 border-b border-slate-100">
-                <div class="flex items-center gap-2.5">
-                    <span class="w-8 h-8 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-sm">▶</span>
-                    <div>
-                        <h3 class="font-extrabold text-slate-900 text-base">Simulasi Cepat: Menentukan Kelulusan</h3>
-                        <p class="text-xs text-slate-500">Uji logika IF-ELSE algoritma nilai siswa</p>
-                    </div>
-                </div>
-                <button type="button" onclick="closeModal('modal-simulasi')" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center font-bold text-sm">✕</button>
-            </div>
-
-            <!-- Mini Interactive Flowchart Preview -->
-            <div class="py-5 space-y-4">
-                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200/80 text-center">
-                    <div class="inline-block bg-rose-500 text-white text-xs font-bold px-4 py-1 rounded-full mb-2">
-                        Start: Masukkan Nilai (Contoh: <span id="sim-score-val">78</span>)
-                    </div>
-                    <div class="text-slate-400 font-bold text-sm">↓</div>
-                    <div class="inline-block bg-amber-400 text-amber-950 text-xs font-bold px-4 py-1.5 rounded-lg my-1 rotate-0 border border-amber-300">
-                        Apakah Nilai &ge; 75 ? (KKM)
-                    </div>
-                    <div class="grid grid-cols-2 gap-4 mt-2">
-                        <div class="p-2.5 rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-800 text-xs font-bold">
-                            Ya → <span class="text-emerald-700 underline">Lulus (Tuntas)</span>
-                        </div>
-                        <div class="p-2.5 rounded-xl border border-rose-200 bg-rose-50 text-rose-800 text-xs font-bold">
-                            Tidak → <span class="text-rose-700 underline">Remedial</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="space-y-1.5">
-                    <label class="text-xs font-bold text-slate-700 flex justify-between">
-                        <span>Coba Ubah Nilai Siswa:</span>
-                        <span id="slider-label" class="text-emerald-600 font-extrabold">78 (LULUS)</span>
-                    </label>
-                    <input type="range" min="40" max="100" value="78" id="sim-slider" oninput="updateSimulationScore(this.value)" class="w-full accent-emerald-500 cursor-pointer">
-                </div>
-
-                <div id="sim-status-box" class="p-3 rounded-xl bg-emerald-100 text-emerald-800 text-xs font-semibold text-center">
-                    🎉 Nilai memenuhi KKM SMK. Alur branching mengambil cabang TRUE.
-                </div>
-            </div>
-
-            <div class="flex gap-2.5 pt-2">
-                <button type="button" onclick="closeModal('modal-simulasi')" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2.5 rounded-full text-xs">
-                    Tutup
-                </button>
-                <button type="button" onclick="alert('Membuka kanvas simulasi penuh untuk 3 Tahap Game...'); closeModal('modal-simulasi');" class="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2.5 rounded-full text-xs shadow-md">
-                    Buka Kanvas Penuh →
-                </button>
-            </div>
-        </div>
-    </div>
+    
 
     <!-- Modal 2: Materi Modal (6 Simbol Standar Flowchart) -->
     <div id="modal-materi" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden items-center justify-center p-4">
@@ -623,16 +565,16 @@
                 </a>
 
                 <!-- Option 2: Quiz Keterampilan -->
-                <div onclick="startQuiz('Quiz Keterampilan Praktik Alur')" class="p-4 rounded-2xl border-2 border-emerald-200 bg-emerald-50/60 hover:bg-emerald-100/70 transition cursor-pointer flex items-center gap-3.5 group">
+                <a href="{{ route('quiz.keterampilan') }}" class="p-4 rounded-2xl border-2 border-emerald-200 bg-emerald-50/60 hover:bg-emerald-100/70 transition cursor-pointer flex items-center gap-3.5 group">
                     <div class="w-10 h-10 rounded-xl bg-emerald-500 text-white flex items-center justify-center text-lg shadow-sm">
                         📋
                     </div>
                     <div class="flex-1">
                         <div class="font-extrabold text-slate-900 text-sm group-hover:text-emerald-900">Quiz Keterampilan</div>
-                        <div class="text-xs text-slate-500">Tantangan drag-and-drop menyusun algoritma perulangan</div>
+                        <div class="text-xs text-slate-500">Tantangan praktik menyusun flowchart algoritma visual</div>
                     </div>
                     <span class="text-emerald-600 font-extrabold text-xs">Mulai →</span>
-                </div>
+                </a>
             </div>
 
             <button type="button" onclick="closeModal('modal-quiz')" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2.5 rounded-full text-xs">

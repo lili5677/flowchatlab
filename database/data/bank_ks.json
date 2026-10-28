@@ -1,0 +1,454 @@
+{
+  "levels": [
+    {
+      "level": 1,
+      "nama_level": "Mudah",
+      "deskripsi": "Algoritma sekuensial sederhana tanpa percabangan",
+      "tugas": [
+        {
+          "kode": "KS-1-1",
+          "judul": "Menghitung Keliling Persegi",
+          "soal": "Susun flowchart untuk menghitung keliling bangun datar persegi dengan rumus Keliling = 4 × sisi berdasarkan panjang sisi yang dimasukkan pengguna.",
+          "langkah": [
+            {
+              "teks": "Mulai",
+              "simbol": "T",
+              "urutan": 1
+            },
+            {
+              "teks": "Masukkan panjang sisi (s)",
+              "simbol": "IO",
+              "urutan": 2
+            },
+            {
+              "teks": "Hitung Keliling = 4 * s",
+              "simbol": "P",
+              "urutan": 3
+            },
+            {
+              "teks": "Tampilkan Keliling",
+              "simbol": "IO",
+              "urutan": 4
+            },
+            {
+              "teks": "Selesai",
+              "simbol": "T",
+              "urutan": 5
+            }
+          ]
+        },
+        {
+          "kode": "KS-1-2",
+          "judul": "Menghitung Luas Segitiga",
+          "soal": "Susunlah flowchart untuk menghitung luas bidang segitiga siku-siku dari nilai alas dan tinggi yang diinputkan pengguna.",
+          "langkah": [
+            {
+              "teks": "Mulai",
+              "simbol": "T",
+              "urutan": 1
+            },
+            {
+              "teks": "Masukkan panjang alas dan tinggi",
+              "simbol": "IO",
+              "urutan": 2
+            },
+            {
+              "teks": "Hitung Luas = 0.5 * alas * tinggi",
+              "simbol": "P",
+              "urutan": 3
+            },
+            {
+              "teks": "Tampilkan Luas Segitiga",
+              "simbol": "IO",
+              "urutan": 4
+            },
+            {
+              "teks": "Selesai",
+              "simbol": "T",
+              "urutan": 5
+            }
+          ]
+        },
+        {
+          "kode": "KS-1-3",
+          "judul": "Konversi Suhu Celcius ke Fahrenheit",
+          "soal": "Buatlah alur proses konversi suhu dari satuan Celcius menjadi Fahrenheit dengan formula F = (9/5 × C) + 32.",
+          "langkah": [
+            {
+              "teks": "Mulai",
+              "simbol": "T",
+              "urutan": 1
+            },
+            {
+              "teks": "Masukkan suhu dalam satuan Celcius (C)",
+              "simbol": "IO",
+              "urutan": 2
+            },
+            {
+              "teks": "Hitung F = (9/5 * C) + 32",
+              "simbol": "P",
+              "urutan": 3
+            },
+            {
+              "teks": "Tampilkan hasil suhu Fahrenheit (F)",
+              "simbol": "IO",
+              "urutan": 4
+            },
+            {
+              "teks": "Selesai",
+              "simbol": "T",
+              "urutan": 5
+            }
+          ]
+        },
+        {
+          "kode": "KS-1-4",
+          "judul": "Menghitung Total Harga Belanja",
+          "soal": "Susun urutan flowchart kasir untuk menghitung total tagihan belanja dari input harga satuan barang dan jumlah barang yang dibeli.",
+          "langkah": [
+            {
+              "teks": "Mulai",
+              "simbol": "T",
+              "urutan": 1
+            },
+            {
+              "teks": "Masukkan harga satuan dan jumlah barang",
+              "simbol": "IO",
+              "urutan": 2
+            },
+            {
+              "teks": "Hitung Total = harga * jumlah",
+              "simbol": "P",
+              "urutan": 3
+            },
+            {
+              "teks": "Tampilkan Total Harga Belanja",
+              "simbol": "IO",
+              "urutan": 4
+            },
+            {
+              "teks": "Selesai",
+              "simbol": "T",
+              "urutan": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "level": 2,
+      "nama_level": "Sedang",
+      "deskripsi": "Algoritma percabangan kondisi tunggal (If-Else)",
+      "tugas": [
+        {
+          "kode": "KS-2-1",
+          "judul": "Menentukan Bilangan Ganjil atau Genap",
+          "soal": "Rancanglah flowchart percabangan untuk memeriksa sebuah bilangan bulat apakah termasuk bilangan ganjil atau bilangan genap berdasarkan sisa bagi (modulus 2).",
+          "langkah": [
+            {
+              "teks": "Mulai",
+              "simbol": "T",
+              "urutan": 1
+            },
+            {
+              "teks": "Masukkan sebuah bilangan bulat (bil)",
+              "simbol": "IO",
+              "urutan": 2
+            },
+            {
+              "teks": "Apakah bil mod 2 == 0?",
+              "simbol": "D",
+              "urutan": 3
+            },
+            {
+              "teks": "Ya: cetak “Genap”",
+              "simbol": "IO",
+              "urutan": 4
+            },
+            {
+              "teks": "Tidak: cetak “Ganjil”",
+              "simbol": "IO",
+              "urutan": 4
+            },
+            {
+              "teks": "Selesai",
+              "simbol": "T",
+              "urutan": 5
+            }
+          ]
+        },
+        {
+          "kode": "KS-2-2",
+          "judul": "Pemeriksaan Kelulusan Nilai Ujian",
+          "soal": "Susun alur penentuan kelulusan siswa berdasarkan nilai ujian dengan KKM minimal 75. Jika nilai >= 75 dinyatakan Lulus, jika tidak Remedial.",
+          "langkah": [
+            {
+              "teks": "Mulai",
+              "simbol": "T",
+              "urutan": 1
+            },
+            {
+              "teks": "Masukkan nilai ujian siswa",
+              "simbol": "IO",
+              "urutan": 2
+            },
+            {
+              "teks": "Apakah nilai >= 75?",
+              "simbol": "D",
+              "urutan": 3
+            },
+            {
+              "teks": "Ya: cetak “Lulus”",
+              "simbol": "IO",
+              "urutan": 4
+            },
+            {
+              "teks": "Tidak: cetak “Remedial”",
+              "simbol": "IO",
+              "urutan": 4
+            },
+            {
+              "teks": "Selesai",
+              "simbol": "T",
+              "urutan": 5
+            }
+          ]
+        },
+        {
+          "kode": "KS-2-3",
+          "judul": "Kelayakan Pembuatan KTP Siswa",
+          "soal": "Susun flowchart verifikasi kelayakan usia warga negara untuk pembuatan KTP dengan syarat usia minimal 17 tahun.",
+          "langkah": [
+            {
+              "teks": "Mulai",
+              "simbol": "T",
+              "urutan": 1
+            },
+            {
+              "teks": "Masukkan usia pengguna",
+              "simbol": "IO",
+              "urutan": 2
+            },
+            {
+              "teks": "Apakah usia >= 17?",
+              "simbol": "D",
+              "urutan": 3
+            },
+            {
+              "teks": "Ya: cetak “Boleh Buat KTP”",
+              "simbol": "IO",
+              "urutan": 4
+            },
+            {
+              "teks": "Tidak: cetak “Belum Cukup Umur”",
+              "simbol": "IO",
+              "urutan": 4
+            },
+            {
+              "teks": "Selesai",
+              "simbol": "T",
+              "urutan": 5
+            }
+          ]
+        },
+        {
+          "kode": "KS-2-4",
+          "judul": "Penentuan Diskon Belanja Supermarket",
+          "soal": "Susun logika flowchart pemberian diskon 10% jika total belanja minimal Rp 100.000, jika di bawah itu tidak mendapat diskon.",
+          "langkah": [
+            {
+              "teks": "Mulai",
+              "simbol": "T",
+              "urutan": 1
+            },
+            {
+              "teks": "Masukkan total nilai belanja",
+              "simbol": "IO",
+              "urutan": 2
+            },
+            {
+              "teks": "Apakah total belanja >= 100000?",
+              "simbol": "D",
+              "urutan": 3
+            },
+            {
+              "teks": "Ya: hitung diskon = 10% * total",
+              "simbol": "P",
+              "urutan": 4
+            },
+            {
+              "teks": "Tidak: diskon = 0",
+              "simbol": "P",
+              "urutan": 4
+            },
+            {
+              "teks": "Tampilkan total bayar = total - diskon",
+              "simbol": "IO",
+              "urutan": 5
+            },
+            {
+              "teks": "Selesai",
+              "simbol": "T",
+              "urutan": 6
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "level": 3,
+      "nama_level": "Sulit",
+      "deskripsi": "Algoritma dengan kondisi bertingkat atau kalkulasi bertahap",
+      "tugas": [
+        {
+          "kode": "KS-3-1",
+          "judul": "Perulangan Cetak Angka 1 sampai 10",
+          "soal": "Rancang alur perulangan (looping) terkontrol untuk mencetak angka dari 1 sampai 10 secara terurut menggunakan variabel pencacah (counter).",
+          "langkah": [
+            {
+              "teks": "Mulai",
+              "simbol": "T",
+              "urutan": 1
+            },
+            {
+              "teks": "Inisialisasi variabel pencacah i = 1",
+              "simbol": "P",
+              "urutan": 2
+            },
+            {
+              "teks": "Apakah i <= 10?",
+              "simbol": "D",
+              "urutan": 3
+            },
+            {
+              "teks": "Cetak nilai i ke layar",
+              "simbol": "IO",
+              "urutan": 4
+            },
+            {
+              "teks": "Hitung i = i + 1",
+              "simbol": "P",
+              "urutan": 5
+            },
+            {
+              "teks": "Selesai",
+              "simbol": "T",
+              "urutan": 6
+            }
+          ]
+        },
+        {
+          "kode": "KS-3-2",
+          "judul": "Menghitung Nilai Akhir & Rata-rata 3 Mata Pelajaran",
+          "soal": "Susun alur penerimaan 3 nilai mapel kejuruan, kalkulasi akumulasi nilai total, lalu hitung rata-rata dan tampilkan hasilnya.",
+          "langkah": [
+            {
+              "teks": "Mulai",
+              "simbol": "T",
+              "urutan": 1
+            },
+            {
+              "teks": "Masukkan nilai MTK, B.Inggris, dan Kejuruan",
+              "simbol": "IO",
+              "urutan": 2
+            },
+            {
+              "teks": "Hitung Total = MTK + B.Inggris + Kejuruan",
+              "simbol": "P",
+              "urutan": 3
+            },
+            {
+              "teks": "Hitung Rata = Total / 3",
+              "simbol": "P",
+              "urutan": 4
+            },
+            {
+              "teks": "Tampilkan Nilai Rata-rata",
+              "simbol": "IO",
+              "urutan": 5
+            },
+            {
+              "teks": "Selesai",
+              "simbol": "T",
+              "urutan": 6
+            }
+          ]
+        },
+        {
+          "kode": "KS-3-3",
+          "judul": "Menentukan Bilangan Terbesar dari Dua Nilai",
+          "soal": "Susun flowchart pengambilan keputusan untuk membandingkan dua bilangan A dan B, lalu tentukan bilangan mana yang memiliki nilai lebih besar.",
+          "langkah": [
+            {
+              "teks": "Mulai",
+              "simbol": "T",
+              "urutan": 1
+            },
+            {
+              "teks": "Masukkan nilai bilangan A dan B",
+              "simbol": "IO",
+              "urutan": 2
+            },
+            {
+              "teks": "Apakah A > B?",
+              "simbol": "D",
+              "urutan": 3
+            },
+            {
+              "teks": "Ya: cetak “A lebih besar dari B”",
+              "simbol": "IO",
+              "urutan": 4
+            },
+            {
+              "teks": "Tidak: cetak “B lebih besar atau sama dengan A”",
+              "simbol": "IO",
+              "urutan": 4
+            },
+            {
+              "teks": "Selesai",
+              "simbol": "T",
+              "urutan": 5
+            }
+          ]
+        },
+        {
+          "kode": "KS-3-4",
+          "judul": "Validasi Kekuatan Password Akun",
+          "soal": "Susunlah alur validasi keamanan kata sandi pengguna saat mendaftar: sistem memeriksa apakah panjang karakter sudah mencapai batas aman minimal 8 karakter.",
+          "langkah": [
+            {
+              "teks": "Mulai",
+              "simbol": "T",
+              "urutan": 1
+            },
+            {
+              "teks": "Masukkan teks password dari user",
+              "simbol": "IO",
+              "urutan": 2
+            },
+            {
+              "teks": "Apakah panjang password >= 8 karakter?",
+              "simbol": "D",
+              "urutan": 3
+            },
+            {
+              "teks": "Ya: cetak “Password Memenuhi Syarat”",
+              "simbol": "IO",
+              "urutan": 4
+            },
+            {
+              "teks": "Tidak: cetak “Password Terlalu Pendek”",
+              "simbol": "IO",
+              "urutan": 4
+            },
+            {
+              "teks": "Selesai",
+              "simbol": "T",
+              "urutan": 5
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
