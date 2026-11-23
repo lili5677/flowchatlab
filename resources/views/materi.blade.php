@@ -94,10 +94,16 @@
                     @auth
                         <div class="text-right hidden sm:block">
                             <div class="font-extrabold text-[13px] text-slate-900 leading-tight">{{ Auth::user()->name }}</div>
-                            <div class="mt-0.5">
-                                <span class="bg-[#FEE3A2] text-[#9A3412] font-black text-[9px] px-2 py-0.5 rounded uppercase tracking-wider inline-block">
-                                    {{ Auth::user()->role === 'guru' ? 'Guru SMK' : 'Siswa SMK' }}
-                                </span>
+                            <div class="mt-0.5 flex items-center justify-end gap-1.5">
+                                @if(Auth::user()->isAdmin())
+                                    <a href="{{ route('admin.dashboard') }}" class="bg-indigo-600 hover:bg-indigo-700 text-white font-black text-[9px] px-2 py-0.5 rounded uppercase tracking-wider inline-block transition">
+                                        Panel Admin &rarr;
+                                    </a>
+                                @else
+                                    <span class="bg-[#FEE3A2] text-[#9A3412] font-black text-[9px] px-2 py-0.5 rounded uppercase tracking-wider inline-block">
+                                        {{ Auth::user()->role === 'guru' ? 'Guru SMK' : 'Siswa SMK' }}
+                                    </span>
+                                @endif
                             </div>
                         </div>
                     @endauth
@@ -140,9 +146,14 @@
                     <div>
                         <div class="font-extrabold text-sm text-slate-900">{{ Auth::user()->name }}</div>
                         <span class="bg-[#FEE3A2] text-[#9A3412] font-black text-[9px] px-2 py-0.5 rounded uppercase tracking-wider inline-block">
-                            {{ Auth::user()->role === 'guru' ? 'Guru SMK' : 'Siswa SMK' }}
+                            {{ Auth::user()->isAdmin() ? 'Administrator' : (Auth::user()->role === 'guru' ? 'Guru SMK' : 'Siswa SMK') }}
                         </span>
                     </div>
+                    @if(Auth::user()->isAdmin())
+                        <a href="{{ route('admin.dashboard') }}" class="bg-indigo-600 text-white text-[11px] font-bold px-2.5 py-1 rounded-lg">
+                            Admin &rarr;
+                        </a>
+                    @endif
                 </div>
             @endauth
             <a href="{{ route('home') }}" class="block px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50">Beranda</a>

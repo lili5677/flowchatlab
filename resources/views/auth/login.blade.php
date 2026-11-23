@@ -11,6 +11,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
+
     <!-- Styles & Scripts via Vite -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -45,28 +48,25 @@
     <main class="w-full flex-1 flex items-center justify-center relative z-10 py-6 sm:py-10">
         <div class="bg-white rounded-[38px] sm:rounded-[42px] max-w-md w-full p-7 sm:p-9 shadow-2xl shadow-amber-950/25 border border-white/60">
 
-            <!-- Role Switcher Segmented Control -->
-            <div class="mb-6">
-                <div class="bg-[#F1F3F6] p-1 rounded-2xl flex items-center justify-between gap-1 shadow-2xs">
-                    <button type="button" id="tab-login-siswa" onclick="setLoginRole('siswa')" class="w-1/2 py-2.5 rounded-xl bg-white shadow-2xs text-center font-bold text-xs sm:text-[13px] text-slate-800 flex items-center justify-center gap-2 cursor-pointer transition-all">
-                        <span class="text-sm">🎓</span>
-                        <span>Siswa SMK</span>
-                    </button>
-                    <button type="button" id="tab-login-guru" onclick="setLoginRole('guru')" class="w-1/2 py-2.5 rounded-xl text-center font-semibold text-xs sm:text-[13px] text-slate-500 hover:text-slate-700 flex items-center justify-center gap-2 cursor-pointer transition-all">
-                        <span class="text-sm">👨‍🏫</span>
-                        <span>Guru / Pembimbing</span>
-                    </button>
-                </div>
+            <!-- Brand Header -->
+            <div class="flex items-center gap-3 mb-6">
+                <a href="{{ route('home') }}" class="flex items-center gap-3 group">
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-10 h-10 group-hover:scale-105 transition-transform duration-200">
+                    <div class="flex flex-col">
+                        <span class="font-extrabold text-[17px] text-slate-900 tracking-tight leading-snug">Flowchart Lab</span>
+                        <span class="font-bold text-[10px] tracking-wider text-[#EA580C] uppercase leading-none mt-0.5">SMK ALGORITMA VISUAL</span>
+                    </div>
+                </a>
             </div>
 
             <!-- Header Titles -->
             <div class="mb-6">
                 <h1 class="text-2xl sm:text-[28px] font-black text-slate-900 tracking-tight leading-tight flex items-center gap-2">
-                    <span>Selamat Datang Kembali!</span>
+                    <span>Masuk ke Akun</span>
                     <span class="text-2xl">👋</span>
                 </h1>
-                <p id="login-subtitle" class="text-xs sm:text-[13px] text-slate-500 mt-2 leading-relaxed">
-                    Silakan masukkan data akun Anda untuk melanjutkan sesi pembelajaran.
+                <p class="text-xs sm:text-[13px] text-slate-500 mt-2 leading-relaxed">
+                    Silakan masukkan email dan kata sandi Anda untuk melanjutkan sesi pembelajaran.
                 </p>
             </div>
 
@@ -90,10 +90,9 @@
                 </div>
             @endif
 
-            <!-- Login Form -->
+            <!-- Login Form (Single Unified Form) -->
             <form action="{{ route('login') }}" method="POST" class="space-y-4">
                 @csrf
-                <input type="hidden" name="login_role" id="login-role-input" value="siswa">
 
                 <!-- Field 1: EMAIL -->
                 <div>
@@ -117,8 +116,9 @@
                             name="email"
                             value="{{ old('email') }}"
                             required
-                            placeholder="pengguna@gmail.com"
-                            class="w-full bg-[#F8FAFC] border border-slate-200/90 text-slate-800 text-xs sm:text-[13px] font-medium rounded-2xl px-4 py-3.5 pl-11 focus:bg-white focus:ring-2 focus:ring-emerald-500 transition-all placeholder:text-slate-400"
+                            autofocus
+                            placeholder="nama@email.com"
+                            class="w-full bg-[#F8FAFC] border border-slate-200/90 text-slate-800 text-xs sm:text-[13px] font-medium rounded-2xl px-4 py-3.5 pl-11 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none transition-all placeholder:text-slate-400"
                         >
                     </div>
                 </div>
@@ -145,7 +145,7 @@
                             name="password"
                             required
                             placeholder="Masukkan kata sandi akun Anda"
-                            class="w-full bg-[#F8FAFC] border border-slate-200/90 text-slate-800 text-xs sm:text-[13px] font-medium rounded-2xl px-4 py-3.5 pl-11 pr-11 focus:bg-white focus:ring-2 focus:ring-emerald-500 transition-all placeholder:text-slate-400"
+                            class="w-full bg-[#F8FAFC] border border-slate-200/90 text-slate-800 text-xs sm:text-[13px] font-medium rounded-2xl px-4 py-3.5 pl-11 pr-11 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none transition-all placeholder:text-slate-400"
                         >
                         <button type="button" onclick="toggleLoginPassword()" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer">
                             <svg id="login-eye-icon" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -165,9 +165,9 @@
                             id="remember"
                             class="w-4 h-4 rounded text-emerald-600 accent-emerald-600 border-slate-300 focus:ring-emerald-500 cursor-pointer"
                         >
-                        <span>Ingat Saya di Perangkat Ini</span>
+                        <span>Ingat Saya</span>
                     </label>
-                    <a href="#lupa-sandi" onclick="alert('Fitur reset kata sandi dapat dilakukan melalui email guru atau admin lab SMK.')" class="font-bold text-[#B45309] hover:text-[#92400E] transition">
+                    <a href="#lupa-sandi" onclick="alert('Untuk bantuan reset kata sandi, hubungi admin lab atau guru pembimbing.')" class="font-bold text-[#B45309] hover:text-[#92400E] transition">
                         Lupa Kata Sandi?
                     </a>
                 </div>
@@ -177,39 +177,22 @@
                     type="submit"
                     class="w-full bg-[#10B981] hover:bg-[#059669] text-white font-extrabold text-sm sm:text-base py-3.5 rounded-full shadow-lg shadow-emerald-500/25 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer mt-4"
                 >
-                    Masuk
+                    Masuk ke Sistem
                 </button>
             </form>
 
-            <!-- Divider -->
-            <div class="relative my-6 text-center">
-                <div class="absolute inset-0 flex items-center">
-                    <div class="w-full border-t border-slate-100"></div>
-                </div>
-                <div class="relative flex justify-center">
-                    <span class="bg-white px-3 text-[11px] text-slate-400 font-medium">
-                        atau masuk dengan
-                    </span>
-                </div>
-            </div>
-
-            <!-- Single Click Demo Account for Easy Testing -->
-            <div class="grid grid-cols-2 gap-2.5 mb-2">
-                <button type="button" onclick="fillDemoAccount('siswa')" class="p-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-[11px] font-bold text-slate-700 flex items-center justify-center gap-1.5 transition cursor-pointer">
-                    <span>🎓</span>
-                    <span>Demo Siswa</span>
-                </button>
-                <button type="button" onclick="fillDemoAccount('guru')" class="p-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-[11px] font-bold text-slate-700 flex items-center justify-center gap-1.5 transition cursor-pointer">
-                    <span>👨‍🏫</span>
-                    <span>Demo Guru</span>
-                </button>
-            </div>
-
             <!-- Card Bottom Navigation -->
-            <div class="text-center mt-6 text-xs text-slate-600 font-medium">
-                Belum punya akun siswa atau guru? 
+            <div class="text-center mt-6 pt-5 border-t border-slate-100 text-xs text-slate-600 font-medium">
+                Belum memiliki akun? 
                 <a href="{{ route('register') }}" class="font-extrabold text-[#B45309] hover:text-[#92400E] ml-1">
                     Daftar Sekarang
+                </a>
+            </div>
+
+            <!-- Back to Home Link -->
+            <div class="text-center mt-3">
+                <a href="{{ route('home') }}" class="text-[11px] font-semibold text-slate-400 hover:text-slate-600 transition inline-flex items-center gap-1">
+                    &larr; Kembali ke Beranda
                 </a>
             </div>
 
@@ -218,30 +201,11 @@
 
     <!-- Page Bottom Footer -->
     <footer class="w-full max-w-4xl mx-auto text-center text-[11px] sm:text-xs text-amber-950/80 font-medium py-3 relative z-10">
-        &copy; 2025 Flowchart Lab SMK. Dikembangkan untuk kemajuan pendidikan vokasi vokasi teknologi di Indonesia.
+        &copy; 2026 Flowchart Lab SMK. Media Pembelajaran Logika Algoritma Vokasi Indonesia.
     </footer>
 
     <!-- Interactive Client Script -->
     <script>
-        function setLoginRole(role) {
-            const input = document.getElementById('login-role-input');
-            const tabSiswa = document.getElementById('tab-login-siswa');
-            const tabGuru = document.getElementById('tab-login-guru');
-            const subtitle = document.getElementById('login-subtitle');
-
-            input.value = role;
-
-            if (role === 'siswa') {
-                tabSiswa.className = "w-1/2 py-2.5 rounded-xl bg-white shadow-2xs text-center font-bold text-xs sm:text-[13px] text-slate-800 flex items-center justify-center gap-2 cursor-pointer transition-all";
-                tabGuru.className = "w-1/2 py-2.5 rounded-xl text-center font-semibold text-xs sm:text-[13px] text-slate-500 hover:text-slate-700 flex items-center justify-center gap-2 cursor-pointer transition-all";
-                subtitle.innerText = "Silakan masukkan data akun Anda untuk melanjutkan sesi pembelajaran.";
-            } else {
-                tabGuru.className = "w-1/2 py-2.5 rounded-xl bg-white shadow-2xs text-center font-bold text-xs sm:text-[13px] text-slate-800 flex items-center justify-center gap-2 cursor-pointer transition-all";
-                tabSiswa.className = "w-1/2 py-2.5 rounded-xl text-center font-semibold text-xs sm:text-[13px] text-slate-500 hover:text-slate-700 flex items-center justify-center gap-2 cursor-pointer transition-all";
-                subtitle.innerText = "Masuk sebagai Guru / Pembimbing untuk mengelola modul dan penilaian.";
-            }
-        }
-
         function toggleLoginPassword() {
             const input = document.getElementById('password');
             const icon = document.getElementById('login-eye-icon');
@@ -252,18 +216,6 @@
             } else {
                 input.type = 'password';
                 icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
-            }
-        }
-
-        function fillDemoAccount(type) {
-            if (type === 'siswa') {
-                setLoginRole('siswa');
-                document.getElementById('email').value = 'bayu.pratama@smk.belajar.id';
-                document.getElementById('password').value = 'password123';
-            } else {
-                setLoginRole('guru');
-                document.getElementById('email').value = 'guru.algoritma@smk.belajar.id';
-                document.getElementById('password').value = 'password123';
             }
         }
     </script>

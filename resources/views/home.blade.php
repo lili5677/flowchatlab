@@ -46,7 +46,7 @@
                 <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-9 h-9 group-hover:scale-105 transition-transform duration-200">
                 <div class="flex flex-col">
                     <span class="font-extrabold text-[17px] text-slate-900 tracking-tight leading-snug">Flowchart Lab</span>
-                    <span class="font-bold text-[10px] tracking-wider text-[#EA580C] uppercase leading-none mt-0.5">ALGORITMA VISUAL</span>
+                    <span class="font-bold text-[10px] tracking-wider text-[#EA580C] uppercase leading-none mt-0.5">SMK ALGORITMA VISUAL</span>
                 </div>
             </a>
 
@@ -95,10 +95,16 @@
                     @auth
                         <div class="text-right hidden sm:block">
                             <div class="font-extrabold text-[13px] text-slate-900 leading-tight">{{ Auth::user()->name }}</div>
-                            <div class="mt-0.5">
-                                <span class="bg-[#FEE3A2] text-[#9A3412] font-black text-[9px] px-2 py-0.5 rounded uppercase tracking-wider inline-block">
-                                    {{ Auth::user()->role === 'guru' ? 'Guru SMK' : 'Siswa SMK' }}
-                                </span>
+                            <div class="mt-0.5 flex items-center justify-end gap-1.5">
+                                @if(Auth::user()->isAdmin())
+                                    <a href="{{ route('admin.dashboard') }}" class="bg-indigo-600 hover:bg-indigo-700 text-white font-black text-[9px] px-2 py-0.5 rounded uppercase tracking-wider inline-block transition">
+                                        Panel Admin &rarr;
+                                    </a>
+                                @else
+                                    <span class="bg-[#FEE3A2] text-[#9A3412] font-black text-[9px] px-2 py-0.5 rounded uppercase tracking-wider inline-block">
+                                        {{ Auth::user()->role === 'guru' ? 'Guru SMK' : 'Siswa SMK' }}
+                                    </span>
+                                @endif
                             </div>
                         </div>
                     @endauth
@@ -141,9 +147,14 @@
                     <div>
                         <div class="font-extrabold text-sm text-slate-900">{{ Auth::user()->name }}</div>
                         <span class="bg-[#FEE3A2] text-[#9A3412] font-black text-[9px] px-2 py-0.5 rounded uppercase tracking-wider inline-block">
-                            {{ Auth::user()->role === 'guru' ? 'Guru SMK' : 'Siswa SMK' }}
+                            {{ Auth::user()->isAdmin() ? 'Administrator' : (Auth::user()->role === 'guru' ? 'Guru SMK' : 'Siswa SMK') }}
                         </span>
                     </div>
+                    @if(Auth::user()->isAdmin())
+                        <a href="{{ route('admin.dashboard') }}" class="bg-indigo-600 text-white text-[11px] font-bold px-2.5 py-1 rounded-lg">
+                            Admin &rarr;
+                        </a>
+                    @endif
                 </div>
             @endauth
             <a href="{{ route('home') }}" class="block px-3 py-2 rounded-xl text-sm font-bold bg-[#F4F1EA] text-slate-900">Beranda</a>
@@ -599,8 +610,8 @@
                 <h3 class="font-extrabold text-slate-900 text-base">{{ Auth::user()->name }}</h3>
                 <p class="text-xs text-slate-500 mb-1">{{ Auth::user()->email }}</p>
                 <p class="text-xs text-slate-600 font-semibold mb-2">{{ Auth::user()->school ?? 'SMK Negeri' }}</p>
-                <span class="bg-[#FEE3A2] text-[#9A3412] font-black text-[10px] px-2.5 py-1 rounded-full uppercase tracking-wider inline-block mb-4">
-                    {{ Auth::user()->role === 'guru' ? 'Guru / Pembimbing' : 'Siswa SMK' }}
+                <span class="{{ Auth::user()->isAdmin() ? 'bg-indigo-100 text-indigo-800' : 'bg-[#FEE3A2] text-[#9A3412]' }} font-black text-[10px] px-2.5 py-1 rounded-full uppercase tracking-wider inline-block mb-4">
+                    {{ Auth::user()->isAdmin() ? 'Administrator' : (Auth::user()->role === 'guru' ? 'Guru / Pembimbing' : 'Siswa SMK') }}
                 </span>
 
                 <div class="grid grid-cols-2 gap-3 text-left bg-slate-50 p-3.5 rounded-2xl mb-4 border border-slate-200/80">
@@ -619,6 +630,13 @@
             @endauth
 
             <div class="space-y-2">
+                @auth
+                    @if(Auth::user()->isAdmin())
+                        <a href="{{ route('admin.dashboard') }}" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs uppercase py-2.5 rounded-full transition block text-center mb-2 shadow-sm">
+                            Buka Panel Administrator
+                        </a>
+                    @endif
+                @endauth
                 <button type="button" onclick="closeModal('modal-profile')" class="w-full bg-[#10B981] hover:bg-[#059669] text-white font-extrabold text-xs uppercase py-2.5 rounded-full transition">
                     Tutup Profil
                 </button>

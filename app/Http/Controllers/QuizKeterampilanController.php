@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SubmitKeterampilanRequest;
+use App\Models\ActivityLog;
 use App\Models\User;
 use App\Services\KeterampilanBankService;
 use App\Services\KeterampilanChecker;
@@ -61,6 +62,10 @@ class QuizKeterampilanController extends Controller
             'skor_akhir' => null,
             'status' => 'in_progress',
         ]);
+
+        if (Auth::check()) {
+            ActivityLog::record('keterampilan_started', 'Siswa '.Auth::user()->name.' memulai Quiz Keterampilan.');
+        }
 
         return redirect()->route('quiz.keterampilan.tugas');
     }
@@ -196,6 +201,13 @@ class QuizKeterampilanController extends Controller
             /** @var User $user */
             $user = Auth::user();
             $user->update(['skor_praktik' => $skorAkhir]);
+
+            ActivityLog::record(
+                'keterampilan_completed',
+                'Siswa '.$user->name.' menyelesaikan Quiz Keterampilan (Skor Praktik: '.$skorAkhir.').',
+                $user,
+                ['skor_praktik' => $skorAkhir, 'task_scores' => $taskScores]
+            );
         }
 
         return redirect()->route('quiz.keterampilan.hasil');

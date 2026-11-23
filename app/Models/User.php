@@ -44,6 +44,52 @@ class User extends Authenticatable
     }
 
     /**
+     * Get all activity logs for the user.
+     *
+     * @return HasMany<ActivityLog, $this>
+     */
+    public function activityLogs(): HasMany
+    {
+        return $this->hasMany(ActivityLog::class);
+    }
+
+    /**
+     * Check if user is an Administrator.
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    /**
+     * Check if user is a Guru.
+     */
+    public function isGuru(): bool
+    {
+        return $this->role === 'guru';
+    }
+
+    /**
+     * Check if user is a Siswa.
+     */
+    public function isSiswa(): bool
+    {
+        return $this->role === 'siswa' || empty($this->role);
+    }
+
+    /**
+     * Get readable role label.
+     */
+    public function getRoleLabelAttribute(): string
+    {
+        return match ($this->role) {
+            'admin' => 'Administrator',
+            'guru' => 'Guru SMK',
+            default => 'Siswa SMK',
+        };
+    }
+
+    /**
      * Get formatted NIS with fallback.
      */
     public function getDisplayNisAttribute(): string

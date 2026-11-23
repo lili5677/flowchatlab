@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ActivityLog;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -37,6 +38,13 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials, $remember)) {
             $request->session()->regenerate();
+
+            $user = Auth::user();
+            ActivityLog::record('login', 'User '.$user->name.' berhasil masuk.', $user);
+
+            if ($user->isAdmin() && ! $request->session()->has('url.intended')) {
+                return redirect()->route('admin.dashboard')->with('success', 'Selamat datang di Panel Admin, '.$user->name.'!');
+            }
 
             return redirect()->intended(route('home'))->with('success', 'Selamat datang kembali!');
         }
@@ -85,6 +93,8 @@ class AuthController extends Controller
             'role' => $validated['role'] ?? 'siswa',
         ]);
 
+        ActivityLog::record('register', 'User baru terdaftar: '.$user->name.' ('.$user->role_label.')', $user);
+
         Auth::login($user);
 
         return redirect()->route('home')->with('success', 'Akun berhasil dibuat! Selamat belajar di Flowchart Lab.');
@@ -95,6 +105,11 @@ class AuthController extends Controller
      */
     public function logout(Request $request): RedirectResponse
     {
+        $user = Auth::user();
+        if ($user) {
+            ActivityLog::record('logout', 'User '.$user->name.' keluar dari sistem.', $user);
+        }
+
         Auth::logout();
 
         $request->session()->invalidate();

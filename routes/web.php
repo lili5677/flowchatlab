@@ -1,8 +1,12 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminActivityLogController;
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminProgressController;
+use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\QuizKeterampilanController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\QuizKeterampilanController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -48,4 +52,22 @@ Route::middleware('auth')->prefix('quiz')->name('quiz.')->group(function () {
     Route::post('/{attempt}/answer', [QuizController::class, 'answer'])->name('answer');
     Route::post('/{attempt}/finish', [QuizController::class, 'finish'])->name('finish');
     Route::get('/hasil/{attempt}', [QuizController::class, 'result'])->name('result');
+});
+
+// Admin Panel Routes
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
+
+    // User Management
+    Route::resource('users', AdminUserController::class);
+
+    // Progress Siswa & Statistik
+    Route::get('/progress', [AdminProgressController::class, 'index'])->name('progress.index');
+    Route::get('/progress/export', [AdminProgressController::class, 'export'])->name('progress.export');
+    Route::get('/progress/print', [AdminProgressController::class, 'print'])->name('progress.print');
+    Route::get('/progress/quiz/{attempt}', [AdminProgressController::class, 'quizDetail'])->name('progress.quiz-detail');
+
+    // Activity Logs
+    Route::get('/activity-logs', [AdminActivityLogController::class, 'index'])->name('activity-logs.index');
+    Route::post('/activity-logs/purge', [AdminActivityLogController::class, 'purgeOldLogs'])->name('activity-logs.purge');
 });

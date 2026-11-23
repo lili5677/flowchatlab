@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\ActivityLog;
 use App\Models\AttemptAnswer;
 use App\Models\Question;
 use App\Models\QuizAttempt;
@@ -64,7 +65,7 @@ class QuizService
             $optionsOrder[$q->id] = $keys;
         }
 
-        return QuizAttempt::create([
+        $attempt = QuizAttempt::create([
             'user_id' => $user->id,
             'status' => 'in_progress',
             'current_question_index' => 1,
@@ -74,6 +75,12 @@ class QuizService
             'question_ids' => $questionIds,
             'options_order' => $optionsOrder,
         ]);
+
+        ActivityLog::record('quiz_started', 'Siswa '.$user->name.' memulai Quiz Pengetahuan.', $user, [
+            'attempt_id' => $attempt->id,
+        ]);
+
+        return $attempt;
     }
 
     /**
@@ -338,6 +345,19 @@ class QuizService
             $user = $attempt->user;
             $user->increment('points', $attempt->total_points);
         }
+
+        ActivityLog::record(
+            'quiz_completed',
+            'Siswa '.$attempt->user->name.' menyelesaikan Quiz Pengetahuan (Nilai: '.$attempt->score.', Predikat: '.$attempt->predicate.').',
+            $attempt->user,
+            [
+                'attempt_id' => $attempt->id,
+                'score' => $attempt->score,
+                'correct_count' => $attempt->correct_count,
+                'predicate' => $attempt->predicate,
+                'is_passed' => $attempt->is_passed,
+            ]
+        );
 
         return $attempt;
     }

@@ -266,7 +266,7 @@
                         </svg>
                         <div class="score-ring-text">
                             <span class="text-4xl font-black text-slate-900" id="scoreCounter">0</span>
-                            <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">SKOR AKHIR</span>
+                            <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">SKOR PRAKTIK</span>
                         </div>
                     </div>
 
@@ -525,6 +525,11 @@
                             Ulangi Quiz
                         </button>
                     </form>
+                    <a href="{{ route('quiz.index') }}"
+                       class="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3.5 rounded-full border-2 border-amber-300 bg-amber-50 hover:bg-amber-100 text-amber-900 font-extrabold text-sm transition hover:scale-[1.01] shadow-sm">
+                        <svg class="w-4 h-4 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                        Lanjut ke Quiz Pengetahuan
+                    </a>
                     <a href="{{ route('materi') }}"
                        class="w-full sm:w-auto flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-amber-400 hover:bg-amber-500 text-slate-900 font-black text-sm transition hover:scale-[1.02] shadow-lg shadow-amber-400/30">
                         TINGKAT BERIKUTNYA
