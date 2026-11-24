@@ -22,7 +22,7 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             
             <!-- Left: Logo & Brand Name -->
-            <a href="{{ route('home') }}" class="flex items-center gap-3 group">
+            <a href="javascript:void(0)" onclick="openExitModal()" class="flex items-center gap-3 group cursor-pointer" title="Keluar Kuis">
                 <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-9 h-9 group-hover:scale-105 transition-transform duration-200">
                 <div class="flex flex-col">
                     <span class="font-extrabold text-[17px] text-slate-900 tracking-tight leading-snug">Flowchart Lab</span>
@@ -30,102 +30,23 @@
                 </div>
             </a>
 
-            <!-- Center Navigation (Desktop) -->
-            <nav class="hidden md:flex items-center gap-1.5 bg-slate-100/80 p-1.5 rounded-full border border-slate-200/80">
-                <a href="{{ route('home') }}" class="text-slate-600 hover:text-slate-900 font-semibold px-3.5 py-1.5 rounded-full text-[13px] transition hover:bg-white">
-                    Beranda
-                </a>
-                <a href="{{ route('materi') }}" class="text-slate-600 hover:text-slate-900 font-semibold px-3.5 py-1.5 rounded-full text-[13px] transition hover:bg-white">
-                    Materi
-                </a>
-                <a href="{{ route('simulasi') }}#simulasi" class="text-slate-600 hover:text-slate-900 font-semibold px-3.5 py-1.5 rounded-full text-[13px] transition hover:bg-white">
-                    Simulasi
-                </a>
-                
-                <!-- Quiz Link (Active) -->
-                <div class="relative" id="quiz-dropdown-wrapper">
-                    <button type="button" 
-                            id="quiz-dropdown-btn" 
-                            onclick="toggleQuizDropdown(event)" 
-                            class="bg-amber-100 text-amber-900 font-bold px-4 py-1.5 rounded-full text-[13px] shadow-2xs transition inline-flex items-center gap-1.5 cursor-pointer">
-                        <span>Quiz</span>
-                        <svg id="quiz-dropdown-arrow" class="w-3.5 h-3.5 text-amber-700 transition-transform duration-200" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
-                        </svg>
-                    </button>
-                    <!-- Dropdown Menu -->
-                    <div id="quiz-dropdown-menu" class="absolute left-0 mt-2 w-52 bg-white rounded-2xl shadow-xl border border-slate-100 py-2 hidden transition-all z-50">
-                        <a href="{{ route('quiz.index') }}" class="flex items-center gap-2.5 px-4 py-2.5 text-xs font-bold text-amber-900 bg-amber-50/80 transition">
-                            <span class="w-6 h-6 rounded-lg bg-amber-200 text-amber-800 flex items-center justify-center text-[11px]">📖</span>
-                            <span>Quiz Pengetahuan</span>
-                        </a>
-                        <a href="{{ route('quiz.keterampilan') }}" class="flex items-center gap-2.5 px-4 py-2.5 text-xs font-bold text-emerald-800 bg-emerald-50/70 transition">
-                            <span class="w-6 h-6 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center text-[11px]">🧩</span>
-                            <span>Quiz Keterampilan</span>
-                        </a>
-                    </div>
-                </div>
-            </nav>
-
-            <!-- Right: User Profile -->
-            <div class="flex items-center gap-3 sm:gap-4">
-
-                <!-- User Profile Info -->
-                <div class="flex items-center gap-2.5 pl-1 sm:pl-2">
-                    @auth
-                        <div class="text-right hidden sm:block">
-                            <div class="font-extrabold text-[13px] text-slate-900 leading-tight">{{ Auth::user()->name }}</div>
-                            <div class="mt-0.5">
-                                <span class="bg-amber-200 text-amber-900 font-black text-[9px] px-2 py-0.5 rounded uppercase tracking-wider inline-block">
-                                    {{ Auth::user()->role === 'guru' ? 'Guru SMK' : 'Siswa SMK' }}
-                                </span>
-                            </div>
-                        </div>
-                    @endauth
-
-                    <!-- User Avatar -->
-                    <div class="relative group cursor-pointer" onclick="openProfileModal()" title="Profil">
-                        <div class="w-9 h-9 rounded-full ring-2 ring-sky-300 ring-offset-2 overflow-hidden bg-sky-50 flex items-center justify-center shrink-0 shadow-2xs hover:ring-sky-400 transition">
-                            <svg class="w-full h-full text-sky-800" viewBox="0 0 40 40" fill="none">
-                                <circle cx="20" cy="20" r="20" class="fill-sky-100" />
-                                <circle cx="20" cy="15" r="7" class="fill-rose-200" />
-                                <path d="M20 9C15 9 14 13 14 15C14 16 15 17 20 17C25 17 26 16 26 15C26 13 25 9 20 9Z" class="fill-slate-800" />
-                                <path d="M9 36C9 28 14 25 20 25C26 25 31 28 31 36" class="fill-white" />
-                                <path d="M18 25L20 31L22 25" class="fill-sky-600" />
-                                <circle cx="18" cy="14" r="1" class="fill-slate-900" />
-                                <circle cx="22" cy="14" r="1" class="fill-slate-900" />
-                                <path d="M18.5 17C19 18 21 18 21.5 17" class="stroke-slate-900" stroke-width="0.8" stroke-linecap="round" />
-                            </svg>
-                        </div>
-                        @auth
-                            <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 border-2 border-white rounded-full"></span>
-                        @endauth
-                    </div>
-                </div>
-
-                <!-- Mobile Menu Button -->
-                <button type="button" class="md:hidden p-2 text-slate-700 hover:text-slate-950" onclick="toggleMobileMenu()">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                    </svg>
-                </button>
+            <!-- Center Info: Progress indicator -->
+            <div class="hidden sm:flex items-center gap-2 bg-slate-100 px-4 py-1.5 rounded-full border border-slate-200/80">
+                <span class="text-xs font-bold text-slate-600">Progres Kuis:</span>
+                <span id="header-progress-text" class="text-xs font-black text-slate-900">Soal {{ $targetNumber }} dari {{ $totalQuestions }}</span>
+                <span id="header-level-badge" class="text-[10px] font-black uppercase px-2 py-0.5 rounded-full {{ $activeQuestion['level'] === 'Mudah' ? 'bg-emerald-100 text-emerald-800' : ($activeQuestion['level'] === 'Sedang' ? 'bg-amber-100 text-amber-800' : 'bg-rose-100 text-rose-800') }}">
+                    {{ $activeQuestion['level'] }}
+                </span>
             </div>
-        </div>
 
-        <!-- Mobile Nav Menu (collapsible) -->
-        <div id="mobile-menu" class="hidden md:hidden border-t border-amber-200 bg-white px-4 pt-2 pb-4 space-y-2">
-            @auth
-                <div class="sm:hidden pb-2 mb-2 border-b border-slate-100">
-                    <div class="font-extrabold text-sm text-slate-900">{{ Auth::user()->name }}</div>
-                    <span class="bg-amber-200 text-amber-900 font-black text-[9px] px-2 py-0.5 rounded uppercase tracking-wider inline-block">
-                        {{ Auth::user()->role === 'guru' ? 'Guru SMK' : 'Siswa SMK' }}
-                    </span>
-                </div>
-            @endauth
-            <a href="{{ route('home') }}" class="block px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50">Beranda</a>
-            <a href="{{ route('materi') }}" class="block px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50">Materi & Simbol</a>
-            <a href="{{ route('home') }}#simulasi" class="block px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50">Simulasi Alur</a>
-            <a href="{{ route('quiz.index') }}" class="block px-3 py-2 rounded-xl text-sm font-bold bg-amber-100 text-amber-900">Quiz Pengetahuan (Aktif)</a>
+            <!-- Right: Exit Button -->
+            <button type="button" onclick="openExitModal()"
+                class="inline-flex items-center gap-2 rounded-full border border-rose-200 bg-white px-4 py-2.5 text-xs font-bold text-rose-600 shadow-xs transition-all duration-200 hover:bg-rose-50 hover:shadow-md active:scale-95 cursor-pointer">
+                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 17l5-5-5-5m5 5H3m9-9h6a2 2 0 012 2v14a2 2 0 01-2 2h-6"/>
+                </svg>
+                <span>Keluar Kuis</span>
+            </button>
         </div>
     </header>
 
@@ -592,6 +513,42 @@
         </div>
     </footer>
 
+    <!-- Modal Konfirmasi Keluar -->
+    <div id="exitModal"
+        class="fixed inset-0 z-[9999] hidden items-center justify-center bg-slate-900/50 p-4 backdrop-blur-sm">
+        <div class="w-full max-w-sm rounded-3xl border border-slate-200 bg-white p-6 text-center shadow-2xl">
+            <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-rose-50 text-rose-500">
+                <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                </svg>
+            </div>
+
+            <h3 class="mb-2 text-lg font-extrabold text-slate-800">
+                Keluar dari Kuis?
+            </h3>
+
+            <p class="mb-6 text-sm leading-relaxed text-slate-500">
+                Sesi kuis pengetahuan yang sedang berjalan akan direset.
+                Yakin ingin keluar?
+            </p>
+
+            <div class="flex gap-3">
+                <button type="button" onclick="closeExitModal()"
+                    class="flex-1 rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-bold text-slate-600 transition hover:bg-slate-50 cursor-pointer">
+                    Batal
+                </button>
+                <form method="POST" action="{{ route('quiz.exit', $attempt->id) }}" class="flex-1">
+                    @csrf
+                    <button type="submit"
+                        class="w-full rounded-xl bg-rose-600 px-4 py-2.5 text-sm font-bold text-white shadow-md transition hover:bg-rose-700 active:scale-95 cursor-pointer">
+                        Ya, Keluar
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- ================= QUIZ JAVASCRIPT STATE ENGINE ================= -->
     <script>
         // Server state injected safely
@@ -952,6 +909,16 @@
 
             currentQuestionNumber = num;
             renderQuestionState(target);
+
+            // Update Header progress indicator
+            const progText = document.getElementById('header-progress-text');
+            if (progText) progText.innerText = `Soal ${target.number} dari ${totalQuestions}`;
+            const lvlBadge = document.getElementById('header-level-badge');
+            if (lvlBadge) {
+                lvlBadge.innerText = target.level;
+                lvlBadge.className = 'text-[10px] font-black uppercase px-2 py-0.5 rounded-full ' + 
+                    (target.level === 'Mudah' ? 'bg-emerald-100 text-emerald-800' : (target.level === 'Sedang' ? 'bg-amber-100 text-amber-800' : 'bg-rose-100 text-rose-800'));
+            }
         }
 
         // --- Next Question Navigation ---
@@ -1127,6 +1094,22 @@
 
             document.getElementById('modal-review').classList.remove('hidden');
             document.getElementById('modal-review').classList.add('flex');
+        }
+
+        function openExitModal() {
+            const modal = document.getElementById('exitModal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            }
+        }
+
+        function closeExitModal() {
+            const modal = document.getElementById('exitModal');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
         }
 
         function closeModal(id) {

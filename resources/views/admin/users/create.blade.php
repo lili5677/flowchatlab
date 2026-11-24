@@ -11,7 +11,7 @@
 @endsection
 
 @section('content')
-<div class="max-w-2xl mx-auto">
+<div class="w-full">
     <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-2xs">
         <form action="{{ route('admin.users.store') }}" method="POST" class="space-y-5">
             @csrf

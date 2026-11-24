@@ -51,7 +51,7 @@ class QuizService
         $sulit = Question::where('level', 'Sulit')->inRandomOrder()->limit(5)->get();
 
         if ($mudah->count() < 8 || $sedang->count() < 7 || $sulit->count() < 5) {
-            $selectedQuestions = Question::orderBy('question_number')->limit(20)->get();
+            $selectedQuestions = Question::inRandomOrder()->limit(20)->get();
         } else {
             $selectedQuestions = $mudah->concat($sedang)->concat($sulit);
         }
@@ -90,11 +90,11 @@ class QuizService
      */
     public function getAttemptQuestionIds(QuizAttempt $attempt): array
     {
-        if (! empty($attempt->question_ids) && is_array($attempt->question_ids) && count($attempt->question_ids) === 20) {
+        if (! empty($attempt->question_ids) && is_array($attempt->question_ids) && count($attempt->question_ids) > 0) {
             return $attempt->question_ids;
         }
 
-        return Question::orderBy('question_number')->limit(20)->pluck('id')->all();
+        return Question::inRandomOrder()->limit(20)->pluck('id')->all();
     }
 
     /**

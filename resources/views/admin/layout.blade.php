@@ -22,12 +22,12 @@
         }
     </style>
 </head>
-<body class="h-full text-slate-900 antialiased selection:bg-amber-200 selection:text-amber-900 flex flex-col md:flex-row overflow-x-hidden">
+<body class="h-screen w-screen overflow-hidden bg-slate-50 text-slate-900 antialiased selection:bg-amber-200 selection:text-amber-900 flex flex-col md:flex-row" style="height: 100vh; max-height: 100vh; overflow: hidden;">
 
     <!-- ================= SIDEBAR (DESKTOP) ================= -->
-    <aside class="hidden md:flex md:w-64 lg:w-72 flex-col bg-slate-900 text-white shrink-0 border-r border-slate-800">
+    <aside class="hidden md:flex flex-col w-64 lg:w-72 shrink-0 bg-slate-900 text-white border-r border-slate-800 sticky top-0 h-screen z-30 select-none" style="width: 18rem; min-width: 18rem; max-width: 18rem; height: 100vh; max-height: 100vh; flex-shrink: 0;">
         <!-- Logo & Brand -->
-        <div class="h-20 px-6 flex items-center gap-3 border-b border-slate-800/80">
+        <div class="h-20 px-6 flex items-center gap-3 border-b border-slate-800/80 shrink-0">
             <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 group">
                 <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-8 h-8 group-hover:scale-105 transition-transform">
                 <div class="flex flex-col">
@@ -68,6 +68,38 @@
                 <span>Progress Siswa</span>
             </a>
 
+            <div class="pt-4 px-3 pb-2 text-[10px] font-black uppercase tracking-wider text-slate-400">Konten & Soal</div>
+
+            <!-- Manajemen Quiz Pengetahuan -->
+            <a href="{{ route('admin.quiz-pengetahuan.index') }}"
+               class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition {{ request()->routeIs('admin.quiz-pengetahuan.*') ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20' : 'text-slate-300 hover:text-white hover:bg-slate-800/70' }}">
+                <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                </svg>
+                <span>Quiz Pengetahuan</span>
+            </a>
+
+            <!-- Manajemen Quiz Keterampilan -->
+            <a href="{{ route('admin.quiz-keterampilan.index') }}"
+               class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition {{ request()->routeIs('admin.quiz-keterampilan.*') ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20' : 'text-slate-300 hover:text-white hover:bg-slate-800/70' }}">
+                <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16"/>
+                </svg>
+                <span>Quiz Keterampilan</span>
+            </a>
+
+            <!-- Manajemen Simulasi -->
+            <a href="{{ route('admin.simulasi.index') }}"
+               class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition {{ request()->routeIs('admin.simulasi.*') ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20' : 'text-slate-300 hover:text-white hover:bg-slate-800/70' }}">
+                <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <span>Simulasi Flowchart</span>
+            </a>
+
+            <div class="pt-4 px-3 pb-2 text-[10px] font-black uppercase tracking-wider text-slate-400">Sistem</div>
+
             <!-- Log Aktifitas -->
             <a href="{{ route('admin.activity-logs.index') }}"
                class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition {{ request()->routeIs('admin.activity-logs.*') ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20' : 'text-slate-300 hover:text-white hover:bg-slate-800/70' }}">
@@ -90,7 +122,7 @@
         </nav>
 
         <!-- Admin Profile & Logout in Sidebar Footer -->
-        <div class="p-4 border-t border-slate-800 bg-slate-950/50">
+        <div class="p-4 border-t border-slate-800 bg-slate-950/50 shrink-0">
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-2.5 min-w-0">
                     <div class="w-8 h-8 rounded-full bg-amber-400 text-slate-950 font-black flex items-center justify-center text-xs shrink-0">
@@ -130,6 +162,9 @@
             <a href="{{ route('admin.dashboard') }}" class="block px-3 py-2 rounded-lg text-xs font-bold {{ request()->routeIs('admin.dashboard') ? 'bg-amber-500 text-slate-950' : 'text-slate-200' }}">Dashboard</a>
             <a href="{{ route('admin.users.index') }}" class="block px-3 py-2 rounded-lg text-xs font-bold {{ request()->routeIs('admin.users.*') ? 'bg-amber-500 text-slate-950' : 'text-slate-200' }}">Manajemen User</a>
             <a href="{{ route('admin.progress.index') }}" class="block px-3 py-2 rounded-lg text-xs font-bold {{ request()->routeIs('admin.progress.*') ? 'bg-amber-500 text-slate-950' : 'text-slate-200' }}">Progress Siswa</a>
+            <a href="{{ route('admin.quiz-pengetahuan.index') }}" class="block px-3 py-2 rounded-lg text-xs font-bold {{ request()->routeIs('admin.quiz-pengetahuan.*') ? 'bg-amber-500 text-slate-950' : 'text-slate-200' }}">Quiz Pengetahuan</a>
+            <a href="{{ route('admin.quiz-keterampilan.index') }}" class="block px-3 py-2 rounded-lg text-xs font-bold {{ request()->routeIs('admin.quiz-keterampilan.*') ? 'bg-amber-500 text-slate-950' : 'text-slate-200' }}">Quiz Keterampilan</a>
+            <a href="{{ route('admin.simulasi.index') }}" class="block px-3 py-2 rounded-lg text-xs font-bold {{ request()->routeIs('admin.simulasi.*') ? 'bg-amber-500 text-slate-950' : 'text-slate-200' }}">Simulasi Flowchart</a>
             <a href="{{ route('admin.activity-logs.index') }}" class="block px-3 py-2 rounded-lg text-xs font-bold {{ request()->routeIs('admin.activity-logs.*') ? 'bg-amber-500 text-slate-950' : 'text-slate-200' }}">Log Aktifitas</a>
             <a href="{{ route('home') }}" class="block px-3 py-2 rounded-lg text-xs font-semibold text-amber-400">Kembali ke Website Lab</a>
             <form action="{{ route('logout') }}" method="POST" class="pt-2">
@@ -140,7 +175,7 @@
     </div>
 
     <!-- ================= MAIN CONTENT AREA ================= -->
-    <div class="flex-1 flex flex-col min-h-screen min-w-0 bg-slate-50">
+    <div class="flex-1 flex flex-col h-full min-w-0 overflow-y-auto bg-slate-50" style="height: 100vh; max-height: 100vh; min-width: 0; flex: 1; overflow-y: auto;">
         <!-- Top App Bar -->
         <header class="h-20 bg-white border-b border-slate-200/80 px-4 sm:px-8 flex items-center justify-between shrink-0">
             <div>

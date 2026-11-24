@@ -2,12 +2,23 @@
 
 namespace App\Services;
 
+use App\Models\KeterampilanTask;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Schema;
 use RuntimeException;
+use Throwable;
 
 class KeterampilanBankService
 {
     protected ?array $cache = null;
+
+    /**
+     * Clear loaded cache.
+     */
+    public function clearCache(): void
+    {
+        $this->cache = null;
+    }
 
     /**
      * Get the absolute path to the question bank JSON file.
@@ -18,7 +29,7 @@ class KeterampilanBankService
     }
 
     /**
-     * Load all data from bank_ks.json.
+     * Load all data from DB or bank_ks.json fallback.
      *
      * @return array<string, mixed>
      */
@@ -26,6 +37,42 @@ class KeterampilanBankService
     {
         if ($this->cache !== null) {
             return $this->cache;
+        }
+
+        try {
+            if (Schema::hasTable('keterampilan_tasks') && KeterampilanTask::count() > 0) {
+                $tasks = KeterampilanTask::orderBy('level')->orderBy('kode')->get();
+                $levelGroups = [
+                    1 => ['level' => 1, 'nama_level' => 'Mudah', 'deskripsi' => 'Algoritma sekuensial sederhana tanpa percabangan', 'tugas' => []],
+                    2 => ['level' => 2, 'nama_level' => 'Sedang', 'deskripsi' => 'Algoritma dengan percabangan (decision) sederhana', 'tugas' => []],
+                    3 => ['level' => 3, 'nama_level' => 'Sulit', 'deskripsi' => 'Algoritma kompleks dengan percabangan bertingkat atau perulangan', 'tugas' => []],
+                ];
+
+                foreach ($tasks as $task) {
+                    $lvl = (int) $task->level;
+                    if (! isset($levelGroups[$lvl])) {
+                        $levelGroups[$lvl] = [
+                            'level' => $lvl,
+                            'nama_level' => $task->nama_level ?: "Level {$lvl}",
+                            'deskripsi' => '',
+                            'tugas' => [],
+                        ];
+                    }
+                    $levelGroups[$lvl]['tugas'][] = [
+                        'id' => $task->id,
+                        'kode' => $task->kode,
+                        'judul' => $task->judul,
+                        'soal' => $task->soal,
+                        'langkah' => $task->langkah ?? [],
+                    ];
+                }
+
+                $this->cache = ['levels' => array_values($levelGroups)];
+
+                return $this->cache;
+            }
+        } catch (Throwable $e) {
+            // Fallback to json if table query fails
         }
 
         $filePath = $this->getBankFilePath();
@@ -65,6 +112,25 @@ class KeterampilanBankService
      */
     public function findTaskByCode(string $code): ?array
     {
+        try {
+            if (Schema::hasTable('keterampilan_tasks')) {
+                $task = KeterampilanTask::where('kode', $code)->first();
+                if ($task) {
+                    return [
+                        'id' => $task->id,
+                        'kode' => $task->kode,
+                        'level' => (int) $task->level,
+                        'nama_level' => $task->nama_level ?: 'Mudah',
+                        'judul' => $task->judul,
+                        'soal' => $task->soal,
+                        'langkah' => $task->langkah ?? [],
+                    ];
+                }
+            }
+        } catch (Throwable $e) {
+            // fallback
+        }
+
         $levels = $this->getLevels();
 
         foreach ($levels as $level) {

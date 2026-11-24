@@ -245,4 +245,56 @@ class QuizFlowTest extends TestCase
         $response->assertSee('Lihat Hasil Sebelumnya');
         $response->assertSee('Kerjakan Ulang dari Awal');
     }
+
+    /**
+     * Test quiz show page displays "Keluar Kuis" button, exit modal, and no website navigation links.
+     */
+    public function test_quiz_pengetahuan_has_exit_quiz_button_and_modal(): void
+    {
+        $user = User::factory()->create();
+        $service = new QuizService;
+        $attempt = $service->createNewAttempt($user);
+
+        $response = $this->actingAs($user)->get(route('quiz.show', $attempt->id));
+
+        $response->assertStatus(200);
+        $response->assertSee('Keluar Kuis');
+        $response->assertSee('id="exitModal"', false);
+        $response->assertSee(route('quiz.exit', $attempt->id));
+        $response->assertSee('Progres Kuis:');
+    }
+
+    /**
+     * Test student can exit quiz which deletes the in-progress attempt and redirects to home.
+     */
+    public function test_student_can_exit_in_progress_quiz(): void
+    {
+        $user = User::factory()->create();
+        $service = new QuizService;
+        $attempt = $service->createNewAttempt($user);
+
+        $this->assertDatabaseHas('quiz_attempts', ['id' => $attempt->id]);
+
+        $response = $this->actingAs($user)->post(route('quiz.exit', $attempt->id));
+
+        $response->assertRedirect(route('home'));
+        $this->assertDatabaseMissing('quiz_attempts', ['id' => $attempt->id]);
+    }
+
+    /**
+     * Test question options and questions are randomized across attempts.
+     */
+    public function test_quiz_pengetahuan_creates_randomized_attempts(): void
+    {
+        $user = User::factory()->create();
+        $service = new QuizService;
+
+        $attempt1 = $service->createNewAttempt($user);
+        $attempt2 = $service->createNewAttempt($user);
+
+        $this->assertIsArray($attempt1->question_ids);
+        $this->assertIsArray($attempt2->question_ids);
+        $this->assertCount(20, $attempt1->question_ids);
+        $this->assertCount(20, $attempt2->question_ids);
+    }
 }

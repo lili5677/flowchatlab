@@ -195,6 +195,23 @@ class QuizController extends Controller
     }
 
     /**
+     * Exit and reset current active quiz attempt.
+     */
+    public function exit(QuizAttempt $attempt, Request $request): RedirectResponse
+    {
+        if ($attempt->user_id !== $request->user()->id) {
+            abort(403, 'Akses tidak diizinkan.');
+        }
+
+        if ($attempt->status === 'in_progress') {
+            $attempt->answers()->delete();
+            $attempt->delete();
+        }
+
+        return redirect()->route('home');
+    }
+
+    /**
      * Display the quiz result screen.
      */
     public function result(QuizAttempt $attempt, Request $request): View|RedirectResponse

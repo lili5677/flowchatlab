@@ -87,47 +87,124 @@
                 </div>
             </nav>
 
-            <!-- Right: User Profile -->
+            <!-- Right: User Profile & Auth -->
             <div class="flex items-center gap-3 sm:gap-4">
+                @guest
+                    <!-- Guest: Quick Login Button -->
+                    <a href="{{ route('login') }}" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-extrabold bg-amber-400 hover:bg-amber-500 text-slate-950 transition shadow-2xs">
+                        <span>Masuk</span>
+                        <span>&rarr;</span>
+                    </a>
+                @endguest
 
-                <!-- User Profile Info -->
-                <div class="flex items-center gap-2.5 pl-1 sm:pl-2">
-                    @auth
-                        <div class="text-right hidden sm:block">
-                            <div class="font-extrabold text-[13px] text-slate-900 leading-tight">{{ Auth::user()->name }}</div>
-                            <div class="mt-0.5 flex items-center justify-end gap-1.5">
-                                @if(Auth::user()->isAdmin())
-                                    <a href="{{ route('admin.dashboard') }}" class="bg-indigo-600 hover:bg-indigo-700 text-white font-black text-[9px] px-2 py-0.5 rounded uppercase tracking-wider inline-block transition">
-                                        Panel Admin &rarr;
-                                    </a>
-                                @else
-                                    <span class="bg-[#FEE3A2] text-[#9A3412] font-black text-[9px] px-2 py-0.5 rounded uppercase tracking-wider inline-block">
-                                        {{ Auth::user()->role === 'guru' ? 'Guru SMK' : 'Siswa SMK' }}
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-                    @endauth
-
-                    <!-- User Avatar -->
-                    <div class="relative group cursor-pointer" onclick="openProfileModal()" title="Profil">
-                        <div class="w-9 h-9 rounded-full ring-2 ring-sky-300 ring-offset-2 overflow-hidden bg-sky-50 flex items-center justify-center shrink-0 shadow-2xs hover:ring-sky-400 transition">
-                            <!-- Clean SVG Avatar -->
-                            <svg class="w-full h-full text-sky-800" viewBox="0 0 40 40" fill="none">
-                                <circle cx="20" cy="20" r="20" fill="#E0F2FE" />
-                                <circle cx="20" cy="15" r="7" fill="#FBCFE8" />
-                                <path d="M20 9C15 9 14 13 14 15C14 16 15 17 20 17C25 17 26 16 26 15C26 13 25 9 20 9Z" fill="#1E293B" />
-                                <!-- Uniform & Tie -->
-                                <path d="M9 36C9 28 14 25 20 25C26 25 31 28 31 36" fill="#FFFFFF" />
-                                <path d="M18 25L20 31L22 25" fill="#0284C7" />
-                                <circle cx="18" cy="14" r="1" fill="#0F172A" />
-                                <circle cx="22" cy="14" r="1" fill="#0F172A" />
-                                <path d="M18.5 17C19 18 21 18 21.5 17" stroke="#0F172A" stroke-width="0.8" stroke-linecap="round" />
-                            </svg>
-                        </div>
+                <!-- User Profile Container (Hover Dropdown + Click) -->
+                <div class="relative group" id="profile-dropdown-wrapper" onmouseenter="openProfileDropdown()" onmouseleave="closeProfileDropdown()">
+                    <div class="flex items-center gap-2.5 pl-1 sm:pl-2 cursor-pointer py-1" onclick="handleProfileClick(event)">
                         @auth
-                            <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 border-2 border-white rounded-full"></span>
+                            <div class="text-right hidden sm:block">
+                                <div class="font-extrabold text-[13px] text-slate-900 leading-tight">{{ Auth::user()->name }}</div>
+                                <div class="mt-0.5 flex items-center justify-end gap-1.5">
+                                    @if(Auth::user()->isAdmin())
+                                        <span class="bg-amber-100 text-amber-900 border border-amber-300 font-black text-[9px] px-2 py-0.5 rounded uppercase tracking-wider inline-flex items-center gap-1">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                                            Admin
+                                        </span>
+                                    @else
+                                        <span class="bg-[#FEE3A2] text-[#9A3412] font-black text-[9px] px-2 py-0.5 rounded uppercase tracking-wider inline-block">
+                                            {{ Auth::user()->role === 'guru' ? 'Guru SMK' : 'Siswa SMK' }}
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
                         @endauth
+
+                        <!-- User Avatar -->
+                        <div class="relative cursor-pointer" onclick="event.stopPropagation(); @auth handleProfileClick(event) @else openProfileModal() @endauth;" title="{{ Auth::check() ? Auth::user()->name : 'Klik untuk Masuk Akun' }}">
+                            <div class="w-9 h-9 rounded-full ring-2 {{ Auth::check() && Auth::user()->isAdmin() ? 'ring-amber-400 bg-amber-50' : 'ring-sky-300 bg-sky-50' }} ring-offset-2 overflow-hidden flex items-center justify-center shrink-0 shadow-2xs hover:ring-amber-400 transition">
+                                <svg class="w-full h-full text-sky-800" viewBox="0 0 40 40" fill="none">
+                                    <circle cx="20" cy="20" r="20" fill="{{ Auth::check() && Auth::user()->isAdmin() ? '#FEF3C7' : '#E0F2FE' }}" />
+                                    <circle cx="20" cy="15" r="7" fill="#FBCFE8" />
+                                    <path d="M20 9C15 9 14 13 14 15C14 16 15 17 20 17C25 17 26 16 26 15C26 13 25 9 20 9Z" fill="#1E293B" />
+                                    <path d="M9 36C9 28 14 25 20 25C26 25 31 28 31 36" fill="#FFFFFF" />
+                                    <path d="M18 25L20 31L22 25" fill="{{ Auth::check() && Auth::user()->isAdmin() ? '#D97706' : '#0284C7' }}" />
+                                    <circle cx="18" cy="14" r="1" fill="#0F172A" />
+                                    <circle cx="22" cy="14" r="1" fill="#0F172A" />
+                                    <path d="M18.5 17C19 18 21 18 21.5 17" stroke="#0F172A" stroke-width="0.8" stroke-linecap="round" />
+                                </svg>
+                            </div>
+                            @auth
+                                <span class="absolute bottom-0 right-0 w-2.5 h-2.5 {{ Auth::user()->isAdmin() ? 'bg-amber-500' : 'bg-emerald-500' }} border-2 border-white rounded-full"></span>
+                            @endauth
+                        </div>
+                    </div>
+
+                    <!-- Profile Dropdown (Hover & Click Menu) -->
+                    <div id="profile-dropdown-menu" class="absolute right-0 top-full pt-1.5 w-72 hidden group-hover:block transition-all duration-150 z-50">
+                        <div class="bg-white rounded-2xl shadow-xl border border-slate-200/90 p-3.5 text-slate-800 space-y-3">
+                            @auth
+                                <!-- Header Identitas Akun -->
+                                <div class="px-2 py-1 border-b border-slate-100 pb-2.5">
+                                    <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Akun Masuk</div>
+                                    <div class="font-black text-sm text-slate-900 truncate">{{ Auth::user()->name }}</div>
+                                    <div class="text-xs text-slate-500 truncate">{{ Auth::user()->email }}</div>
+                                    <div class="mt-1.5">
+                                        @if(Auth::user()->isAdmin())
+                                            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-50 text-amber-900 border border-amber-200">
+                                                <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                                                Administrator Flowchart Lab
+                                            </span>
+                                        @else
+                                            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-sky-50 text-sky-800 border border-sky-200">
+                                                {{ Auth::user()->role === 'guru' ? 'Guru Pembimbing' : 'Siswa SMK' }}
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <!-- Action: Tombol Masuk Panel Khusus Admin -->
+                                @if(Auth::user()->isAdmin())
+                                    <div class="p-0.5">
+                                        <a href="{{ route('admin.dashboard') }}" class="flex items-center justify-between gap-3 w-full px-4 py-3 bg-gradient-to-r from-slate-900 via-slate-850 to-slate-900 hover:from-slate-800 hover:to-slate-750 text-amber-400 font-black text-xs rounded-xl shadow-md border border-slate-800 transition transform hover:-translate-y-0.5">
+                                            <div class="flex items-center gap-2.5">
+                                                <div class="w-7 h-7 rounded-lg bg-amber-400/20 text-amber-300 flex items-center justify-center text-sm font-bold">
+                                                    ⚙️
+                                                </div>
+                                                <div class="text-left">
+                                                    <span class="block text-white font-extrabold text-xs leading-tight">Panel Administrator</span>
+                                                    <span class="block text-[10px] text-amber-300 font-normal">Kelola Soal, Kasus & Siswa</span>
+                                                </div>
+                                            </div>
+                                            <span class="text-amber-400 font-extrabold text-sm">&rarr;</span>
+                                        </a>
+                                    </div>
+                                @endif
+
+                                <!-- Secondary Links -->
+                                <div class="space-y-1 pt-1 border-t border-slate-100">
+                                    <button type="button" onclick="closeProfileDropdown(); openProfileModal();" class="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-100 flex items-center gap-2.5 transition cursor-pointer">
+                                        <span>👤</span>
+                                        <span>Buka Detail Profil</span>
+                                    </button>
+                                    <form action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-rose-600 hover:bg-rose-50 flex items-center gap-2.5 transition cursor-pointer">
+                                            <span>🚪</span>
+                                            <span>Keluar (Logout)</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            @else
+                                <div class="p-2 text-center space-y-2.5">
+                                    <p class="text-xs text-slate-600 font-medium">Anda belum masuk akun</p>
+                                    <a href="{{ route('login') }}" class="block w-full py-2.5 bg-amber-400 hover:bg-amber-500 text-slate-950 font-extrabold text-xs rounded-xl transition shadow-sm">
+                                        Masuk ke Akun
+                                    </a>
+                                    <a href="{{ route('register') }}" class="block w-full py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition">
+                                        Daftar Akun Baru
+                                    </a>
+                                </div>
+                            @endauth
+                        </div>
                     </div>
                 </div>
 
@@ -713,7 +790,28 @@
             if (wrapper && !wrapper.contains(e.target)) {
                 closeQuizDropdown();
             }
+            const pWrapper = document.getElementById('profile-dropdown-wrapper');
+            if (pWrapper && !pWrapper.contains(e.target)) {
+                closeProfileDropdown();
+            }
         });
+
+        function openProfileDropdown() {
+            const menu = document.getElementById('profile-dropdown-menu');
+            if (menu) menu.classList.remove('hidden');
+        }
+
+        function closeProfileDropdown() {
+            const menu = document.getElementById('profile-dropdown-menu');
+            if (menu) menu.classList.add('hidden');
+        }
+
+        function handleProfileClick(event) {
+            const menu = document.getElementById('profile-dropdown-menu');
+            if (menu) {
+                menu.classList.toggle('hidden');
+            }
+        }
 
         function openSimulationQuickModal() {
             document.getElementById('modal-simulasi').classList.remove('hidden');

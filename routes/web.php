@@ -3,10 +3,15 @@
 use App\Http\Controllers\Admin\AdminActivityLogController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminProgressController;
+use App\Http\Controllers\Admin\AdminQuizKeterampilanController;
+use App\Http\Controllers\Admin\AdminQuizPengetahuanController;
+use App\Http\Controllers\Admin\AdminSimulationController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\QuizKeterampilanController;
+use App\Models\Simulation;
+use Database\Seeders\SimulationSeeder;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -31,7 +36,13 @@ Route::get('/quiz/keterampilan/hasil', [QuizKeterampilanController::class, 'hasi
 Route::post('/quiz/keterampilan/reset', [QuizKeterampilanController::class, 'reset'])->name('quiz.keterampilan.reset');
 
 Route::get('/simulasi', function () {
-    return view('simulasi');
+    $simulations = Simulation::where('is_active', true)->orderBy('order')->orderBy('level_number')->get();
+    if ($simulations->isEmpty()) {
+        (new SimulationSeeder)->run();
+        $simulations = Simulation::where('is_active', true)->orderBy('order')->orderBy('level_number')->get();
+    }
+
+    return view('simulasi', compact('simulations'));
 })->name('simulasi');
 
 // Authentication Routes
@@ -51,6 +62,7 @@ Route::middleware('auth')->prefix('quiz')->name('quiz.')->group(function () {
     Route::get('/{attempt}', [QuizController::class, 'show'])->name('show');
     Route::post('/{attempt}/answer', [QuizController::class, 'answer'])->name('answer');
     Route::post('/{attempt}/finish', [QuizController::class, 'finish'])->name('finish');
+    Route::post('/{attempt}/exit', [QuizController::class, 'exit'])->name('exit');
     Route::get('/hasil/{attempt}', [QuizController::class, 'result'])->name('result');
 });
 
@@ -60,6 +72,15 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     // User Management
     Route::resource('users', AdminUserController::class);
+
+    // Manajemen Quiz Pengetahuan
+    Route::resource('quiz-pengetahuan', AdminQuizPengetahuanController::class);
+
+    // Manajemen Quiz Keterampilan
+    Route::resource('quiz-keterampilan', AdminQuizKeterampilanController::class);
+
+    // Manajemen Simulasi
+    Route::resource('simulasi', AdminSimulationController::class);
 
     // Progress Siswa & Statistik
     Route::get('/progress', [AdminProgressController::class, 'index'])->name('progress.index');

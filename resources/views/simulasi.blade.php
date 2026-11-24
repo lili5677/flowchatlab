@@ -144,43 +144,119 @@
                 </div>
             </nav>
 
-            <!-- Right: User Profile -->
+            <!-- Right: User Profile & Auth -->
             <div class="flex items-center gap-3 sm:gap-4">
-                <div class="flex items-center gap-2.5 pl-1 sm:pl-2">
-                    @auth
-                        <div class="text-right hidden sm:block">
-                            <div class="font-extrabold text-[13px] text-slate-900 leading-tight">{{ Auth::user()->name }}</div>
-                            <div class="mt-0.5 flex items-center justify-end gap-1.5">
-                                @if(Auth::user()->isAdmin())
-                                    <a href="{{ route('admin.dashboard') }}" class="bg-indigo-600 hover:bg-indigo-700 text-white font-black text-[9px] px-2 py-0.5 rounded uppercase tracking-wider inline-block transition">
-                                        Panel Admin &rarr;
-                                    </a>
-                                @else
-                                    <span class="bg-[#FEE3A2] text-[#9A3412] font-black text-[9px] px-2 py-0.5 rounded uppercase tracking-wider inline-block">
-                                        {{ Auth::user()->role === 'guru' ? 'Guru SMK' : 'Siswa SMK' }}
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-                    @endauth
+                @guest
+                    <!-- Guest: Quick Login Button -->
+                    <a href="{{ route('login') }}" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-extrabold bg-amber-400 hover:bg-amber-500 text-slate-950 transition shadow-2xs">
+                        <span>Masuk</span>
+                        <span>&rarr;</span>
+                    </a>
+                @endguest
 
-                    <!-- User Avatar -->
-                    <div class="relative group cursor-pointer" onclick="openProfileModal()" title="Profil">
-                        <div class="w-9 h-9 rounded-full ring-2 ring-sky-300 ring-offset-2 overflow-hidden bg-sky-50 flex items-center justify-center shrink-0 shadow-2xs hover:ring-sky-400 transition">
-                            <svg class="w-full h-full text-sky-800" viewBox="0 0 40 40" fill="none">
-                                <circle cx="20" cy="20" r="20" fill="#E0F2FE" />
-                                <circle cx="20" cy="15" r="7" fill="#FBCFE8" />
-                                <path d="M20 9C15 9 14 13 14 15C14 16 15 17 20 17C25 17 26 16 26 15C26 13 25 9 20 9Z" fill="#1E293B" />
-                                <path d="M9 36C9 28 14 25 20 25C26 25 31 28 31 36" fill="#FFFFFF" />
-                                <path d="M18 25L20 31L22 25" fill="#0284C7" />
-                                <circle cx="18" cy="14" r="1" fill="#0F172A" />
-                                <circle cx="22" cy="14" r="1" fill="#0F172A" />
-                                <path d="M18.5 17C19 18 21 18 21.5 17" stroke="#0F172A" stroke-width="0.8" stroke-linecap="round" />
-                            </svg>
-                        </div>
+                <!-- User Profile Container (Hover Dropdown + Click) -->
+                <div class="relative group" id="profile-dropdown-wrapper" onmouseenter="openProfileDropdown()" onmouseleave="closeProfileDropdown()">
+                    <div class="flex items-center gap-2.5 pl-1 sm:pl-2 cursor-pointer py-1" onclick="handleProfileClick(event)">
                         @auth
-                            <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 border-2 border-white rounded-full"></span>
+                            <div class="text-right hidden sm:block">
+                                <div class="font-extrabold text-[13px] text-slate-900 leading-tight">{{ Auth::user()->name }}</div>
+                                <div class="mt-0.5 flex items-center justify-end gap-1.5">
+                                    @if(Auth::user()->isAdmin())
+                                        <span class="bg-amber-100 text-amber-900 border border-amber-300 font-black text-[9px] px-2 py-0.5 rounded uppercase tracking-wider inline-flex items-center gap-1">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                                            Admin
+                                        </span>
+                                    @else
+                                        <span class="bg-[#FEE3A2] text-[#9A3412] font-black text-[9px] px-2 py-0.5 rounded uppercase tracking-wider inline-block">
+                                            {{ Auth::user()->role === 'guru' ? 'Guru SMK' : 'Siswa SMK' }}
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
                         @endauth
+
+                        <!-- User Avatar -->
+                        <div class="relative cursor-pointer" onclick="event.stopPropagation(); @auth handleProfileClick(event) @else openProfileModal() @endauth;" title="{{ Auth::check() ? Auth::user()->name : 'Klik untuk Masuk Akun' }}">
+                            <div class="w-9 h-9 rounded-full ring-2 {{ Auth::check() && Auth::user()->isAdmin() ? 'ring-amber-400 bg-amber-50' : 'ring-sky-300 bg-sky-50' }} ring-offset-2 overflow-hidden flex items-center justify-center shrink-0 shadow-2xs hover:ring-amber-400 transition">
+                                <svg class="w-full h-full text-sky-800" viewBox="0 0 40 40" fill="none">
+                                    <circle cx="20" cy="20" r="20" fill="{{ Auth::check() && Auth::user()->isAdmin() ? '#FEF3C7' : '#E0F2FE' }}" />
+                                    <circle cx="20" cy="15" r="7" fill="#FBCFE8" />
+                                    <path d="M20 9C15 9 14 13 14 15C14 16 15 17 20 17C25 17 26 16 26 15C26 13 25 9 20 9Z" fill="#1E293B" />
+                                    <path d="M9 36C9 28 14 25 20 25C26 25 31 28 31 36" fill="#FFFFFF" />
+                                    <path d="M18 25L20 31L22 25" fill="{{ Auth::check() && Auth::user()->isAdmin() ? '#D97706' : '#0284C7' }}" />
+                                    <circle cx="18" cy="14" r="1" fill="#0F172A" />
+                                    <circle cx="22" cy="14" r="1" fill="#0F172A" />
+                                    <path d="M18.5 17C19 18 21 18 21.5 17" stroke="#0F172A" stroke-width="0.8" stroke-linecap="round" />
+                                </svg>
+                            </div>
+                            @auth
+                                <span class="absolute bottom-0 right-0 w-2.5 h-2.5 {{ Auth::user()->isAdmin() ? 'bg-amber-500' : 'bg-emerald-500' }} border-2 border-white rounded-full"></span>
+                            @endauth
+                        </div>
+                    </div>
+
+                    <!-- Profile Dropdown (Hover & Click Menu) -->
+                    <div id="profile-dropdown-menu" class="absolute right-0 top-full pt-1.5 w-72 hidden group-hover:block transition-all duration-150 z-50">
+                        <div class="bg-white rounded-2xl shadow-xl border border-slate-200/90 p-3.5 text-slate-800 space-y-3">
+                            @auth
+                                <!-- Header Identitas Akun -->
+                                <div class="px-2 py-1 border-b border-slate-100 pb-2.5">
+                                    <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Akun Masuk</div>
+                                    <div class="font-black text-sm text-slate-900 truncate">{{ Auth::user()->name }}</div>
+                                    <div class="text-xs text-slate-500 truncate">{{ Auth::user()->email }}</div>
+                                    <div class="mt-1.5">
+                                        @if(Auth::user()->isAdmin())
+                                            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-50 text-amber-900 border border-amber-200">
+                                                <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                                                Administrator Flowchart Lab
+                                            </span>
+                                        @else
+                                            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-sky-50 text-sky-800 border border-sky-200">
+                                                {{ Auth::user()->role === 'guru' ? 'Guru Pembimbing' : 'Siswa SMK' }}
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <!-- Action Buttons -->
+                                <div class="space-y-1">
+                                    @if(Auth::user()->isAdmin())
+                                        <a href="{{ route('admin.dashboard') }}" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-black bg-amber-500 hover:bg-amber-600 text-slate-950 transition shadow-xs">
+                                            <div class="flex items-center gap-2">
+                                                <span>⚙️</span>
+                                                <span>Panel Administrator</span>
+                                            </div>
+                                            <span>&rarr;</span>
+                                        </a>
+                                    @endif
+
+                                    <button type="button" onclick="closeProfileDropdown(); openProfileModal();" class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-100 transition cursor-pointer">
+                                        <span>👤</span>
+                                        <span>Buka Profil Lengkap</span>
+                                    </button>
+                                </div>
+
+                                <div class="border-t border-slate-100 pt-1">
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button type="submit" class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-rose-600 hover:bg-rose-50 transition cursor-pointer">
+                                            <span>🚪</span>
+                                            <span>Keluar (Logout)</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            @else
+                                <!-- Guest state -->
+                                <div class="px-2 py-1 text-center space-y-2">
+                                    <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center mx-auto text-base font-black">?</div>
+                                    <div class="text-xs font-bold text-slate-800">Belum Masuk Akun</div>
+                                    <p class="text-[11px] text-slate-500">Masuk untuk menyimpan riwayat quiz dan capaian materi kamu.</p>
+                                    <a href="{{ route('login') }}" class="block w-full py-2 px-3 rounded-xl bg-amber-400 hover:bg-amber-500 text-slate-950 font-black text-xs transition">
+                                        Masuk Akun Sekarang
+                                    </a>
+                                </div>
+                            @endauth
+                        </div>
                     </div>
                 </div>
 
@@ -236,9 +312,15 @@
                 <div class="flex items-center gap-3 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
                     <span class="text-xs font-extrabold text-slate-700 whitespace-nowrap">Pilih Simulasi:</span>
                     <div class="flex items-center gap-1.5 bg-slate-100 p-1 rounded-2xl border border-slate-200/80">
-                        <button type="button" onclick="loadSimulation(1)" id="level-btn-1" class="w-8 h-8 rounded-xl bg-amber-500 text-white flex items-center justify-center font-extrabold shadow-xs transition cursor-pointer">1</button>
-                        <button type="button" onclick="loadSimulation(2)" id="level-btn-2" class="w-8 h-8 rounded-xl bg-transparent text-slate-600 hover:bg-white hover:shadow-2xs flex items-center justify-center font-extrabold transition cursor-pointer">2</button>
-                        <button type="button" onclick="loadSimulation(3)" id="level-btn-3" class="w-8 h-8 rounded-xl bg-transparent text-slate-600 hover:bg-white hover:shadow-2xs flex items-center justify-center font-extrabold transition cursor-pointer">3</button>
+                        @if(isset($simulations) && $simulations->count() > 0)
+                            @foreach($simulations as $s)
+                                <button type="button" onclick="loadSimulation({{ $s->level_number }})" id="level-btn-{{ $s->level_number }}" class="w-8 h-8 rounded-xl {{ $loop->first ? 'bg-amber-500 text-white shadow-xs' : 'bg-transparent text-slate-600 hover:bg-white hover:shadow-2xs' }} flex items-center justify-center font-extrabold transition cursor-pointer">{{ $s->level_number }}</button>
+                            @endforeach
+                        @else
+                            <button type="button" onclick="loadSimulation(1)" id="level-btn-1" class="w-8 h-8 rounded-xl bg-amber-500 text-white flex items-center justify-center font-extrabold shadow-xs transition cursor-pointer">1</button>
+                            <button type="button" onclick="loadSimulation(2)" id="level-btn-2" class="w-8 h-8 rounded-xl bg-transparent text-slate-600 hover:bg-white hover:shadow-2xs flex items-center justify-center font-extrabold transition cursor-pointer">2</button>
+                            <button type="button" onclick="loadSimulation(3)" id="level-btn-3" class="w-8 h-8 rounded-xl bg-transparent text-slate-600 hover:bg-white hover:shadow-2xs flex items-center justify-center font-extrabold transition cursor-pointer">3</button>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -257,19 +339,22 @@
                             </span>
                             <div class="flex items-center gap-1.5">
                                 <span id="challenge-step-badge" class="bg-amber-100 text-amber-900 font-black text-xs px-3 py-1 rounded-full border border-amber-200">
-                                    1/3
+                                    {{ isset($simulations) && $simulations->count() > 0 ? '1/' . $simulations->count() : '1/3' }}
                                 </span>
                             </div>
                         </div>
 
+                        @php
+                            $firstSim = isset($simulations) && $simulations->count() > 0 ? $simulations->first() : null;
+                        @endphp
                         <!-- Level Title -->
                         <h2 id="challenge-title" class="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight leading-snug mb-3">
-                            Menentukan Kelulusan Nilai Siswa (KKM &ge; 75)
+                            {{ $firstSim ? $firstSim->title : 'Menentukan Kelulusan Nilai Siswa (KKM ≥ 75)' }}
                         </h2>
 
                         <!-- Level Description -->
                         <p id="challenge-desc" class="text-xs sm:text-[13px] text-slate-600 leading-relaxed mb-6">
-                            Sebuah sistem harus mengevaluasi nilai siswa. Jika nilai ujian minimal 75, cetak status <span class="bg-emerald-100 text-emerald-800 font-bold px-1.5 py-0.5 rounded text-xs">"Lulus"</span>. Lengkapi blok keputusan yang belum terpasang dan periksa kesesuaian alurnya.
+                            {!! $firstSim ? $firstSim->desc : 'Sebuah sistem harus mengevaluasi nilai siswa. Jika nilai ujian minimal 75, cetak status <span class="bg-emerald-100 text-emerald-800 font-bold px-1.5 py-0.5 rounded text-xs">"Lulus"</span>. Lengkapi blok keputusan yang belum terpasang dan periksa kesesuaian alurnya.' !!}
                         </p>
 
                         <!-- Action Button: Hanya Petunjuk (Tombol Reset telah dihapus) -->
@@ -686,6 +771,11 @@
 
     <!-- ================= JAVASCRIPT LOGIC ================= -->
     <script>
+        @php
+            $simsJson = isset($simulations) && $simulations->count() > 0 ? $simulations->values() : [];
+        @endphp
+        const DB_SIMULATIONS = @json($simsJson);
+
         /* ================= SIMULATION CONFIGURATION ================= */
         const SIMULATION_CONFIG = {
             1: {
@@ -693,6 +783,8 @@
                 title: 'Menentukan Kelulusan Nilai Siswa (KKM ≥ 75)',
                 desc: 'Sebuah sistem harus mengevaluasi nilai siswa. Jika nilai ujian minimal 75, cetak status <span class="bg-emerald-100 text-emerald-800 font-bold px-1.5 py-0.5 rounded text-xs">"Lulus"</span>. Lengkapi blok keputusan yang belum terpasang dan periksa kesesuaian alurnya.',
                 expectedSymbol: 'decision',
+                layoutType: 'branching',
+                configData: {},
                 slotPrompt: 'Klik / Pasang Simbol Keputusan',
                 slotConditionText: '< Nilai >= 75 ? >',
                 slotTextInside: 'Nilai >= 75 ?',
@@ -713,6 +805,8 @@
                 title: 'Menghitung Luas Persegi Panjang (L = p × l)',
                 desc: 'Sebuah sistem kalkulasi menerima input panjang dan lebar. Hitung luas dengan rumus <span class="bg-sky-100 text-sky-800 font-bold px-1.5 py-0.5 rounded text-xs">"Luas = p × l"</span>. Lengkapi blok proses perhitungan yang hilang agar program menghasilkan output yang akurat.',
                 expectedSymbol: 'process',
+                layoutType: 'sequential',
+                configData: {},
                 slotPrompt: 'Klik / Pasang Simbol Proses',
                 slotConditionText: '< Luas = Panjang * Lebar >',
                 slotTextInside: 'Luas = Panjang × Lebar',
@@ -733,6 +827,8 @@
                 title: 'Perulangan Menampilkan Angka (Loop While i ≤ 5)',
                 desc: 'Algoritma harus menampilkan angka 1 sampai 5 secara berurutan. Pasang blok penambahan counter <span class="bg-purple-100 text-purple-800 font-bold px-1.5 py-0.5 rounded text-xs">"i = i + 1"</span> agar loop berjalan teratur dan tidak menimbulkan perulangan tanpa henti (infinite loop).',
                 expectedSymbol: 'process',
+                layoutType: 'loop',
+                configData: {},
                 slotPrompt: 'Klik / Pasang Simbol Proses Counter',
                 slotConditionText: '< i = i + 1 (Increment) >',
                 slotTextInside: 'i = i + 1',
@@ -750,6 +846,32 @@
             }
         };
 
+        if (Array.isArray(DB_SIMULATIONS) && DB_SIMULATIONS.length > 0) {
+            const totalSim = DB_SIMULATIONS.length;
+            DB_SIMULATIONS.forEach((sim, idx) => {
+                const nextLvl = idx + 1 < totalSim ? DB_SIMULATIONS[idx + 1].level_number : DB_SIMULATIONS[0].level_number;
+                const nextText = idx + 1 < totalSim 
+                    ? `Lanjut ke Tantangan ${idx + 2}: ${DB_SIMULATIONS[idx + 1].title.split('(')[0]} →`
+                    : '🔄 Ulangi Dari Awal (Simulasi 1)';
+                SIMULATION_CONFIG[sim.level_number] = {
+                    stepBadge: `${idx + 1}/${totalSim}`,
+                    title: sim.title,
+                    desc: sim.desc,
+                    expectedSymbol: sim.expected_symbol,
+                    layoutType: sim.layout_type || 'branching',
+                    configData: sim.config_data || {},
+                    slotPrompt: sim.slot_prompt || 'Klik / Pasang Simbol',
+                    slotConditionText: sim.slot_condition_text || `< ${sim.slot_text_inside} >`,
+                    slotTextInside: sim.slot_text_inside,
+                    hintText: sim.hint_text,
+                    successTitle: sim.success_title,
+                    successDesc: sim.success_desc,
+                    nextLevel: nextLvl,
+                    nextBtnText: nextText
+                };
+            });
+        }
+
         let currentLevel = 1;
         let placedSymbol = null; // null | 'decision' | 'process' | 'io' | 'terminator'
         let currentZoom = 100;
@@ -766,7 +888,8 @@
             placedSymbol = null;
             isRunning = false;
 
-            const config = SIMULATION_CONFIG[levelNumber];
+            const config = SIMULATION_CONFIG[levelNumber] || SIMULATION_CONFIG[1];
+            if (!config) return;
 
             // Update Left Panel Badges & Text
             document.getElementById('challenge-step-badge').innerText = config.stepBadge;
@@ -777,10 +900,10 @@
             updatePaletteVisuals(null);
 
             // Update Level Tabs Buttons (1 Box dengan Status Eksekusi)
-            [1, 2, 3].forEach(lvl => {
+            Object.keys(SIMULATION_CONFIG).forEach(lvl => {
                 const btn = document.getElementById('level-btn-' + lvl);
                 if (btn) {
-                    if (lvl === currentLevel) {
+                    if (parseInt(lvl) === currentLevel) {
                         btn.className = 'w-8 h-8 rounded-xl bg-amber-500 text-white flex items-center justify-center font-extrabold shadow-xs transition cursor-pointer';
                     } else {
                         btn.className = 'w-8 h-8 rounded-xl bg-transparent text-slate-600 hover:bg-white hover:shadow-2xs flex items-center justify-center font-extrabold transition cursor-pointer';
@@ -798,7 +921,7 @@
             renderFlowchartArea();
 
             // Reset execution console
-            document.getElementById('console-logs').innerHTML = `<div>[0.00s] Simulasi ${levelNumber}/3 siap. Menunggu pemasangan simbol.</div>`;
+            document.getElementById('console-logs').innerHTML = `<div>[0.00s] Simulasi ${config.stepBadge} siap. Menunggu pemasangan simbol.</div>`;
             document.getElementById('console-badge').innerText = 'READY';
             document.getElementById('console-badge').className = 'bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded text-[10px]';
         }
@@ -806,12 +929,13 @@
         /* ================= RENDER FLOWCHART PER LEVEL ================= */
         function renderFlowchartArea() {
             const container = document.getElementById('flowchart-render-area');
-            if (currentLevel === 1) {
-                renderLevel1(container);
-            } else if (currentLevel === 2) {
-                renderLevel2(container);
-            } else if (currentLevel === 3) {
-                renderLevel3(container);
+            const config = SIMULATION_CONFIG[currentLevel] || {};
+            if (config.layoutType === 'sequential' || currentLevel === 2) {
+                renderLevel2(container, config);
+            } else if (config.layoutType === 'loop' || currentLevel === 3) {
+                renderLevel3(container, config);
+            } else {
+                renderLevel1(container, config);
             }
         }
 
@@ -1665,7 +1789,28 @@
             if (wrapper && !wrapper.contains(e.target)) {
                 closeQuizDropdown();
             }
+            const pWrapper = document.getElementById('profile-dropdown-wrapper');
+            if (pWrapper && !pWrapper.contains(e.target)) {
+                closeProfileDropdown();
+            }
         });
+
+        function openProfileDropdown() {
+            const menu = document.getElementById('profile-dropdown-menu');
+            if (menu) menu.classList.remove('hidden');
+        }
+
+        function closeProfileDropdown() {
+            const menu = document.getElementById('profile-dropdown-menu');
+            if (menu) menu.classList.add('hidden');
+        }
+
+        function handleProfileClick(event) {
+            const menu = document.getElementById('profile-dropdown-menu');
+            if (menu) {
+                menu.classList.toggle('hidden');
+            }
+        }
 
         function openQuizModal(type) {
             document.getElementById('modal-quiz').classList.remove('hidden');

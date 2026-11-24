@@ -104,7 +104,78 @@
 
     </div>
 
-    <!-- ================= STATISTIK DISTRIBUSI PREDIKAT ================= -->
+    <!-- ================= KELOLA KONTEN & BANK SOAL ================= -->
+    <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-2xs space-y-4">
+        <div class="flex items-center justify-between">
+            <div>
+                <h2 class="text-base font-extrabold text-slate-900">Manajemen Bank Soal & Simulasi</h2>
+                <p class="text-xs text-slate-500">Kelola soal kuis teori, kasus praktik keterampilan, dan tantangan simulasi flowchart.</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- Card Quiz Pengetahuan -->
+            <a href="{{ route('admin.quiz-pengetahuan.index') }}" class="group p-4 rounded-2xl border border-slate-200/90 hover:border-amber-400 bg-slate-50/50 hover:bg-white hover:shadow-md transition flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="w-8 h-8 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                            </svg>
+                        </span>
+                        <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">Teori</span>
+                    </div>
+                    <div class="text-sm font-extrabold text-slate-900 group-hover:text-amber-600 transition">Quiz Pengetahuan</div>
+                    <div class="text-xs text-slate-500 mt-1">Soal pilihan ganda teori simbol ANSI/ISO & logika.</div>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-200/60 flex items-center justify-between text-xs">
+                    <span class="font-extrabold text-slate-900">{{ $stats['totalQuestions'] }} Soal</span>
+                    <span class="font-bold text-amber-600 group-hover:translate-x-0.5 transition">Kelola &rarr;</span>
+                </div>
+            </a>
+
+            <!-- Card Quiz Keterampilan -->
+            <a href="{{ route('admin.quiz-keterampilan.index') }}" class="group p-4 rounded-2xl border border-slate-200/90 hover:border-emerald-400 bg-slate-50/50 hover:bg-white hover:shadow-md transition flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16"/>
+                            </svg>
+                        </span>
+                        <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">Praktik</span>
+                    </div>
+                    <div class="text-sm font-extrabold text-slate-900 group-hover:text-emerald-600 transition">Quiz Keterampilan</div>
+                    <div class="text-xs text-slate-500 mt-1">Studi kasus penyusunan blok urutan flowchart.</div>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-200/60 flex items-center justify-between text-xs">
+                    <span class="font-extrabold text-slate-900">{{ $stats['totalKeterampilanTasks'] }} Kasus</span>
+                    <span class="font-bold text-emerald-600 group-hover:translate-x-0.5 transition">Kelola &rarr;</span>
+                </div>
+            </a>
+
+            <!-- Card Simulasi Flowchart -->
+            <a href="{{ route('admin.simulasi.index') }}" class="group p-4 rounded-2xl border border-slate-200/90 hover:border-sky-400 bg-slate-50/50 hover:bg-white hover:shadow-md transition flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="w-8 h-8 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </span>
+                        <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-sky-100 text-sky-800">Interaktif</span>
+                    </div>
+                    <div class="text-sm font-extrabold text-slate-900 group-hover:text-sky-600 transition">Simulasi Flowchart</div>
+                    <div class="text-xs text-slate-500 mt-1">Level tantangan alur visual, slot, dan animasi.</div>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-200/60 flex items-center justify-between text-xs">
+                    <span class="font-extrabold text-slate-900">{{ $stats['totalSimulations'] }} Level</span>
+                    <span class="font-bold text-sky-600 group-hover:translate-x-0.5 transition">Kelola &rarr;</span>
+                </div>
+            </a>
+        </div>
+    </div>
     <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-2xs">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
             <div>

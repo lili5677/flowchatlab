@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\ActivityLog;
+use App\Models\KeterampilanTask;
+use App\Models\Question;
 use App\Models\QuizAttempt;
+use App\Models\Simulation;
 use App\Models\User;
 use Illuminate\View\View;
 
@@ -45,6 +48,11 @@ class AdminDashboardController extends Controller
             ->limit(5)
             ->get();
 
+        // Bank Soal & Content counts
+        $totalQuestions = Question::count();
+        $totalKeterampilanTasks = KeterampilanTask::count();
+        $totalSimulations = Simulation::count();
+
         // Recent activity logs
         $recentLogs = ActivityLog::with('user')
             ->latest()
@@ -75,6 +83,9 @@ class AdminDashboardController extends Controller
                     'baik' => $predBaik,
                     'remedial' => $predRemedial,
                 ],
+                'totalQuestions' => $totalQuestions,
+                'totalKeterampilanTasks' => $totalKeterampilanTasks,
+                'totalSimulations' => $totalSimulations,
             ],
             'topStudents' => $topStudents,
             'recentLogs' => $recentLogs,
