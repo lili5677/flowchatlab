@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\AdminQuizPengetahuanController;
 use App\Http\Controllers\Admin\AdminSimulationController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\QuizKeterampilanController;
 use App\Models\Simulation;
@@ -55,9 +56,17 @@ Route::middleware('guest')->group(function () {
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
+// Profile Routes (Protected by Auth)
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+});
+
+// Quiz Pengetahuan Landing (public - handles guest via controller)
+Route::get('/quiz', [QuizController::class, 'index'])->name('quiz.index');
+
 // Quiz Routes (Protected by Auth)
 Route::middleware('auth')->prefix('quiz')->name('quiz.')->group(function () {
-    Route::get('/', [QuizController::class, 'index'])->name('index');
     Route::post('/retry', [QuizController::class, 'retry'])->name('retry');
     Route::get('/{attempt}', [QuizController::class, 'show'])->name('show');
     Route::post('/{attempt}/answer', [QuizController::class, 'answer'])->name('answer');

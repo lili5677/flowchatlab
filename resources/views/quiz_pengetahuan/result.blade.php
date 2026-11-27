@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hasil Evaluasi Quiz Pengetahuan - Flowchart Lab SMK</title>
-    <meta name="description" content="Hasil evaluasi pemahaman teori dan keterampilan praktis logika flowchart vokasi RPL.">
+    <title>Hasil Evaluasi Quiz Pengetahuan - Flowchart Lab</title>
+    <meta name="description" content="Hasil evaluasi pemahaman teori dan keterampilan praktis logika flowchart.">
 
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,13 +25,13 @@
                 <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-9 h-9 group-hover:scale-105 transition-transform duration-200">
                 <div class="flex flex-col">
                     <span class="font-extrabold text-[17px] text-slate-900 tracking-tight leading-snug">Flowchart Lab</span>
-                    <span class="font-bold text-[10px] tracking-wider text-[#EA580C] uppercase leading-none mt-0.5">ALGORITMA VISUAL</span>
+                    <span class="font-bold text-[10px] tracking-wider text-[#EA580C] uppercase leading-none mt-0.5">BELAJAR ALGORITMA VISUAL</span>
                 </div>
             </a>
 
             <!-- Center Navigation (Desktop) -->
             <nav class="hidden md:flex items-center gap-1.5 bg-slate-50/70 p-1.5 rounded-full border border-slate-100">
-                <a href="{{ route('home') }}" class="bg-[#F4F1EA] text-slate-900 font-bold px-4 py-1.5 rounded-full text-[13px] shadow-2xs transition">
+                <a href="{{ route('home') }}" class="text-slate-600 hover:text-slate-900 font-semibold px-3.5 py-1.5 rounded-full text-[13px] transition hover:bg-white">
                     Beranda
                 </a>
                 <a href="{{ route('materi') }}" class="text-slate-600 hover:text-slate-900 font-semibold px-3.5 py-1.5 rounded-full text-[13px] transition hover:bg-white">
@@ -46,16 +46,16 @@
                     <button type="button" 
                             id="quiz-dropdown-btn" 
                             onclick="toggleQuizDropdown(event)" 
-                            class="text-slate-600 hover:text-slate-900 font-semibold px-3.5 py-1.5 rounded-full text-[13px] transition hover:bg-white inline-flex items-center gap-1.5 cursor-pointer">
+                            class="bg-amber-100 text-amber-900 font-bold px-4 py-1.5 rounded-full text-[13px] shadow-2xs transition inline-flex items-center gap-1.5 cursor-pointer">
                         <span>Quiz</span>
-                        <svg id="quiz-dropdown-arrow" class="w-3.5 h-3.5 text-slate-400 transition-transform duration-200" viewBox="0 0 20 20" fill="currentColor">
+                        <svg id="quiz-dropdown-arrow" class="w-3.5 h-3.5 text-amber-700 transition-transform duration-200" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
                         </svg>
                     </button>
                     <!-- Dropdown Menu (Stays open when clicked) -->
                     <div id="quiz-dropdown-menu" class="absolute left-0 mt-2 w-52 bg-white rounded-2xl shadow-xl border border-slate-100 py-2 hidden transition-all z-50">
-                        <a href="{{ route('quiz.index') }}" class="flex items-center gap-2.5 px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-amber-50 hover:text-amber-800 transition">
-                            <span class="w-6 h-6 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center text-[11px]">📖</span>
+                        <a href="{{ route('quiz.index') }}" class="flex items-center gap-2.5 px-4 py-2.5 text-xs font-bold text-amber-900 bg-amber-50/80 transition">
+                            <span class="w-6 h-6 rounded-lg bg-amber-200 text-amber-800 flex items-center justify-center text-[11px]">📖</span>
                             <span>Quiz Pengetahuan</span>
                         </a>
                         <a href="{{ route('quiz.keterampilan') }}" class="flex items-center gap-2.5 px-4 py-2.5 text-xs font-bold text-emerald-800 bg-emerald-50/70 transition">
@@ -66,38 +66,124 @@
                 </div>
             </nav>
 
-            <!-- Right: User Profile -->
+            <!-- Right: User Profile & Auth -->
             <div class="flex items-center gap-3 sm:gap-4">
-                <!-- User Profile Info -->
-                <div class="flex items-center gap-2.5 pl-1 sm:pl-2">
-                    @auth
-                        <div class="text-right hidden sm:block">
-                            <div class="font-extrabold text-[13px] text-slate-900 leading-tight">{{ $user->name }}</div>
-                            <div class="mt-0.5">
-                                <span class="bg-amber-200 text-amber-900 font-black text-[9px] px-2 py-0.5 rounded uppercase tracking-wider inline-block">
-                                    {{ $user->role === 'guru' ? 'Guru SMK' : 'Siswa SMK' }}
-                                </span>
-                            </div>
-                        </div>
-                    @endauth
+                @guest
+                    <!-- Guest: Quick Login Button -->
+                    <a href="{{ route('login') }}" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-extrabold bg-amber-400 hover:bg-amber-500 text-slate-950 transition shadow-2xs">
+                        <span>Masuk</span>
+                        <span>&rarr;</span>
+                    </a>
+                @endguest
 
-                    <!-- User Avatar -->
-                    <div class="relative group cursor-pointer" onclick="openProfileModal()" title="Profil">
-                        <div class="w-9 h-9 rounded-full ring-2 ring-sky-300 ring-offset-2 overflow-hidden bg-sky-50 flex items-center justify-center shrink-0 shadow-2xs hover:ring-sky-400 transition">
-                            <svg class="w-full h-full text-sky-800" viewBox="0 0 40 40" fill="none">
-                                <circle cx="20" cy="20" r="20" class="fill-sky-100" />
-                                <circle cx="20" cy="15" r="7" class="fill-rose-200" />
-                                <path d="M20 9C15 9 14 13 14 15C14 16 15 17 20 17C25 17 26 16 26 15C26 13 25 9 20 9Z" class="fill-slate-800" />
-                                <path d="M9 36C9 28 14 25 20 25C26 25 31 28 31 36" class="fill-white" />
-                                <path d="M18 25L20 31L22 25" class="fill-sky-600" />
-                                <circle cx="18" cy="14" r="1" class="fill-slate-900" />
-                                <circle cx="22" cy="14" r="1" class="fill-slate-900" />
-                                <path d="M18.5 17C19 18 21 18 21.5 17" class="stroke-slate-900" stroke-width="0.8" stroke-linecap="round" />
-                            </svg>
-                        </div>
+                <!-- User Profile Container (Hover Dropdown + Click) -->
+                <div class="relative group" id="profile-dropdown-wrapper" onmouseenter="openProfileDropdown()" onmouseleave="closeProfileDropdown()">
+                    <div class="flex items-center gap-2.5 pl-1 sm:pl-2 cursor-pointer py-1" onclick="handleProfileClick(event)">
                         @auth
-                            <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 border-2 border-white rounded-full"></span>
+                            <div class="text-right hidden sm:block">
+                                <div class="font-extrabold text-[13px] text-slate-900 leading-tight">{{ $user->name }}</div>
+                                <div class="mt-0.5 flex items-center justify-end gap-1.5">
+                                    @if($user->isAdmin())
+                                        <span class="bg-amber-100 text-amber-900 border border-amber-300 font-black text-[9px] px-2 py-0.5 rounded uppercase tracking-wider inline-flex items-center gap-1">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                                            Admin
+                                        </span>
+                                    @else
+                                        <span class="bg-[#FEE3A2] text-[#9A3412] font-black text-[9px] px-2 py-0.5 rounded uppercase tracking-wider inline-block">
+                                            {{ $user->role === 'guru' ? 'Guru' : 'Siswa' }}
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
                         @endauth
+
+                        <!-- User Avatar -->
+                        <div class="relative cursor-pointer" onclick="event.stopPropagation(); @auth handleProfileClick(event) @else window.location.href='{{ route('login') }}' @endauth;" title="{{ Auth::check() ? Auth::user()->name : 'Klik untuk Masuk Akun' }}">
+                            <div class="w-9 h-9 rounded-full ring-2 {{ Auth::check() && Auth::user()->isAdmin() ? 'ring-amber-400 bg-amber-50' : 'ring-sky-300 bg-sky-50' }} ring-offset-2 overflow-hidden flex items-center justify-center shrink-0 shadow-2xs hover:ring-amber-400 transition">
+                                <svg class="w-full h-full text-sky-800" viewBox="0 0 40 40" fill="none">
+                                    <circle cx="20" cy="20" r="20" fill="{{ Auth::check() && Auth::user()->isAdmin() ? '#FEF3C7' : '#E0F2FE' }}" />
+                                    <circle cx="20" cy="15" r="7" fill="#FBCFE8" />
+                                    <path d="M20 9C15 9 14 13 14 15C14 16 15 17 20 17C25 17 26 16 26 15C26 13 25 9 20 9Z" fill="#1E293B" />
+                                    <path d="M9 36C9 28 14 25 20 25C26 25 31 28 31 36" fill="#FFFFFF" />
+                                    <path d="M18 25L20 31L22 25" fill="{{ Auth::check() && Auth::user()->isAdmin() ? '#D97706' : '#0284C7' }}" />
+                                    <circle cx="18" cy="14" r="1" fill="#0F172A" />
+                                    <circle cx="22" cy="14" r="1" fill="#0F172A" />
+                                    <path d="M18.5 17C19 18 21 18 21.5 17" stroke="#0F172A" stroke-width="0.8" stroke-linecap="round" />
+                                </svg>
+                            </div>
+                            @auth
+                                <span class="absolute bottom-0 right-0 w-2.5 h-2.5 {{ Auth::user()->isAdmin() ? 'bg-amber-500' : 'bg-emerald-500' }} border-2 border-white rounded-full"></span>
+                            @endauth
+                        </div>
+                    </div>
+
+                    <!-- Profile Dropdown (Hover & Click Menu) -->
+                    <div id="profile-dropdown-menu" class="absolute right-0 top-full pt-1.5 w-72 hidden group-hover:block transition-all duration-150 z-50">
+                        <div class="bg-white rounded-2xl shadow-xl border border-slate-200/90 p-3.5 text-slate-800 space-y-3">
+                            @auth
+                                <!-- Header Identitas Akun -->
+                                <div class="px-2 py-1 border-b border-slate-100 pb-2.5">
+                                    <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Akun Masuk</div>
+                                    <div class="font-black text-sm text-slate-900 truncate">{{ $user->name }}</div>
+                                    <div class="text-xs text-slate-500 truncate">{{ $user->email }}</div>
+                                    <div class="mt-1.5">
+                                        @if($user->isAdmin())
+                                            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-50 text-amber-900 border border-amber-200">
+                                                <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                                                Administrator Flowchart Lab
+                                            </span>
+                                        @else
+                                            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-sky-50 text-sky-800 border border-sky-200">
+                                                {{ $user->role === 'guru' ? 'Guru Pembimbing' : 'Siswa' }}
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <!-- Action: Tombol Masuk Panel Khusus Admin -->
+                                @if($user->isAdmin())
+                                    <div class="p-0.5">
+                                        <a href="{{ route('admin.dashboard') }}" class="flex items-center justify-between gap-3 w-full px-4 py-3 bg-gradient-to-r from-slate-900 via-slate-850 to-slate-900 hover:from-slate-800 hover:to-slate-750 text-amber-400 font-black text-xs rounded-xl shadow-md border border-slate-800 transition transform hover:-translate-y-0.5">
+                                            <div class="flex items-center gap-2.5">
+                                                <div class="w-7 h-7 rounded-lg bg-amber-400/20 text-amber-300 flex items-center justify-center text-sm font-bold">
+                                                    ⚙️
+                                                </div>
+                                                <div class="text-left">
+                                                    <span class="block text-white font-extrabold text-xs leading-tight">Panel Administrator</span>
+                                                    <span class="block text-[10px] text-amber-300 font-normal">Kelola Soal, Kasus & Siswa</span>
+                                                </div>
+                                            </div>
+                                            <span class="text-amber-400 font-extrabold text-sm">&rarr;</span>
+                                        </a>
+                                    </div>
+                                @endif
+
+                                <!-- Secondary Links -->
+                                <div class="space-y-1 pt-1 border-t border-slate-100">
+                                    <a href="{{ route('profile.show') }}" class="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-100 flex items-center gap-2.5 transition">
+                                        <span>👤</span>
+                                        <span>Buka Detail Profil</span>
+                                    </a>
+                                    <form action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-rose-600 hover:bg-rose-50 flex items-center gap-2.5 transition cursor-pointer">
+                                            <span>🚪</span>
+                                            <span>Keluar (Logout)</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            @else
+                                <div class="p-2 text-center space-y-2.5">
+                                    <p class="text-xs text-slate-600 font-medium">Anda belum masuk akun</p>
+                                    <a href="{{ route('login') }}" class="block w-full py-2.5 bg-amber-400 hover:bg-amber-500 text-slate-950 font-extrabold text-xs rounded-xl transition shadow-sm">
+                                        Masuk ke Akun
+                                    </a>
+                                    <a href="{{ route('register') }}" class="block w-full py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition">
+                                        Daftar Akun Baru
+                                    </a>
+                                </div>
+                            @endauth
+                        </div>
                     </div>
                 </div>
 
@@ -116,7 +202,7 @@
                 <div class="sm:hidden pb-2 mb-2 border-b border-slate-100">
                     <div class="font-extrabold text-sm text-slate-900">{{ $user->name }}</div>
                     <span class="bg-amber-200 text-amber-900 font-black text-[9px] px-2 py-0.5 rounded uppercase tracking-wider inline-block">
-                        {{ $user->role === 'guru' ? 'Guru SMK' : 'Siswa SMK' }}
+                        {{ $user->role === 'guru' ? 'Guru' : 'Siswa' }}
                     </span>
                 </div>
             @endauth
@@ -146,7 +232,7 @@
             </h1>
 
             <p class="text-xs sm:text-sm text-slate-800 max-w-xl mx-auto font-medium leading-relaxed">
-                Hasil evaluasi pemahaman teori dan keterampilan praktis penyusunan alur logika flowchart vokasi RPL.
+                Hasil evaluasi pemahaman teori dan keterampilan praktis penyusunan alur logika flowchart.
             </p>
         </div>
 
@@ -298,8 +384,8 @@
                     💻
                 </div>
                 <div>
-                    <div class="font-extrabold text-sm text-slate-900">Laboratorium RPL SMK • Standar Algoritma Visual</div>
-                    <div class="text-xs text-slate-600 mt-0.5">Standar kompetensi Kurikulum Merdeka kejuruan Rekayasa Perangkat Lunak.</div>
+                    <div class="font-extrabold text-sm text-slate-900">Standar Algoritma Visual ANSI/ISO 5807</div>
+                    <div class="text-xs text-slate-600 mt-0.5">Standar kompetensi ANSI/ISO 5807 untuk logika algoritma terstruktur.</div>
                 </div>
             </div>
 
@@ -451,63 +537,36 @@
 
         </div>
 
-        <!-- ================= BOTTOM ACTION BUTTONS (Mockup 2) ================= -->
+        <!-- ================= BOTTOM ACTION BUTTONS ================= -->
         <div class="flex flex-col sm:flex-row items-center justify-between gap-4 py-4">
             <!-- Left: Kembali ke Beranda -->
-            <a href="{{ route('home') }}" class="w-full sm:w-auto bg-white hover:bg-slate-50 border border-amber-300 text-slate-800 font-extrabold text-xs sm:text-[13px] px-6 py-3.5 rounded-full inline-flex items-center justify-center gap-2 shadow-xs transition cursor-pointer">
+            <a href="{{ route('home') }}" class="w-full sm:w-auto bg-white hover:bg-slate-50 border border-slate-200 text-slate-800 font-extrabold text-xs sm:text-[13px] px-6 py-3.5 rounded-full inline-flex items-center justify-center gap-2 shadow-xs transition cursor-pointer">
                 <span>←</span>
                 <span>Kembali ke Beranda</span>
             </a>
 
             <div class="w-full sm:w-auto flex flex-col sm:flex-row items-center gap-3">
-                <!-- Center: Ulangi Quiz (Creates new attempt) -->
+                <!-- Center: Ulangi Quiz -->
                 <form action="{{ route('quiz.retry') }}" method="POST" class="w-full sm:w-auto">
                     @csrf
-                    <button type="submit" class="w-full sm:w-auto bg-white hover:bg-slate-50 border border-amber-300 text-slate-800 font-extrabold text-xs sm:text-[13px] px-6 py-3.5 rounded-full inline-flex items-center justify-center gap-2 shadow-xs transition cursor-pointer">
+                    <button type="submit" class="w-full sm:w-auto bg-white hover:bg-slate-50 border border-slate-200 text-slate-800 font-extrabold text-xs sm:text-[13px] px-6 py-3.5 rounded-full inline-flex items-center justify-center gap-2 shadow-xs transition cursor-pointer">
                         <span>🔄</span>
                         <span>Ulangi Quiz</span>
                     </button>
                 </form>
 
-                <!-- Right: Lanjut ke Simulasi / Pelajari Materi Lagi -->
-                @if ($attempt->is_passed)
-                    <a href="{{ route('home') }}#simulasi" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs sm:text-[13px] uppercase tracking-wide px-8 py-3.5 rounded-full inline-flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/25 transition cursor-pointer">
-                        <span>Lanjut ke Simulasi</span>
-                        <span>→</span>
-                    </a>
-                @else
-                    <a href="{{ route('materi') }}" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs sm:text-[13px] uppercase tracking-wide px-8 py-3.5 rounded-full inline-flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/25 transition cursor-pointer">
-                        <span>Pelajari Materi Lagi</span>
-                        <span>→</span>
-                    </a>
-                @endif
+                <!-- Right: Pelajari Materi Lagi -->
+                <a href="{{ route('materi') }}" class="w-full sm:w-auto bg-amber-500 hover:bg-amber-600 text-white font-extrabold text-xs sm:text-[13px] uppercase tracking-wide px-8 py-3.5 rounded-full inline-flex items-center justify-center gap-2 shadow-lg shadow-amber-500/25 transition cursor-pointer">
+                    <span>Pelajari Materi Lagi</span>
+                    <span>→</span>
+                </a>
             </div>
         </div>
 
     </main>
 
      <!-- ================= FOOTER ================= -->
-    <footer class="bg-[#18181B] text-slate-400 py-10 px-4 sm:px-6 lg:px-8 border-t border-zinc-800">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
-            
-            <!-- Left: Logo & Copyright -->
-            <div class="flex flex-col sm:flex-row items-center gap-3.5"> 
-                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-10 h-10 object-contain">
-                <div>
-                    <div class="text-white font-extrabold text-base tracking-tight">Flowchart Lab</div>
-                    <div class="text-xs text-slate-400 mt-0.5">
-                        &copy; 2026 Flowchart Lab. Media Pembelajaran Logika Algoritma Vokasi Indonesia.
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right: Navigation Links -->
-            <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-8 text-xs sm:text-[13px] font-medium text-slate-400">
-                <a href="{{ route('materi') }}" class="hover:text-white transition">Dokumentasi Simbol</a>
-                <a href="#bantuan" onclick="openInfoModal('Pusat Bantuan', 'Butuh bantuan seputar pengerjaan flowchart atau simulasi? Hubungi tim pendamping lab atau baca FAQ seputar aturan ANSI/ISO 5807.')" class="hover:text-white transition">Bantuan</a>
-            </div>
-        </div>
-    </footer>
+    <x-site-footer />
 
     <!-- Simple Filter Logic & Dropdown JS -->
     <script>
@@ -573,6 +632,37 @@
                 closeQuizDropdown();
             }
         });
+
+        document.addEventListener('click', function(e) {
+            const wrapper = document.getElementById('quiz-dropdown-wrapper');
+            if (wrapper && !wrapper.contains(e.target)) {
+                const menu = document.getElementById('quiz-dropdown-menu');
+                const arrow = document.getElementById('quiz-dropdown-arrow');
+                if (menu) menu.classList.add('hidden');
+                if (arrow) arrow.classList.remove('rotate-180');
+            }
+            const pWrapper = document.getElementById('profile-dropdown-wrapper');
+            if (pWrapper && !pWrapper.contains(e.target)) {
+                closeProfileDropdown();
+            }
+        });
+
+        // Profile dropdown
+        function openProfileDropdown() {
+            const menu = document.getElementById('profile-dropdown-menu');
+            if (menu) menu.classList.remove('hidden');
+        }
+        function closeProfileDropdown() {
+            const menu = document.getElementById('profile-dropdown-menu');
+            if (menu) menu.classList.add('hidden');
+        }
+        function handleProfileClick(event) {
+            if (event) event.stopPropagation();
+            const menu = document.getElementById('profile-dropdown-menu');
+            if (menu) {
+                menu.classList.toggle('hidden');
+            }
+        }
     </script>
 </body>
 </html>

@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Masuk - Flowchart Lab SMK</title>
-    <meta name="description" content="Masuk ke Flowchart Lab SMK untuk melanjutkan sesi belajar logika pemrograman dan simulasi algoritma visual.">
+    <title>Masuk - Flowchart Lab</title>
+    <meta name="description" content="Masuk ke Flowchart Lab untuk melanjutkan sesi belajar logika pemrograman dan simulasi algoritma visual.">
 
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -54,7 +54,7 @@
                     <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-10 h-10 group-hover:scale-105 transition-transform duration-200">
                     <div class="flex flex-col">
                         <span class="font-extrabold text-[17px] text-slate-900 tracking-tight leading-snug">Flowchart Lab</span>
-                        <span class="font-bold text-[10px] tracking-wider text-[#EA580C] uppercase leading-none mt-0.5">SMK ALGORITMA VISUAL</span>
+                        <span class="font-bold text-[10px] tracking-wider text-[#EA580C] uppercase leading-none mt-0.5">BELAJAR ALGORITMA VISUAL</span>
                     </div>
                 </a>
             </div>
@@ -104,10 +104,10 @@
                     </div>
                     <div class="relative">
                         <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
-                            <!-- User Circle Icon -->
+                            <!-- Mail Envelope Icon -->
                             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                                <circle cx="12" cy="7" r="4"/>
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
                             </svg>
                         </span>
                         <input
@@ -118,7 +118,7 @@
                             required
                             autofocus
                             placeholder="nama@email.com"
-                            class="w-full bg-[#F8FAFC] border border-slate-200/90 text-slate-800 text-xs sm:text-[13px] font-medium rounded-2xl px-4 py-3.5 pl-11 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none transition-all placeholder:text-slate-400"
+                            class="w-full bg-[#F8FAFC] border border-slate-200/90 hover:border-slate-300 text-slate-800 text-xs sm:text-[13px] font-medium rounded-2xl px-4 py-3.5 pl-11 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none transition-all placeholder:text-slate-400"
                         >
                     </div>
                 </div>
@@ -145,7 +145,7 @@
                             name="password"
                             required
                             placeholder="Masukkan kata sandi akun Anda"
-                            class="w-full bg-[#F8FAFC] border border-slate-200/90 text-slate-800 text-xs sm:text-[13px] font-medium rounded-2xl px-4 py-3.5 pl-11 pr-11 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none transition-all placeholder:text-slate-400"
+                            class="w-full bg-[#F8FAFC] border border-slate-200/90 hover:border-slate-300 text-slate-800 text-xs sm:text-[13px] font-medium rounded-2xl px-4 py-3.5 pl-11 pr-11 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none transition-all placeholder:text-slate-400"
                         >
                         <button type="button" onclick="toggleLoginPassword()" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer">
                             <svg id="login-eye-icon" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -200,9 +200,7 @@
     </main>
 
     <!-- Page Bottom Footer -->
-    <footer class="w-full max-w-4xl mx-auto text-center text-[11px] sm:text-xs text-amber-950/80 font-medium py-3 relative z-10">
-        &copy; 2026 Flowchart Lab SMK. Media Pembelajaran Logika Algoritma Vokasi Indonesia.
-    </footer>
+    <x-auth-footer />
 
     <!-- Interactive Client Script -->
     <script>

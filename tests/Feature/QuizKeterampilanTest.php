@@ -248,4 +248,31 @@ class QuizKeterampilanTest extends TestCase
         $this->assertSame('D', $dEval['simbol_kunci']);
         $this->assertSame('Keputusan', $dEval['nama_simbol_kunci']);
     }
+
+    /**
+     * 8. Halaman hasil keterampilan bisa dibuka kembali dari riwayat sebelumnya tanpa sesi aktif.
+     */
+    public function test_hasil_keterampilan_bisa_dibuka_dari_riwayat_sebelumnya_tanpa_sesi_aktif(): void
+    {
+        /** @var User $user */
+        $user = User::factory()->create([
+            'name' => 'Siswa Pintar',
+            'email' => 'siswa@example.com',
+            'role' => 'siswa',
+            'skor_praktik' => 85,
+        ]);
+
+        $this->actingAs($user);
+
+        // Pastikan session kosong (tidak ada quiz_keterampilan aktif)
+        $this->flushSession();
+
+        // Kunjungi langsung halaman hasil kuis keterampilan (klik Lihat Hasil Sebelumnya)
+        $response = $this->get(route('quiz.keterampilan.hasil'));
+
+        $response->assertStatus(200);
+        $response->assertSee('SKOR PRAKTIK');
+        $response->assertSee('85');
+        $response->assertSee('Siswa Pintar');
+    }
 }

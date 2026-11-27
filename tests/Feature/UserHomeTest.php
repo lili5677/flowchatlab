@@ -24,9 +24,9 @@ class UserHomeTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertSee('Flowchart Lab');
-        $response->assertSee('SMK ALGORITMA VISUAL');
+        $response->assertSee('BELAJAR ALGORITMA VISUAL');
         $response->assertSee('Bayu Pratama (RPL-1)');
-        $response->assertSee('Siswa SMK');
+        $response->assertSee('Siswa');
         $response->assertSee('Kuasai');
         $response->assertSee('Logika Pemrograman');
         $response->assertSee('Lewat Flowchart');

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Quiz Pengetahuan Algoritma - Flowchart Lab SMK</title>
-    <meta name="description" content="Uji pemahaman teoritis simbol baku diagram alir ISO 5807 dan logika komputasional untuk siswa SMK.">
+    <meta name="description" content="Uji pemahaman teoritis simbol baku diagram alir ISO 5807 dan logika komputasional untuk siswa.">
 
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,7 +26,7 @@
                 <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-9 h-9 group-hover:scale-105 transition-transform duration-200">
                 <div class="flex flex-col">
                     <span class="font-extrabold text-[17px] text-slate-900 tracking-tight leading-snug">Flowchart Lab</span>
-                    <span class="font-bold text-[10px] tracking-wider text-[#EA580C] uppercase leading-none mt-0.5">ALGORITMA VISUAL</span>
+                    <span class="font-bold text-[10px] tracking-wider text-[#EA580C] uppercase leading-none mt-0.5">BELAJAR ALGORITMA VISUAL</span>
                 </div>
             </a>
 
@@ -62,7 +62,7 @@
                         Modul Evaluasi Tahap 1
                     </span>
                     <span class="bg-white/80 backdrop-blur-xs text-amber-950 border border-amber-200 font-bold text-[11px] px-3 py-1 rounded-full uppercase tracking-wider shadow-2xs">
-                        Standar Vokasi RPL / TKJ
+                        Standar ANSI/ISO 5807
                     </span>
                 </div>
 
@@ -287,45 +287,6 @@
                     </div>
                 </div>
 
-                <!-- 3 Feature Info Cards (Mockup 1 Bottom) -->
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-                    <!-- Info Card 1 -->
-                    <div class="bg-white/95 rounded-2xl p-4 border border-amber-200/80 shadow-xs space-y-1.5">
-                        <div class="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs font-bold">
-                            ✓
-                        </div>
-                        <div class="font-extrabold text-xs text-slate-900">Validasi Instan</div>
-                        <p class="text-[11px] text-slate-600 leading-snug">
-                            Sistem memeriksa kecocokan semantik diagram alir secara otomatis sesuai acuan silabus Kurikulum Merdeka.
-                        </p>
-                    </div>
-
-                    <!-- Info Card 2 -->
-                    <div class="bg-white/95 rounded-2xl p-4 border border-amber-200/80 shadow-xs space-y-1.5">
-                        <div class="w-7 h-7 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center text-xs font-bold">
-                            ⚡
-                        </div>
-                        <div class="font-extrabold text-xs text-slate-900">Poin Akumulasi</div>
-                        <p class="text-[11px] text-slate-600 leading-snug">
-                            Kumpulkan nilai hingga 100 Poin untuk membuka mode simulasi kanvas interaktif tingkat lanjut.
-                        </p>
-                    </div>
-
-                    <!-- Info Card 3 -->
-                    <a href="{{ route('materi') }}" target="_blank" class="bg-white/95 hover:bg-amber-50/50 rounded-2xl p-4 border border-amber-200/80 shadow-xs space-y-1.5 transition block group">
-                        <div class="w-7 h-7 rounded-lg bg-rose-100 text-rose-700 flex items-center justify-center text-xs font-bold">
-                            📖
-                        </div>
-                        <div class="font-extrabold text-xs text-slate-900 group-hover:text-amber-800 flex items-center justify-between">
-                            <span>Buku Panduan Simbol</span>
-                            <span class="text-slate-400 group-hover:text-amber-600">↗</span>
-                        </div>
-                        <p class="text-[11px] text-slate-600 leading-snug">
-                            Ragu dengan simbol lain? Buka glosarium diagram alir pada bilah navigasi materi kapan saja.
-                        </p>
-                    </a>
-                </div>
-
             </div>
 
             <!-- RIGHT COLUMN: Level Roadmap Sidebar (Lg: 4 cols) -->
@@ -489,29 +450,6 @@
             </div>
         </div>
     </div>
-
-     <!-- ================= FOOTER ================= -->
-    <footer class="bg-[#18181B] text-slate-400 py-10 px-4 sm:px-6 lg:px-8 border-t border-zinc-800">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
-            
-            <!-- Left: Logo & Copyright -->
-            <div class="flex flex-col sm:flex-row items-center gap-3.5"> 
-                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-10 h-10 object-contain">
-                <div>
-                    <div class="text-white font-extrabold text-base tracking-tight">Flowchart Lab</div>
-                    <div class="text-xs text-slate-400 mt-0.5">
-                        &copy; 2026 Flowchart Lab. Media Pembelajaran Logika Algoritma Vokasi Indonesia.
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right: Navigation Links -->
-            <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-8 text-xs sm:text-[13px] font-medium text-slate-400">
-                <a href="{{ route('materi') }}" class="hover:text-white transition">Dokumentasi Simbol</a>
-                <a href="#bantuan" onclick="openInfoModal('Pusat Bantuan', 'Butuh bantuan seputar pengerjaan flowchart atau simulasi? Hubungi tim pendamping lab atau baca FAQ seputar aturan ANSI/ISO 5807.')" class="hover:text-white transition">Bantuan</a>
-            </div>
-        </div>
-    </footer>
 
     <!-- Modal Konfirmasi Keluar -->
     <div id="exitModal"

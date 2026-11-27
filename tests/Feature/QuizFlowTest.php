@@ -21,24 +21,34 @@ class QuizFlowTest extends TestCase
     }
 
     /**
-     * Test guests are redirected to login.
+     * Test guests see the landing page with login modal (not redirect to login).
      */
     public function test_guest_cannot_access_quiz(): void
     {
         $response = $this->get('/quiz');
-        $response->assertRedirect('/login');
+        // Guests now see the landing page with a login modal popup (200)
+        $response->assertStatus(200);
+        $response->assertSee('Login Diperlukan');
     }
 
     /**
-     * Test authenticated user starts or resumes quiz.
+     * Test authenticated user sees the landing page before starting quiz.
      */
     public function test_authenticated_user_can_access_quiz(): void
     {
         $user = User::factory()->create(['name' => 'Bayu Pratama']);
 
+        // First visit: new user sees the landing page (no redirect, no attempt yet)
         $response = $this->actingAs($user)->get('/quiz');
+        $response->assertStatus(200);
+        $response->assertSee('Quiz Pengetahuan');
 
-        $response->assertRedirect();
+        // No attempt created yet (landing page shown first)
+        $this->assertNull(QuizAttempt::where('user_id', $user->id)->first());
+
+        // User starts quiz via retry (POST)
+        $retryResponse = $this->actingAs($user)->post(route('quiz.retry'));
+        $retryResponse->assertRedirect();
 
         $attempt = QuizAttempt::where('user_id', $user->id)->first();
         $this->assertNotNull($attempt);
@@ -243,7 +253,7 @@ class QuizFlowTest extends TestCase
         $response->assertSee('Kamu Sudah Pernah');
         $response->assertSee('Mengerjakan Quiz Ini');
         $response->assertSee('Lihat Hasil Sebelumnya');
-        $response->assertSee('Kerjakan Ulang dari Awal');
+        $response->assertSee('Kerjakan Ulang');
     }
 
     /**

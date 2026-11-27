@@ -23,6 +23,16 @@ class QuizController extends Controller
     {
         $user = $request->user();
 
+        // Guest: show landing page with login guard modal
+        if (! $user) {
+            return view('quiz_pengetahuan.landing', [
+                'user' => null,
+                'lastAttempt' => null,
+                'predicateConfig' => null,
+                'passingScore' => (int) config('quiz.passing_score', 75),
+            ]);
+        }
+
         // If there is an active in-progress attempt, go straight to it
         $inProgress = QuizAttempt::where('user_id', $user->id)
             ->where('status', 'in_progress')
@@ -50,10 +60,13 @@ class QuizController extends Controller
             ]);
         }
 
-        // No attempt at all – start fresh immediately
-        $attempt = $this->quizService->createNewAttempt($user);
-
-        return redirect()->route('quiz.show', $attempt->id);
+        // No attempt at all – show landing page for first time (without history)
+        return view('quiz_pengetahuan.landing', [
+            'user' => $user,
+            'lastAttempt' => null,
+            'predicateConfig' => null,
+            'passingScore' => (int) config('quiz.passing_score', 75),
+        ]);
     }
 
     /**

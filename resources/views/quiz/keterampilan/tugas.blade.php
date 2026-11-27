@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Tugas {{ $taskNumber }} dari {{ $totalTasks }} - Quiz Keterampilan Flowchart Lab SMK</title>
-    <meta name="description" content="Tantangan Kuis Keterampilan Praktik Alur Flowchart Algoritma Visual Siswa SMK.">
+    <meta name="description" content="Tantangan Kuis Keterampilan Praktik Alur Flowchart Algoritma Visual Siswa.">
 
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,7 +20,7 @@
     <style>
         body {
             font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
-            background-color: #F8BA15;
+            background-color: #10B981;
             color: #0F172A;
         }
 
@@ -322,7 +322,7 @@
         }
     </style>
 </head>
-<body class="min-h-screen bg-[#F8BA15] text-slate-900 flex flex-col antialiased selection:bg-amber-200 selection:text-amber-900">
+<body class="min-h-screen bg-[#10B981] text-slate-900 flex flex-col antialiased selection:bg-emerald-200 selection:text-emerald-950">
 
     <!-- ================= NAVBAR ================= -->
     <header class="w-full bg-white/95 backdrop-blur-md sticky top-0 z-40 border-b border-slate-100 transition-all">
@@ -333,7 +333,7 @@
                 <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-9 h-9 group-hover:scale-105 transition-transform duration-200">
                 <div class="flex flex-col">
                     <span class="font-extrabold text-[17px] text-slate-900 tracking-tight leading-snug">Flowchart Lab</span>
-                    <span class="font-bold text-[10px] tracking-wider text-[#EA580C] uppercase leading-none mt-0.5">ALGORITMA VISUAL</span>
+                    <span class="font-bold text-[10px] tracking-wider text-[#EA580C] uppercase leading-none mt-0.5">BELAJAR ALGORITMA VISUAL</span>
                 </div>
             </a>
 
@@ -938,29 +938,6 @@
 
         </div>
     </main>
-
-    <!-- ================= FOOTER ================= -->
-    <footer class="bg-[#18181B] text-slate-400 py-10 px-4 sm:px-6 lg:px-8 border-t border-zinc-800">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
-            
-            <!-- Left: Logo & Copyright -->
-            <div class="flex flex-col sm:flex-row items-center gap-3.5"> 
-                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-10 h-10 object-contain">
-                <div>
-                    <div class="text-white font-extrabold text-base tracking-tight">Flowchart Lab</div>
-                    <div class="text-xs text-slate-400 mt-0.5">
-                        &copy; 2026 Flowchart Lab. Media Pembelajaran Logika Algoritma Vokasi Indonesia.
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right: Navigation Links -->
-            <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-8 text-xs sm:text-[13px] font-medium text-slate-400">
-                <a href="{{ route('materi') }}" class="hover:text-white transition">Dokumentasi Simbol</a>
-                <a href="#bantuan" onclick="openInfoModal('Pusat Bantuan', 'Butuh bantuan seputar pengerjaan flowchart atau simulasi? Hubungi tim pendamping lab atau baca FAQ seputar aturan ANSI/ISO 5807.')" class="hover:text-white transition">Bantuan</a>
-            </div>
-        </div>
-    </footer>
 
     <!-- UI Scripts -->
     <script>
@@ -1685,62 +1662,50 @@
         </script>
 
                 
-        <!-- Modal Konfirmasi Keluar -->
-        <div id="exitModal"
-            class="fixed inset-0 z-[9999] hidden items-center justify-center bg-slate-900/50 p-4 backdrop-blur-sm">
+    @endif
 
-            <div class="w-full max-w-sm rounded-3xl border border-slate-200 bg-white p-6 text-center shadow-2xl">
-
-                <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-rose-100 text-rose-600">
-                    <svg class="h-7 w-7" fill="none" stroke="currentColor"
-                        viewBox="0 0 24 24" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M12 9v3.75m0 3h.008M10.3 3.86L1.82 18.5A2 2 0 003.55 21h16.9a2 2 0 001.73-2.5L13.7 3.86a2 2 0 00-3.4 0z"/>
-                    </svg>
-                </div>
-
-                <h3 class="mb-2 text-lg font-extrabold text-slate-800">
-                    Keluar dari Kuis?
-                </h3>
-
-                <p class="mb-6 text-sm leading-relaxed text-slate-500">
-                    Sesi kuis keterampilan yang sedang berjalan akan direset.
-                    Yakin ingin keluar?
-                </p>
-
-                <div class="flex gap-3">
-                    <button type="button" onclick="closeExitModal()"
-                        class="flex-1 rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-bold text-slate-600 transition hover:bg-slate-50 cursor-pointer">
-                        Batal
+    {{-- ── Exit Modal (always rendered so button works even after submit) ── --}}
+    <!-- Modal Konfirmasi Keluar -->
+    <div id="exitModal"
+        class="fixed inset-0 z-[9999] hidden items-center justify-center bg-slate-900/50 p-4 backdrop-blur-sm">
+        <div class="w-full max-w-sm rounded-3xl border border-slate-200 bg-white p-6 text-center shadow-2xl">
+            <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-rose-100 text-rose-600">
+                <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 9v3.75m0 3h.008M10.3 3.86L1.82 18.5A2 2 0 003.55 21h16.9a2 2 0 001.73-2.5L13.7 3.86a2 2 0 00-3.4 0z"/>
+                </svg>
+            </div>
+            <h3 class="mb-2 text-lg font-extrabold text-slate-800">Keluar dari Kuis?</h3>
+            <p class="mb-6 text-sm leading-relaxed text-slate-500">
+                Sesi kuis keterampilan yang sedang berjalan akan direset. Yakin ingin keluar?
+            </p>
+            <div class="flex gap-3">
+                <button type="button" onclick="closeExitModal()"
+                    class="flex-1 rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-bold text-slate-600 transition hover:bg-slate-50 cursor-pointer">
+                    Batal
+                </button>
+                <form action="{{ route('quiz.keterampilan.reset') }}" method="POST" class="flex-1">
+                    @csrf
+                    <button type="submit"
+                        class="w-full rounded-xl bg-rose-600 px-4 py-2.5 text-sm font-bold text-white shadow-md transition hover:bg-rose-700 active:scale-95 cursor-pointer">
+                        Ya, Keluar
                     </button>
-
-                    <form action="{{ route('quiz.keterampilan.reset') }}"
-                        method="POST" class="flex-1">
-                        @csrf
-                        <button type="submit"
-                            class="w-full rounded-xl bg-rose-600 px-4 py-2.5 text-sm font-bold text-white shadow-md transition hover:bg-rose-700 active:scale-95 cursor-pointer">
-                            Ya, Keluar
-                        </button>
-                    </form>
-                </div>
+                </form>
             </div>
         </div>
-
-        <script>
-            function openExitModal() {
-                const modal = document.getElementById('exitModal');
-                modal.classList.remove('hidden');
-                modal.classList.add('flex');
-            }
-
-            function closeExitModal() {
-                const modal = document.getElementById('exitModal');
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-            }
-        </script>
-
-    @endif
+    </div>
+    <script>
+        function openExitModal() {
+            const modal = document.getElementById('exitModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+        function closeExitModal() {
+            const modal = document.getElementById('exitModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+    </script>
 
 </body>
 </html>

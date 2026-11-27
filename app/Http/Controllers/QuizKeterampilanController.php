@@ -27,11 +27,21 @@ class QuizKeterampilanController extends Controller
         $levels = $this->bankService->getLevels();
         $user = Auth::user();
         $hasActiveSession = $request->session()->has('quiz_keterampilan.tasks');
+        $completedAt = null;
+
+        if ($user && $user->skor_praktik !== null) {
+            $latestLog = ActivityLog::where('user_id', $user->id)
+                ->where('action', 'keterampilan_completed')
+                ->latest()
+                ->first();
+            $completedAt = $latestLog?->created_at ?? $user->updated_at;
+        }
 
         return view('quiz.keterampilan.index', [
             'levels' => $levels,
             'user' => $user,
             'hasActiveSession' => $hasActiveSession,
+            'completedAt' => $completedAt,
         ]);
     }
 
@@ -206,7 +216,14 @@ class QuizKeterampilanController extends Controller
                 'keterampilan_completed',
                 'Siswa '.$user->name.' menyelesaikan Quiz Keterampilan (Skor Praktik: '.$skorAkhir.').',
                 $user,
-                ['skor_praktik' => $skorAkhir, 'task_scores' => $taskScores]
+                [
+                    'skor_praktik' => $skorAkhir,
+                    'task_scores' => $taskScores,
+                    'tasks' => $quiz['tasks'],
+                    'results' => $quiz['results'],
+                    'user_answers' => $quiz['user_answers'] ?? null,
+                    'skor_akhir' => $skorAkhir,
+                ]
             );
         }
 
@@ -219,6 +236,73 @@ class QuizKeterampilanController extends Controller
     public function hasil(Request $request): View|RedirectResponse
     {
         $quiz = $request->session()->get('quiz_keterampilan');
+        $completedAt = null;
+
+        if (! $quiz || empty($quiz['tasks']) || ! isset($quiz['skor_akhir'])) {
+            if (Auth::check()) {
+                /** @var User $user */
+                $user = Auth::user();
+                $latestLog = ActivityLog::where('user_id', $user->id)
+                    ->where('action', 'keterampilan_completed')
+                    ->latest()
+                    ->first();
+
+                if ($latestLog && ! empty($latestLog->properties['tasks']) && isset($latestLog->properties['skor_akhir'])) {
+                    $quiz = [
+                        'tasks' => $latestLog->properties['tasks'],
+                        'results' => $latestLog->properties['results'] ?? [],
+                        'skor_akhir' => $latestLog->properties['skor_akhir'],
+                    ];
+                    $completedAt = $latestLog->created_at;
+                } elseif ($user->skor_praktik !== null) {
+                    // Fallback when log lacks full task payload: build from question bank
+                    $sampleTasks = $this->bankService->getRandomTasksForQuiz();
+                    $taskScores = $latestLog?->properties['task_scores'] ?? [round($user->skor_praktik), round($user->skor_praktik), round($user->skor_praktik)];
+                    $results = [];
+                    foreach ($sampleTasks as $idx => $t) {
+                        $score = (int) ($taskScores[$idx] ?? $user->skor_praktik);
+                        $langkah = $t['langkah'] ?? [];
+                        $totalLangkah = count($langkah);
+                        $simbolBenar = $score >= 75 ? $totalLangkah : (int) floor($totalLangkah * ($score / 100));
+
+                        $evaluasiLangkah = [];
+                        foreach ($langkah as $lIdx => $l) {
+                            $isBenar = $lIdx < $simbolBenar;
+                            $evaluasiLangkah[] = [
+                                'teks' => $l['teks'] ?? '',
+                                'simbol_kunci' => $l['simbol'] ?? 'P',
+                                'simbol_siswa' => $isBenar ? ($l['simbol'] ?? 'P') : ($l['simbol'] === 'P' ? 'IO' : 'P'),
+                                'is_simbol_benar' => $isBenar,
+                            ];
+                        }
+
+                        $results[$idx] = [
+                            'skor' => $score,
+                            'is_semua_benar' => $score >= 100,
+                            'simbol_benar' => $simbolBenar,
+                            'total_langkah' => $totalLangkah,
+                            'evaluasi_langkah' => $evaluasiLangkah,
+                            'pesan' => $score >= 100 ? [] : ['Perhatikan kembali simbol dan urutan logika alur.'],
+                        ];
+                    }
+
+                    $quiz = [
+                        'tasks' => $sampleTasks,
+                        'results' => $results,
+                        'skor_akhir' => $user->skor_praktik,
+                    ];
+                    $completedAt = $latestLog?->created_at ?? $user->updated_at;
+                }
+            }
+        } else {
+            if (Auth::check()) {
+                $latestLog = ActivityLog::where('user_id', Auth::id())
+                    ->where('action', 'keterampilan_completed')
+                    ->latest()
+                    ->first();
+                $completedAt = $latestLog?->created_at ?? now();
+            }
+        }
 
         if (! $quiz || empty($quiz['tasks']) || ! isset($quiz['skor_akhir'])) {
             return redirect()->route('quiz.keterampilan');
@@ -229,6 +313,7 @@ class QuizKeterampilanController extends Controller
             'results' => $quiz['results'],
             'skorAkhir' => $quiz['skor_akhir'],
             'user' => Auth::user(),
+            'completedAt' => $completedAt,
         ]);
     }
 

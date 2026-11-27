@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Simulasi Interaktif Flowchart - Flowchart Lab SMK</title>
-    <meta name="description" content="Simulasi interaktif logika algoritma alur kerja flowchart khusus siswa SMK. Bangun, pasang simbol, dan uji eksekusi alur program secara visual.">
+    <meta name="description" content="Simulasi interaktif logika algoritma alur kerja flowchart khusus siswa. Bangun, pasang simbol, dan uji eksekusi alur program secara visual.">
 
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -103,7 +103,7 @@
                 <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-9 h-9 group-hover:scale-105 transition-transform duration-200">
                 <div class="flex flex-col">
                     <span class="font-extrabold text-[17px] text-slate-900 tracking-tight leading-snug">Flowchart Lab</span>
-                    <span class="font-bold text-[10px] tracking-wider text-[#EA580C] uppercase leading-none mt-0.5">ALGORITMA VISUAL</span>
+                    <span class="font-bold text-[10px] tracking-wider text-[#EA580C] uppercase leading-none mt-0.5">BELAJAR ALGORITMA VISUAL</span>
                 </div>
             </a>
 
@@ -168,7 +168,7 @@
                                         </span>
                                     @else
                                         <span class="bg-[#FEE3A2] text-[#9A3412] font-black text-[9px] px-2 py-0.5 rounded uppercase tracking-wider inline-block">
-                                            {{ Auth::user()->role === 'guru' ? 'Guru SMK' : 'Siswa SMK' }}
+                                            {{ Auth::user()->role === 'guru' ? 'Guru' : 'Siswa' }}
                                         </span>
                                     @endif
                                 </div>
@@ -212,7 +212,7 @@
                                             </span>
                                         @else
                                             <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-sky-50 text-sky-800 border border-sky-200">
-                                                {{ Auth::user()->role === 'guru' ? 'Guru Pembimbing' : 'Siswa SMK' }}
+                                                {{ Auth::user()->role === 'guru' ? 'Guru Pembimbing' : 'Siswa' }}
                                             </span>
                                         @endif
                                     </div>
@@ -221,38 +221,45 @@
                                 <!-- Action Buttons -->
                                 <div class="space-y-1">
                                     @if(Auth::user()->isAdmin())
-                                        <a href="{{ route('admin.dashboard') }}" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-black bg-amber-500 hover:bg-amber-600 text-slate-950 transition shadow-xs">
-                                            <div class="flex items-center gap-2">
-                                                <span>⚙️</span>
-                                                <span>Panel Administrator</span>
-                                            </div>
-                                            <span>&rarr;</span>
-                                        </a>
+                                        <div class="p-0.5">
+                                            <a href="{{ route('admin.dashboard') }}" class="flex items-center justify-between gap-3 w-full px-4 py-3 bg-gradient-to-r from-slate-900 via-slate-850 to-slate-900 hover:from-slate-800 hover:to-slate-750 text-amber-400 font-black text-xs rounded-xl shadow-md border border-slate-800 transition transform hover:-translate-y-0.5">
+                                                <div class="flex items-center gap-2.5">
+                                                    <div class="w-7 h-7 rounded-lg bg-amber-400/20 text-amber-300 flex items-center justify-center text-sm font-bold">
+                                                        ⚙️
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <span class="block text-white font-extrabold text-xs leading-tight">Panel Administrator</span>
+                                                        <span class="block text-[10px] text-amber-300 font-normal">Kelola Soal, Kasus & Siswa</span>
+                                                    </div>
+                                                </div>
+                                                <span class="text-amber-400 font-extrabold text-sm">&rarr;</span>
+                                            </a>
+                                        </div>
                                     @endif
 
-                                    <button type="button" onclick="closeProfileDropdown(); openProfileModal();" class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-100 transition cursor-pointer">
-                                        <span>👤</span>
-                                        <span>Buka Profil Lengkap</span>
-                                    </button>
-                                </div>
-
-                                <div class="border-t border-slate-100 pt-1">
-                                    <form method="POST" action="{{ route('logout') }}">
-                                        @csrf
-                                        <button type="submit" class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-rose-600 hover:bg-rose-50 transition cursor-pointer">
-                                            <span>🚪</span>
-                                            <span>Keluar (Logout)</span>
-                                        </button>
-                                    </form>
+                                    <!-- Secondary Links -->
+                                    <div class="space-y-1 pt-1 border-t border-slate-100">
+                                        <a href="{{ route('profile.show') }}" class="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-100 flex items-center gap-2.5 transition">
+                                            <span>👤</span>
+                                            <span>Buka Detail Profil</span>
+                                        </a>
+                                        <form action="{{ route('logout') }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-rose-600 hover:bg-rose-50 flex items-center gap-2.5 transition cursor-pointer">
+                                                <span>🚪</span>
+                                                <span>Keluar (Logout)</span>
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
                             @else
-                                <!-- Guest state -->
-                                <div class="px-2 py-1 text-center space-y-2">
-                                    <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center mx-auto text-base font-black">?</div>
-                                    <div class="text-xs font-bold text-slate-800">Belum Masuk Akun</div>
-                                    <p class="text-[11px] text-slate-500">Masuk untuk menyimpan riwayat quiz dan capaian materi kamu.</p>
-                                    <a href="{{ route('login') }}" class="block w-full py-2 px-3 rounded-xl bg-amber-400 hover:bg-amber-500 text-slate-950 font-black text-xs transition">
-                                        Masuk Akun Sekarang
+                                <div class="p-2 text-center space-y-2.5">
+                                    <p class="text-xs text-slate-600 font-medium">Anda belum masuk akun</p>
+                                    <a href="{{ route('login') }}" class="block w-full py-2.5 bg-amber-400 hover:bg-amber-500 text-slate-950 font-extrabold text-xs rounded-xl transition shadow-sm">
+                                        Masuk ke Akun
+                                    </a>
+                                    <a href="{{ route('register') }}" class="block w-full py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition">
+                                        Daftar Akun Baru
                                     </a>
                                 </div>
                             @endauth
@@ -276,7 +283,7 @@
                     <div>
                         <div class="font-extrabold text-sm text-slate-900">{{ Auth::user()->name }}</div>
                         <span class="bg-[#FEE3A2] text-[#9A3412] font-black text-[9px] px-2 py-0.5 rounded uppercase tracking-wider inline-block">
-                            {{ Auth::user()->isAdmin() ? 'Administrator' : (Auth::user()->role === 'guru' ? 'Guru SMK' : 'Siswa SMK') }}
+                            {{ Auth::user()->isAdmin() ? 'Administrator' : (Auth::user()->role === 'guru' ? 'Guru' : 'Siswa') }}
                         </span>
                     </div>
                     @if(Auth::user()->isAdmin())
@@ -533,27 +540,7 @@
     </main>
 
      <!-- ================= FOOTER ================= -->
-    <footer class="bg-[#18181B] text-slate-400 py-10 px-4 sm:px-6 lg:px-8 border-t border-zinc-800">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
-            
-            <!-- Left: Logo & Copyright -->
-            <div class="flex flex-col sm:flex-row items-center gap-3.5"> 
-                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-10 h-10 object-contain">
-                <div>
-                    <div class="text-white font-extrabold text-base tracking-tight">Flowchart Lab</div>
-                    <div class="text-xs text-slate-400 mt-0.5">
-                        &copy; 2026 Flowchart Lab. Media Pembelajaran Logika Algoritma Vokasi Indonesia.
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right: Navigation Links -->
-            <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-8 text-xs sm:text-[13px] font-medium text-slate-400">
-                <a href="{{ route('materi') }}" class="hover:text-white transition">Dokumentasi Simbol</a>
-                <a href="#bantuan" onclick="openInfoModal('Pusat Bantuan', 'Butuh bantuan seputar pengerjaan flowchart atau simulasi? Hubungi tim pendamping lab atau baca FAQ seputar aturan ANSI/ISO 5807.')" class="hover:text-white transition">Bantuan</a>
-            </div>
-        </div>
-    </footer>
+    <x-site-footer />
 
     <!-- ================= MODALS ================= -->
 
@@ -673,7 +660,7 @@
                 <p class="text-xs text-slate-500 mb-1">{{ Auth::user()->email }}</p>
                 <p class="text-xs text-slate-600 font-semibold mb-2">{{ Auth::user()->school ?? 'SMK Negeri' }}</p>
                 <span class="bg-[#FEE3A2] text-[#9A3412] font-black text-[10px] px-2.5 py-1 rounded-full uppercase tracking-wider inline-block mb-4">
-                    {{ Auth::user()->role === 'guru' ? 'Guru / Pembimbing' : 'Siswa SMK' }}
+                    {{ Auth::user()->role === 'guru' ? 'Guru / Pembimbing' : 'Siswa' }}
                 </span>
 
                 <div class="grid grid-cols-2 gap-3 text-left bg-slate-50 p-3.5 rounded-2xl mb-4 border border-slate-200/80">

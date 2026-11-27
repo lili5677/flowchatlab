@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hasil Akhir Quiz Keterampilan - Flowchart Lab SMK</title>
-    <meta name="description" content="Hasil evaluasi praktik penyusunan alur logika flowchart vokasi RPL.">
+    <title>Hasil Akhir Quiz Keterampilan - Flowchart Lab</title>
+    <meta name="description" content="Hasil evaluasi praktik penyusunan alur logika flowchart.">
 
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -168,36 +168,173 @@
         .anim-4 { animation: fadeUp 0.5s ease 0.40s both; }
     </style>
 </head>
-<body class="min-h-screen bg-[#F8FAFC] text-slate-900 flex flex-col antialiased">
+<body class="min-h-screen bg-gradient-to-b from-emerald-500 via-emerald-300 to-emerald-200 text-slate-900 flex flex-col antialiased selection:bg-emerald-300 selection:text-emerald-950">
 
     <!-- ================= NAVBAR ================= -->
     <header class="w-full bg-white/95 backdrop-blur-md sticky top-0 z-40 border-b border-slate-100 transition-all">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            
+
             <!-- Left: Logo & Brand Name -->
             <a href="{{ route('home') }}" class="flex items-center gap-3 group">
                 <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-9 h-9 group-hover:scale-105 transition-transform duration-200">
                 <div class="flex flex-col">
                     <span class="font-extrabold text-[17px] text-slate-900 tracking-tight leading-snug">Flowchart Lab</span>
-                    <span class="font-bold text-[10px] tracking-wider text-[#EA580C] uppercase leading-none mt-0.5">ALGORITMA VISUAL</span>
+                    <span class="font-bold text-[10px] tracking-wider text-[#EA580C] uppercase leading-none mt-0.5">BELAJAR ALGORITMA VISUAL</span>
                 </div>
             </a>
 
-            <div class="flex items-center gap-2">
-                <span class="hidden sm:block text-[10px] font-black uppercase tracking-wide px-3 py-1 rounded-full bg-amber-100 text-amber-800 border border-amber-200">Quiz Keterampilan</span>
-                @auth
-                <div class="flex items-center gap-2 text-xs font-bold text-slate-600">
-                    <div class="w-7 h-7 rounded-full bg-amber-400 flex items-center justify-center text-white font-black text-[10px]">
-                        {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+            <!-- Center Navigation (Desktop) -->
+            <nav class="hidden md:flex items-center gap-1.5 bg-slate-50/70 p-1.5 rounded-full border border-slate-100">
+                <a href="{{ route('home') }}" class="text-slate-600 hover:text-emerald-700 font-semibold px-3.5 py-1.5 rounded-full text-[13px] transition hover:bg-white">Beranda</a>
+                <a href="{{ route('materi') }}" class="text-slate-600 hover:text-emerald-700 font-semibold px-3.5 py-1.5 rounded-full text-[13px] transition hover:bg-white">Materi</a>
+                <a href="{{ route('simulasi') }}" class="text-slate-600 hover:text-emerald-700 font-semibold px-3.5 py-1.5 rounded-full text-[13px] transition hover:bg-white">Simulasi</a>
+                <!-- Quiz Dropdown -->
+                <div class="relative" id="quiz-dropdown-wrapper">
+                    <button type="button" id="quiz-dropdown-btn" onclick="toggleQuizDropdown(event)"
+                            class="bg-emerald-100 text-emerald-900 font-bold px-4 py-1.5 rounded-full text-[13px] shadow-2xs transition inline-flex items-center gap-1.5 cursor-pointer">
+                        <span>Quiz</span>
+                        <svg id="quiz-dropdown-arrow" class="w-3.5 h-3.5 text-emerald-700 transition-transform duration-200" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                    <div id="quiz-dropdown-menu" class="absolute left-0 mt-2 w-52 bg-white rounded-2xl shadow-xl border border-slate-100 py-2 hidden transition-all z-50">
+                        <a href="{{ route('quiz.index') }}" class="flex items-center gap-2.5 px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-amber-50 hover:text-amber-800 transition">
+                            <span class="w-6 h-6 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center text-[11px]">📖</span>
+                            <span>Quiz Pengetahuan</span>
+                        </a>
+                        <a href="{{ route('quiz.keterampilan') }}" class="flex items-center gap-2.5 px-4 py-2.5 text-xs font-bold text-emerald-800 bg-emerald-50/70 transition">
+                            <span class="w-6 h-6 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center text-[11px]">🧩</span>
+                            <span>Quiz Keterampilan</span>
+                        </a>
                     </div>
-                    <span class="hidden sm:block">{{ Auth::user()->name }}</span>
                 </div>
-                @endauth
+            </nav>
+
+            <!-- Right: User Profile & Auth -->
+            <div class="flex items-center gap-3 sm:gap-4">
+                @guest
+                    <!-- Guest: Quick Login Button -->
+                    <a href="{{ route('login') }}" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-extrabold bg-emerald-500 hover:bg-emerald-600 text-white transition shadow-2xs">
+                        <span>Masuk</span>
+                        <span>&rarr;</span>
+                    </a>
+                @endguest
+
+                <!-- User Profile Container (Hover Dropdown + Click) -->
+                <div class="relative group" id="profile-dropdown-wrapper" onmouseenter="openProfileDropdown()" onmouseleave="closeProfileDropdown()">
+                    <div class="flex items-center gap-2.5 pl-1 sm:pl-2 cursor-pointer py-1" onclick="handleProfileClick(event)">
+                        @auth
+                            <div class="text-right hidden sm:block">
+                                <div class="font-extrabold text-[13px] text-slate-900 leading-tight">{{ Auth::user()->name }}</div>
+                                <div class="mt-0.5 flex items-center justify-end gap-1.5">
+                                    @if(Auth::user()->isAdmin())
+                                        <span class="bg-amber-100 text-amber-900 border border-amber-300 font-black text-[9px] px-2 py-0.5 rounded uppercase tracking-wider inline-flex items-center gap-1">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                                            Admin
+                                        </span>
+                                    @else
+                                        <span class="bg-[#FEE3A2] text-[#9A3412] font-black text-[9px] px-2 py-0.5 rounded uppercase tracking-wider inline-block">
+                                            {{ Auth::user()->role === 'guru' ? 'Guru' : 'Siswa' }}
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                        @endauth
+
+                        <!-- User Avatar -->
+                        <div class="relative cursor-pointer" onclick="event.stopPropagation(); @auth handleProfileClick(event) @else window.location.href='{{ route('login') }}' @endauth;" title="{{ Auth::check() ? Auth::user()->name : 'Klik untuk Masuk Akun' }}">
+                            <div class="w-9 h-9 rounded-full ring-2 {{ Auth::check() && Auth::user()->isAdmin() ? 'ring-amber-400 bg-amber-50' : 'ring-emerald-300 bg-emerald-50' }} ring-offset-2 overflow-hidden flex items-center justify-center shrink-0 shadow-2xs hover:ring-emerald-400 transition">
+                                <svg class="w-full h-full text-emerald-800" viewBox="0 0 40 40" fill="none">
+                                    <circle cx="20" cy="20" r="20" fill="{{ Auth::check() && Auth::user()->isAdmin() ? '#FEF3C7' : '#E0F2FE' }}" />
+                                    <circle cx="20" cy="15" r="7" fill="#FBCFE8" />
+                                    <path d="M20 9C15 9 14 13 14 15C14 16 15 17 20 17C25 17 26 16 26 15C26 13 25 9 20 9Z" fill="#1E293B" />
+                                    <path d="M9 36C9 28 14 25 20 25C26 25 31 28 31 36" fill="#FFFFFF" />
+                                    <path d="M18 25L20 31L22 25" fill="{{ Auth::check() && Auth::user()->isAdmin() ? '#D97706' : '#059669' }}" />
+                                    <circle cx="18" cy="14" r="1" fill="#0F172A" />
+                                    <circle cx="22" cy="14" r="1" fill="#0F172A" />
+                                    <path d="M18.5 17C19 18 21 18 21.5 17" stroke="#0F172A" stroke-width="0.8" stroke-linecap="round" />
+                                </svg>
+                            </div>
+                            @auth
+                                <span class="absolute bottom-0 right-0 w-2.5 h-2.5 {{ Auth::user()->isAdmin() ? 'bg-amber-500' : 'bg-emerald-500' }} border-2 border-white rounded-full"></span>
+                            @endauth
+                        </div>
+                    </div>
+
+                    <!-- Profile Dropdown (Hover & Click Menu) -->
+                    <div id="profile-dropdown-menu" class="absolute right-0 top-full pt-1.5 w-72 hidden group-hover:block transition-all duration-150 z-50">
+                        <div class="bg-white rounded-2xl shadow-xl border border-slate-200/90 p-3.5 text-slate-800 space-y-3">
+                            @auth
+                                <!-- Header Identitas Akun -->
+                                <div class="px-2 py-1 border-b border-slate-100 pb-2.5">
+                                    <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Akun Masuk</div>
+                                    <div class="font-black text-sm text-slate-900 truncate">{{ Auth::user()->name }}</div>
+                                    <div class="text-xs text-slate-500 truncate">{{ Auth::user()->email }}</div>
+                                    <div class="mt-1.5">
+                                        @if(Auth::user()->isAdmin())
+                                            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-50 text-amber-900 border border-amber-200">
+                                                <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                                                Administrator Flowchart Lab
+                                            </span>
+                                        @else
+                                            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                                                {{ Auth::user()->role === 'guru' ? 'Guru Pembimbing' : 'Siswa' }}
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <!-- Action: Tombol Masuk Panel Khusus Admin -->
+                                @if(Auth::user()->isAdmin())
+                                    <div class="p-0.5">
+                                        <a href="{{ route('admin.dashboard') }}" class="flex items-center justify-between gap-3 w-full px-4 py-3 bg-gradient-to-r from-slate-900 via-slate-850 to-slate-900 hover:from-slate-800 hover:to-slate-750 text-emerald-400 font-black text-xs rounded-xl shadow-md border border-slate-800 transition transform hover:-translate-y-0.5">
+                                            <div class="flex items-center gap-2.5">
+                                                <div class="w-7 h-7 rounded-lg bg-emerald-400/20 text-emerald-300 flex items-center justify-center text-sm font-bold">
+                                                    ⚙️
+                                                </div>
+                                                <div class="text-left">
+                                                    <span class="block text-white font-extrabold text-xs leading-tight">Panel Administrator</span>
+                                                    <span class="block text-[10px] text-emerald-300 font-normal">Kelola Soal, Kasus & Siswa</span>
+                                                </div>
+                                            </div>
+                                            <span class="text-emerald-400 font-extrabold text-sm">&rarr;</span>
+                                        </a>
+                                    </div>
+                                @endif
+
+                                <!-- Secondary Links -->
+                                <div class="space-y-1 pt-1 border-t border-slate-100">
+                                    <a href="{{ route('profile.show') }}" class="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-100 flex items-center gap-2.5 transition">
+                                        <span>👤</span>
+                                        <span>Buka Detail Profil</span>
+                                    </a>
+                                    <form action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-rose-600 hover:bg-rose-50 flex items-center gap-2.5 transition cursor-pointer">
+                                            <span>🚪</span>
+                                            <span>Keluar (Logout)</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            @else
+                                <div class="p-2 text-center space-y-2.5">
+                                    <p class="text-xs text-slate-600 font-medium">Anda belum masuk akun</p>
+                                    <a href="{{ route('login') }}" class="block w-full py-2.5 bg-amber-400 hover:bg-amber-500 text-slate-950 font-extrabold text-xs rounded-xl transition shadow-sm">
+                                        Masuk ke Akun
+                                    </a>
+                                    <a href="{{ route('register') }}" class="block w-full py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition">
+                                        Daftar Akun Baru
+                                    </a>
+                                </div>
+                            @endauth
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
 
-    <!-- =================== HERO =================== -->
+    <!-- =================== MAIN CONTENT =================== -->
     @php
         $namaUser    = $user ? $user->name : 'Peserta';
         $skorInt     = (int) $skorAkhir;
@@ -215,132 +352,194 @@
         }
         $pctBenar  = $totalLangkah > 0 ? round($totalBenar / $totalLangkah * 100) : 0;
 
-        // SVG ring: circumference ≈ 2π×63.66 ≈ 400
-        $ringCirc   = 400;
-        $ringOffset = $ringCirc - ($skorInt / 100 * $ringCirc);
-        $ringColor  = $skorInt >= 75 ? '#34D399' : ($skorInt >= 60 ? '#FBBF24' : '#FB7185');
+        // SVG ring: circumference ≈ 2π×63.66 ≈ 400 (r=63.66, viewBox 148x148)
+        // For the pengetahuan style: r=54 in viewBox 120x120, circumference=339.29
+        $circumference = 339.29;
+        $offset = $circumference - ($skorInt / 100 * $circumference);
+        $gaugeColorClass = $lulus ? 'stroke-emerald-500' : 'stroke-rose-500';
     @endphp
 
-    <section class="hero-section py-12 sm:py-16 px-4">
-        <div class="relative z-10 max-w-4xl mx-auto">
+    <main class="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 space-y-8">
 
-            <!-- Module tags -->
-            <div class="flex flex-wrap gap-2 mb-6 anim-1">
-                <span class="text-[10px] font-black uppercase tracking-widest text-white/70 bg-white/15 px-3 py-1 rounded-full border border-white/20">Modul Dasar Flowchart</span>
-                <span class="text-[10px] font-black uppercase tracking-widest text-white   bg-white/25 px-3 py-1 rounded-full border border-white/30">Evaluasi Akhir</span>
+        <!-- Top Badges & Hero Header -->
+        <div class="text-center space-y-3">
+            <div class="flex items-center justify-center gap-2">
+                <span class="bg-emerald-600 text-white font-extrabold text-[11px] px-3.5 py-1 rounded-full uppercase tracking-wider shadow-2xs">
+                    Modul Dasar Flowchart
+                </span>
+                <span class="bg-white/80 backdrop-blur-xs text-amber-950 border border-amber-200 font-bold text-[11px] px-3.5 py-1 rounded-full uppercase tracking-wider shadow-2xs">
+                    Evaluasi Akhir
+                </span>
             </div>
 
-            <!-- Headline -->
-            <div class="anim-2 mb-8">
-                <h1 class="text-3xl sm:text-4xl lg:text-[2.75rem] font-black text-white leading-tight tracking-tight drop-shadow">
-                    Selamat, {{ $namaUser }}! Kamu<br>
-                    Menyelesaikan Quiz Keterampilan!
-                </h1>
-                <p class="text-white/75 font-semibold text-sm mt-3 max-w-xl leading-relaxed">
-                    Hasil evaluasi pemahaman teori dan keterampilan praktis penyusunan alur logika flowchart vokasi RPL.
-                </p>
+            <h1 class="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight leading-tight">
+                Selamat, {{ $namaUser }}! Kamu Menyelesaikan Quiz Keterampilan!
+            </h1>
+
+            <p class="text-xs sm:text-sm text-slate-800 max-w-xl mx-auto font-medium leading-relaxed">
+                Hasil evaluasi pemahaman teori dan keterampilan praktis penyusunan alur logika flowchart.
+            </p>
+        </div>
+
+        <!-- ================= MAIN SCORE CARD ================= -->
+        <div class="bg-white rounded-3xl p-6 sm:p-10 border border-amber-200/80 shadow-2xl relative overflow-hidden space-y-8">
+
+            <!-- Top Predicate Badge -->
+            <div class="text-center">
+                @if ($lulus)
+                    <span class="inline-flex items-center gap-2 bg-emerald-600 text-white font-extrabold text-xs sm:text-sm px-5 py-2 rounded-full uppercase tracking-wider shadow-md shadow-emerald-600/20">
+                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span>{{ $predikatEmoji }} LULUS DENGAN PREDIKAT {{ strtoupper($predikat) }}</span>
+                    </span>
+                @else
+                    <span class="inline-flex items-center gap-2 bg-rose-600 text-white font-extrabold text-xs sm:text-sm px-5 py-2 rounded-full uppercase tracking-wider shadow-md shadow-rose-600/20">
+                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                        <span>{{ $predikatEmoji }} {{ strtoupper($predikat) }}</span>
+                    </span>
+                @endif
             </div>
 
-            <!-- Score Card -->
-            <div class="anim-3 bg-white/95 backdrop-blur rounded-3xl p-6 sm:p-8 shadow-2xl shadow-amber-900/20 max-w-2xl">
+            <!-- Score Circular Gauge & Summary Row -->
+            <div class="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 py-2">
 
-                <!-- Predikat -->
-                <div class="mb-5">
-                    <span class="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wide px-3.5 py-1.5 rounded-full {{ $predikatClass }}">
-                        {{ $predikatEmoji }} {{ $lulus ? 'LULUS DENGAN PREDIKAT ' : '' }}{{ strtoupper($predikat) }}
+                <!-- Circular Score Gauge -->
+                <div class="relative w-44 h-44 sm:w-48 sm:h-48 flex items-center justify-center shrink-0">
+                    <svg class="w-full h-full score-circle" viewBox="0 0 120 120">
+                        <circle cx="60" cy="60" r="54" class="stroke-slate-100 fill-none" stroke-width="10" />
+                        <circle cx="60" cy="60" r="54"
+                                class="{{ $gaugeColorClass }} fill-none"
+                                stroke-width="10"
+                                stroke-linecap="round"
+                                stroke-dasharray="{{ $circumference }}"
+                                stroke-dashoffset="{{ $offset }}" />
+                    </svg>
+                    <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+                        <span class="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-none">
+                            {{ $skorInt }}
+                        </span>
+                        <span class="text-[10px] font-black tracking-widest text-slate-400 uppercase mt-1">
+                            SKOR PRAKTIK
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Score Details -->
+                <div class="space-y-4 max-w-md text-center md:text-left">
+                    <div>
+                        <span class="bg-amber-100 text-amber-900 font-extrabold text-[11px] px-3 py-1 rounded-md uppercase tracking-wider inline-block">
+                            STANDAR KELULUSAN: 75
+                        </span>
+                        <div class="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight mt-1">
+                            {{ $skorInt }} <span class="text-slate-400 text-xl font-bold">/ 100</span>
+                        </div>
+                    </div>
+
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
+                        @if($skorInt >= 85)
+                            Penguasaan logika algoritma terstruktur di atas rata-rata. Siap melanjutkan ke materi pengkondisian bertingkat.
+                        @elseif($skorInt >= 75)
+                            Kamu telah mencapai kompetensi dasar. Terus berlatih untuk meningkatkan akurasi simbol dan urutan.
+                        @else
+                            Jangan menyerah! Pelajari kembali materi simbol flowchart dan coba lagi untuk meningkatkan nilaimu.
+                        @endif
+                    </p>
+
+                    <!-- Student Identity Card -->
+                    @auth
+                    <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-3 text-left">
+                        <div class="flex items-center gap-3 min-w-0">
+                            <div class="w-10 h-10 rounded-full bg-emerald-100 border border-emerald-300 flex items-center justify-center text-emerald-800 font-black text-sm shrink-0">
+                                🧩
+                            </div>
+                            <div class="min-w-0">
+                                <div class="font-extrabold text-xs sm:text-sm text-slate-900 truncate">
+                                    {{ Auth::user()->name }} <span class="text-slate-500 font-semibold text-xs">(NIS: {{ Auth::user()->nis ?? '-' }})</span>
+                                </div>
+                                <div class="text-[11px] text-slate-500 truncate font-medium">
+                                    {{ Auth::user()->kelas ?? 'Kelas belum diisi' }}
+                                </div>
+                            </div>
+                        </div>
+                        @if(isset($completedAt) && $completedAt)
+                            <div class="text-right shrink-0">
+                                <div class="text-[10px] font-black uppercase tracking-wider text-slate-400">Dikerjakan</div>
+                                <div class="text-xs font-bold text-slate-600">{{ $completedAt->locale('id')->diffForHumans() }}</div>
+                            </div>
+                        @endif
+                    </div>
+                    @endauth
+                </div>
+            </div>
+
+            <!-- 3 Stat Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-slate-100">
+                <!-- Stat 1: Bonus Poin -->
+                <div class="p-4 rounded-2xl bg-amber-50/70 border border-amber-200/90 flex items-center gap-3.5">
+                    <div class="w-11 h-11 rounded-xl bg-amber-400 text-amber-950 flex items-center justify-center text-xl shrink-0 shadow-2xs">
+                        ★
+                    </div>
+                    <div>
+                        <div class="text-[10px] font-black uppercase tracking-wider text-slate-500">Bonus Poin</div>
+                        <div class="text-lg sm:text-xl font-black text-slate-900 leading-none mt-0.5">
+                            +{{ $skorInt * 2 }} Pts
+                        </div>
+                        <div class="text-[10px] text-amber-700 font-bold mt-1">Akumulasi mutu</div>
+                    </div>
+                </div>
+
+                <!-- Stat 2: Akurasi Simbol -->
+                <div class="p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200/90 flex items-center gap-3.5">
+                    <div class="w-11 h-11 rounded-xl bg-emerald-500 text-white flex items-center justify-center text-xl shrink-0 shadow-2xs">
+                        ✓
+                    </div>
+                    <div>
+                        <div class="text-[10px] font-black uppercase tracking-wider text-slate-500">Akurasi Simbol</div>
+                        <div class="text-lg sm:text-xl font-black text-slate-900 leading-none mt-0.5">
+                            {{ $pctBenar }}% Benar
+                        </div>
+                        <div class="text-[10px] text-emerald-700 font-bold mt-1">{{ $totalBenar }} dari {{ $totalLangkah }} simbol tepat</div>
+                    </div>
+                </div>
+
+                <!-- Stat 3: Status -->
+                <div class="p-4 rounded-2xl {{ $lulus ? 'bg-sky-50/70 border-sky-200/90' : 'bg-rose-50/70 border-rose-200/90' }} border flex items-center gap-3.5">
+                    <div class="w-11 h-11 rounded-xl {{ $lulus ? 'bg-sky-500 text-white' : 'bg-rose-500 text-white' }} flex items-center justify-center text-xl shrink-0 shadow-2xs">
+                        {{ $lulus ? '🎓' : '⚠️' }}
+                    </div>
+                    <div>
+                        <div class="text-[10px] font-black uppercase tracking-wider text-slate-500">Status Kelulusan</div>
+                        <div class="text-lg sm:text-xl font-black {{ $lulus ? 'text-sky-950' : 'text-rose-950' }} leading-none mt-0.5">
+                            {{ $lulus ? 'Lulus KKM' : 'Perlu Remedial' }}
+                        </div>
+                        <div class="text-[10px] {{ $lulus ? 'text-sky-700' : 'text-rose-700' }} font-bold mt-1">Standar KKM: 75</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- =================== REKAP JAWABAN =================== -->
+        <div class="bg-white rounded-3xl p-6 sm:p-8 border border-amber-200/80 shadow-xl space-y-6">
+
+            <!-- Header -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-100">
+                <div>
+                    <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Rekap Jawaban Soal</h2>
+                    <p class="text-xs font-medium text-slate-500 mt-0.5">Tugas hadir verifikasi logika untuk memperdalam analisis notasi diagram alir standar ISO/ANSI.</p>
+                </div>
+                <div class="flex items-center gap-2 text-[10px] font-bold flex-shrink-0">
+                    <span class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span> Jawaban Tepat (+10 Pts)
+                    </span>
+                    <span class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-rose-50 text-rose-700 border border-rose-200">
+                        <span class="w-2 h-2 rounded-full bg-rose-500 inline-block"></span> Perlu Koreksi
                     </span>
                 </div>
-
-                <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6">
-
-                    <!-- Circular Ring -->
-                    <div class="score-ring-wrap">
-                        <svg class="score-ring-svg" viewBox="0 0 148 148">
-                            <circle class="score-ring-bg" cx="74" cy="74" r="63.66"/>
-                            <circle
-                                class="score-ring-fill"
-                                id="scoreRingFill"
-                                cx="74" cy="74" r="63.66"
-                                style="stroke: {{ $ringColor }};"
-                            />
-                        </svg>
-                        <div class="score-ring-text">
-                            <span class="text-4xl font-black text-slate-900" id="scoreCounter">0</span>
-                            <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">SKOR PRAKTIK</span>
-                        </div>
-                    </div>
-
-                    <!-- Right side details -->
-                    <div class="flex-1 min-w-0">
-                        <div class="flex items-end gap-1.5 mb-1">
-                            <span class="text-5xl font-black {{ $skorInt >= 75 ? 'text-emerald-600' : ($skorInt >= 60 ? 'text-amber-500' : 'text-rose-500') }}">{{ $skorInt }}</span>
-                            <span class="text-2xl font-bold text-slate-400 mb-1">/ 100</span>
-                        </div>
-                        <div class="text-xs font-semibold text-slate-500 mb-3">
-                            Standar Kelulusan: <strong class="text-slate-700">75</strong>
-                        </div>
-                        <p class="text-sm font-medium text-slate-600 leading-relaxed">
-                            @if($skorInt >= 85)
-                                Penguasaan logika algoritma terstruktur di atas rata-rata kompetensi kelas. Siap melanjutkan ke materi pengkondisian bertingkat.
-                            @elseif($skorInt >= 75)
-                                Kamu telah mencapai kompetensi dasar. Terus berlatih untuk meningkatkan akurasi simbol dan urutan.
-                            @else
-                                Jangan menyerah! Pelajari kembali materi simbol flowchart dan coba lagi untuk meningkatkan nilaimu.
-                            @endif
-                        </p>
-                        @auth
-                        <div class="mt-3 flex items-center gap-1.5 text-[11px] font-bold text-emerald-700">
-                            <div class="w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center">
-                                <svg class="w-2.5 h-2.5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-                            </div>
-                            <span>Skor Praktik tersimpan ke akun <strong>{{ $namaUser }}</strong></span>
-                        </div>
-                        @endauth
-                    </div>
-                </div>
-
-                <!-- 3 stat chips -->
-                <div class="grid grid-cols-3 gap-3 mt-6">
-                    <div class="stat-card flex flex-col items-center text-center gap-1">
-                        <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
-                        <div class="text-sm font-black text-slate-900">+{{ $skorInt * 2 }} Pts</div>
-                        <div class="text-[10px] font-bold text-slate-400 leading-snug">Bonus poin<br>akumulasi mutu</div>
-                    </div>
-                    <div class="stat-card flex flex-col items-center text-center gap-1">
-                        <svg class="w-5 h-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                        <div class="text-sm font-black text-slate-900">{{ $pctBenar }}% Benar</div>
-                        <div class="text-[10px] font-bold text-slate-400 leading-snug">{{ $totalBenar }} dari {{ $totalLangkah }}<br>simbol tepat</div>
-                    </div>
-                    <div class="stat-card flex flex-col items-center text-center gap-1">
-                        <svg class="w-5 h-5 text-rose-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                        <div class="text-sm font-black text-slate-900">3 Tugas</div>
-                        <div class="text-[10px] font-bold text-slate-400 leading-snug">Berhasil<br>diselesaikan</div>
-                    </div>
-                </div>
             </div>
-        </div>
-    </section>
-
-    <!-- =================== REKAP JAWABAN =================== -->
-    <main class="flex-1 py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-4xl mx-auto space-y-6">
-
-            <div class="anim-4">
-                <!-- Header -->
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
-                    <div>
-                        <h2 class="text-xl font-black text-slate-900">Rekap Jawaban Soal</h2>
-                        <p class="text-xs font-medium text-slate-500 mt-0.5">Tugas hadir verifikasi logika untuk memperdalam analisis notasi diagram alir standar ISO/ANSI.</p>
-                    </div>
-                    <div class="flex items-center gap-2 text-[10px] font-bold flex-shrink-0">
-                        <span class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
-                            <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span> Jawaban Tepat (+10 Pts)
-                        </span>
-                        <span class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-rose-50 text-rose-700 border border-rose-200">
-                            <span class="w-2 h-2 rounded-full bg-rose-500 inline-block"></span> Perlu Koreksi
-                        </span>
-                    </div>
-                </div>
 
                 <!-- Task Cards -->
                 <div class="space-y-5">
@@ -510,30 +709,25 @@
             </div>
 
             <!-- =================== ACTION BUTTONS =================== -->
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2 pb-8">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 py-4">
                 <a href="{{ route('home') }}"
-                   class="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3.5 rounded-full border-2 border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-extrabold text-sm transition hover:scale-[1.01] shadow-sm">
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
-                    Kembali ke Beranda
+                   class="w-full sm:w-auto bg-white hover:bg-slate-50 border border-slate-200 text-slate-800 font-extrabold text-xs sm:text-[13px] px-6 py-3.5 rounded-full inline-flex items-center justify-center gap-2 shadow-xs transition cursor-pointer">
+                    <span>←</span>
+                    <span>Kembali ke Beranda</span>
                 </a>
-                <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-                    <form action="{{ route('quiz.keterampilan.mulai') }}" method="POST">
+                <div class="w-full sm:w-auto flex flex-col sm:flex-row items-center gap-3">
+                    <form action="{{ route('quiz.keterampilan.mulai') }}" method="POST" class="w-full sm:w-auto">
                         @csrf
                         <button type="submit"
-                            class="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3.5 rounded-full border-2 border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-extrabold text-sm transition hover:scale-[1.01] shadow-sm cursor-pointer">
-                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-                            Ulangi Quiz
+                            class="w-full sm:w-auto bg-white hover:bg-slate-50 border border-slate-200 text-slate-800 font-extrabold text-xs sm:text-[13px] px-6 py-3.5 rounded-full inline-flex items-center justify-center gap-2 shadow-xs transition cursor-pointer">
+                            <span>🔄</span>
+                            <span>Ulangi Quiz</span>
                         </button>
                     </form>
-                    <a href="{{ route('quiz.index') }}"
-                       class="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3.5 rounded-full border-2 border-amber-300 bg-amber-50 hover:bg-amber-100 text-amber-900 font-extrabold text-sm transition hover:scale-[1.01] shadow-sm">
-                        <svg class="w-4 h-4 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-                        Lanjut ke Quiz Pengetahuan
-                    </a>
                     <a href="{{ route('materi') }}"
-                       class="w-full sm:w-auto flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-amber-400 hover:bg-amber-500 text-slate-900 font-black text-sm transition hover:scale-[1.02] shadow-lg shadow-amber-400/30">
-                        TINGKAT BERIKUTNYA
-                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                       class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs sm:text-[13px] uppercase tracking-wide px-8 py-3.5 rounded-full inline-flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/25 transition cursor-pointer">
+                        <span>Pelajari Materi Lagi</span>
+                        <span>→</span>
                     </a>
                 </div>
             </div>
@@ -542,54 +736,10 @@
     </main>
 
     <!-- ================= FOOTER ================= -->
-    <footer class="bg-[#18181B] text-slate-400 py-10 px-4 sm:px-6 lg:px-8 border-t border-zinc-800">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
-            
-            <!-- Left: Logo & Copyright -->
-            <div class="flex flex-col sm:flex-row items-center gap-3.5"> 
-                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-10 h-10 object-contain">
-                <div>
-                    <div class="text-white font-extrabold text-base tracking-tight">Flowchart Lab</div>
-                    <div class="text-xs text-slate-400 mt-0.5">
-                        &copy; 2026 Flowchart Lab. Media Pembelajaran Logika Algoritma Vokasi Indonesia.
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right: Navigation Links -->
-            <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-8 text-xs sm:text-[13px] font-medium text-slate-400">
-                <a href="{{ route('materi') }}" class="hover:text-white transition">Dokumentasi Simbol</a>
-                <a href="#bantuan" onclick="openInfoModal('Pusat Bantuan', 'Butuh bantuan seputar pengerjaan flowchart atau simulasi? Hubungi tim pendamping lab atau baca FAQ seputar aturan ANSI/ISO 5807.')" class="hover:text-white transition">Bantuan</a>
-            </div>
-        </div>
-    </footer>
+    <x-site-footer />
 
     <!-- =================== SCRIPTS =================== -->
     <script>
-        // Animated score counter
-        (function () {
-            const target = {{ $skorInt }};
-            const el = document.getElementById('scoreCounter');
-            if (!el) return;
-            let cur = 0;
-            const step = Math.max(1, Math.ceil(target / 60));
-            const timer = setInterval(() => {
-                cur = Math.min(cur + step, target);
-                el.textContent = cur;
-                if (cur >= target) clearInterval(timer);
-            }, 18);
-        })();
-
-        // Score ring animation
-        (function () {
-            const ring   = document.getElementById('scoreRingFill');
-            if (!ring) return;
-            const circ   = {{ $ringCirc }};
-            const offset = {{ $ringOffset }};
-            ring.style.strokeDashoffset = circ;
-            setTimeout(() => { ring.style.strokeDashoffset = offset; }, 250);
-        })();
-
         // Toggle collapsible recap detail
         function toggleRecap(idx) {
             const panel   = document.getElementById('recap-' + idx);
@@ -597,6 +747,47 @@
             if (!panel) return;
             panel.classList.toggle('open');
             chevron.classList.toggle('rotated');
+        }
+
+        // Quiz dropdown
+        function toggleQuizDropdown(event) {
+            if (event) event.stopPropagation();
+            const menu = document.getElementById('quiz-dropdown-menu');
+            const arrow = document.getElementById('quiz-dropdown-arrow');
+            if (menu) {
+                menu.classList.toggle('hidden');
+                if (arrow) arrow.classList.toggle('rotate-180');
+            }
+        }
+        document.addEventListener('click', function(e) {
+            const wrapper = document.getElementById('quiz-dropdown-wrapper');
+            if (wrapper && !wrapper.contains(e.target)) {
+                const menu = document.getElementById('quiz-dropdown-menu');
+                const arrow = document.getElementById('quiz-dropdown-arrow');
+                if (menu) menu.classList.add('hidden');
+                if (arrow) arrow.classList.remove('rotate-180');
+            }
+            const pWrapper = document.getElementById('profile-dropdown-wrapper');
+            if (pWrapper && !pWrapper.contains(e.target)) {
+                closeProfileDropdown();
+            }
+        });
+
+        // Profile dropdown
+        function openProfileDropdown() {
+            const menu = document.getElementById('profile-dropdown-menu');
+            if (menu) menu.classList.remove('hidden');
+        }
+        function closeProfileDropdown() {
+            const menu = document.getElementById('profile-dropdown-menu');
+            if (menu) menu.classList.add('hidden');
+        }
+        function handleProfileClick(event) {
+            if (event) event.stopPropagation();
+            const menu = document.getElementById('profile-dropdown-menu');
+            if (menu) {
+                menu.classList.toggle('hidden');
+            }
         }
     </script>
 </body>

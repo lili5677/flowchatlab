@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Flowchart Lab SMK - Media Belajar Logika Algoritma Visual</title>
-    <meta name="description" content="Media belajar interaktif logika dan algoritma alur kerja khusus siswa SMK. Standar ANSI/ISO 5807, gamifikasi terstruktur, dan Kurikulum Merdeka SMK.">
+    <title>Flowchart Lab - Media Belajar Logika Algoritma Visual</title>
+    <meta name="description" content="Media belajar interaktif logika dan algoritma alur kerja untuk pelajar SMA/SMK/MA sederajat. Standar ANSI/ISO 5807, gamifikasi terstruktur, dan Kurikulum Merdeka.">
 
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,7 +46,7 @@
                 <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-9 h-9 group-hover:scale-105 transition-transform duration-200">
                 <div class="flex flex-col">
                     <span class="font-extrabold text-[17px] text-slate-900 tracking-tight leading-snug">Flowchart Lab</span>
-                    <span class="font-bold text-[10px] tracking-wider text-[#EA580C] uppercase leading-none mt-0.5">SMK ALGORITMA VISUAL</span>
+                    <span class="font-bold text-[10px] tracking-wider text-[#EA580C] uppercase leading-none mt-0.5">BELAJAR ALGORITMA VISUAL</span>
                 </div>
             </a>
 
@@ -111,7 +111,7 @@
                                         </span>
                                     @else
                                         <span class="bg-[#FEE3A2] text-[#9A3412] font-black text-[9px] px-2 py-0.5 rounded uppercase tracking-wider inline-block">
-                                            {{ Auth::user()->role === 'guru' ? 'Guru SMK' : 'Siswa SMK' }}
+                                            {{ Auth::user()->role === 'guru' ? 'Guru' : 'Siswa' }}
                                         </span>
                                     @endif
                                 </div>
@@ -155,7 +155,7 @@
                                             </span>
                                         @else
                                             <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-sky-50 text-sky-800 border border-sky-200">
-                                                {{ Auth::user()->role === 'guru' ? 'Guru Pembimbing' : 'Siswa SMK' }}
+                                                {{ Auth::user()->role === 'guru' ? 'Guru Pembimbing' : 'Siswa' }}
                                             </span>
                                         @endif
                                     </div>
@@ -181,10 +181,10 @@
 
                                 <!-- Secondary Links -->
                                 <div class="space-y-1 pt-1 border-t border-slate-100">
-                                    <button type="button" onclick="closeProfileDropdown(); openProfileModal();" class="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-100 flex items-center gap-2.5 transition cursor-pointer">
+                                    <a href="{{ route('profile.show') }}" class="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-100 flex items-center gap-2.5 transition">
                                         <span>👤</span>
                                         <span>Buka Detail Profil</span>
-                                    </button>
+                                    </a>
                                     <form action="{{ route('logout') }}" method="POST">
                                         @csrf
                                         <button type="submit" class="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-rose-600 hover:bg-rose-50 flex items-center gap-2.5 transition cursor-pointer">
@@ -224,7 +224,7 @@
                     <div>
                         <div class="font-extrabold text-sm text-slate-900">{{ Auth::user()->name }}</div>
                         <span class="bg-[#FEE3A2] text-[#9A3412] font-black text-[9px] px-2 py-0.5 rounded uppercase tracking-wider inline-block">
-                            {{ Auth::user()->isAdmin() ? 'Administrator' : (Auth::user()->role === 'guru' ? 'Guru SMK' : 'Siswa SMK') }}
+                            {{ Auth::user()->isAdmin() ? 'Administrator' : (Auth::user()->role === 'guru' ? 'Guru' : 'Siswa') }}
                         </span>
                     </div>
                     @if(Auth::user()->isAdmin())
@@ -261,7 +261,7 @@
 
                 <!-- Subtitle -->
                 <p class="text-slate-600 font-normal text-base sm:text-[17px] max-w-xl mx-auto leading-relaxed mb-8">
-                    Media belajar interaktif logika dan algoritma alur kerja khusus siswa SMK.
+                    Media belajar interaktif logika dan algoritma alur kerja untuk pelajar SMA/SMK/MA sederajat.
                 </p>
 
                 <!-- Hero CTA Buttons -->
@@ -517,27 +517,7 @@
     </main>
 
      <!-- ================= FOOTER ================= -->
-    <footer class="bg-[#18181B] text-slate-400 py-10 px-4 sm:px-6 lg:px-8 border-t border-zinc-800">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
-            
-            <!-- Left: Logo & Copyright -->
-            <div class="flex flex-col sm:flex-row items-center gap-3.5"> 
-                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-10 h-10 object-contain">
-                <div>
-                    <div class="text-white font-extrabold text-base tracking-tight">Flowchart Lab</div>
-                    <div class="text-xs text-slate-400 mt-0.5">
-                        &copy; 2026 Flowchart Lab. Media Pembelajaran Logika Algoritma Vokasi Indonesia.
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right: Navigation Links -->
-            <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-8 text-xs sm:text-[13px] font-medium text-slate-400">
-                <a href="{{ route('materi') }}" class="hover:text-white transition">Dokumentasi Simbol</a>
-                <a href="#bantuan" onclick="openInfoModal('Pusat Bantuan', 'Butuh bantuan seputar pengerjaan flowchart atau simulasi? Hubungi tim pendamping lab atau baca FAQ seputar aturan ANSI/ISO 5807.')" class="hover:text-white transition">Bantuan</a>
-            </div>
-        </div>
-    </footer>
+    <x-site-footer />
 
     
 
@@ -547,7 +527,7 @@
             <div class="flex items-center justify-between pb-4 border-b border-slate-100">
                 <div>
                     <h3 class="font-extrabold text-slate-900 text-lg">6 Simbol Standar Flowchart ANSI/ISO</h3>
-                    <p class="text-xs text-slate-500">Materi dasar logika alur algoritma SMK RPL & TKJ</p>
+                    <p class="text-xs text-slate-500">Materi dasar logika alur algoritma untuk pelajar SMA/SMK/MA</p>
                 </div>
                 <button type="button" onclick="closeModal('modal-materi')" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center font-bold text-sm">✕</button>
             </div>
@@ -686,9 +666,9 @@
             @auth
                 <h3 class="font-extrabold text-slate-900 text-base">{{ Auth::user()->name }}</h3>
                 <p class="text-xs text-slate-500 mb-1">{{ Auth::user()->email }}</p>
-                <p class="text-xs text-slate-600 font-semibold mb-2">{{ Auth::user()->school ?? 'SMK Negeri' }}</p>
+                <p class="text-xs text-slate-600 font-semibold mb-2">{{ Auth::user()->school ?? 'Sekolah' }}</p>
                 <span class="{{ Auth::user()->isAdmin() ? 'bg-indigo-100 text-indigo-800' : 'bg-[#FEE3A2] text-[#9A3412]' }} font-black text-[10px] px-2.5 py-1 rounded-full uppercase tracking-wider inline-block mb-4">
-                    {{ Auth::user()->isAdmin() ? 'Administrator' : (Auth::user()->role === 'guru' ? 'Guru / Pembimbing' : 'Siswa SMK') }}
+                    {{ Auth::user()->isAdmin() ? 'Administrator' : (Auth::user()->role === 'guru' ? 'Guru / Pembimbing' : 'Siswa') }}
                 </span>
 
                 <div class="grid grid-cols-2 gap-3 text-left bg-slate-50 p-3.5 rounded-2xl mb-4 border border-slate-200/80">

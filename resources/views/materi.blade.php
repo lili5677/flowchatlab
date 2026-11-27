@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Simbol Standar Flowchart - Flowchart Lab SMK</title>
-    <meta name="description" content="Modul 01 Standarisasi ANSI/ISO Simbol Standar Flowchart dan Studi Kasus Algoritma Bilangan Ganjil Genap untuk Siswa SMK.">
+    <meta name="description" content="Modul 01 Standarisasi ANSI/ISO Simbol Standar Flowchart dan Studi Kasus Algoritma Bilangan Ganjil Genap untuk Siswa SMA/SMK/MA.">
 
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,7 +45,7 @@
                 <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-9 h-9 group-hover:scale-105 transition-transform duration-200">
                 <div class="flex flex-col">
                     <span class="font-extrabold text-[17px] text-slate-900 tracking-tight leading-snug">Flowchart Lab</span>
-                    <span class="font-bold text-[10px] tracking-wider text-[#EA580C] uppercase leading-none mt-0.5">ALGORITMA VISUAL</span>
+                    <span class="font-bold text-[10px] tracking-wider text-[#EA580C] uppercase leading-none mt-0.5">BELAJAR ALGORITMA VISUAL</span>
                 </div>
             </a>
 
@@ -111,7 +111,7 @@
                                         </span>
                                     @else
                                         <span class="bg-[#FEE3A2] text-[#9A3412] font-black text-[9px] px-2 py-0.5 rounded uppercase tracking-wider inline-block">
-                                            {{ Auth::user()->role === 'guru' ? 'Guru SMK' : 'Siswa SMK' }}
+                                            {{ Auth::user()->role === 'guru' ? 'Guru' : 'Siswa' }}
                                         </span>
                                     @endif
                                 </div>
@@ -155,7 +155,7 @@
                                             </span>
                                         @else
                                             <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-sky-50 text-sky-800 border border-sky-200">
-                                                {{ Auth::user()->role === 'guru' ? 'Guru Pembimbing' : 'Siswa SMK' }}
+                                                {{ Auth::user()->role === 'guru' ? 'Guru Pembimbing' : 'Siswa' }}
                                             </span>
                                         @endif
                                     </div>
@@ -181,10 +181,10 @@
 
                                 <!-- Secondary Links -->
                                 <div class="space-y-1 pt-1 border-t border-slate-100">
-                                    <button type="button" onclick="closeProfileDropdown(); openProfileModal();" class="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-100 flex items-center gap-2.5 transition cursor-pointer">
+                                    <a href="{{ route('profile.show') }}" class="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-100 flex items-center gap-2.5 transition">
                                         <span>👤</span>
                                         <span>Buka Detail Profil</span>
-                                    </button>
+                                    </a>
                                     <form action="{{ route('logout') }}" method="POST">
                                         @csrf
                                         <button type="submit" class="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-rose-600 hover:bg-rose-50 flex items-center gap-2.5 transition cursor-pointer">
@@ -224,7 +224,7 @@
                     <div>
                         <div class="font-extrabold text-sm text-slate-900">{{ Auth::user()->name }}</div>
                         <span class="bg-[#FEE3A2] text-[#9A3412] font-black text-[9px] px-2 py-0.5 rounded uppercase tracking-wider inline-block">
-                            {{ Auth::user()->isAdmin() ? 'Administrator' : (Auth::user()->role === 'guru' ? 'Guru SMK' : 'Siswa SMK') }}
+                            {{ Auth::user()->isAdmin() ? 'Administrator' : (Auth::user()->role === 'guru' ? 'Guru' : 'Siswa') }}
                         </span>
                     </div>
                     @if(Auth::user()->isAdmin())
@@ -511,7 +511,7 @@
                 </div>
             </section>
 
-            <!-- ================= SECTION 2: STUDI KASUS VOKASI SMK ================= -->
+            <!-- ================= SECTION 2: STUDI KASUS ALGORITMA ================= -->
             <section class="bg-white rounded-[32px] sm:rounded-[38px] p-6 sm:p-9 lg:p-10 shadow-2xl shadow-amber-950/10 border border-white">
                 
                 <!-- Section Badges Header -->
@@ -522,7 +522,7 @@
                             <circle cx="12" cy="12" r="3"/>
                             <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
                         </svg>
-                        <span>STUDI KASUS VOKASI SMK</span>
+                        <span>STUDI KASUS ALGORITMA</span>
                     </div>
 
                     <!-- Right: Tingkat Badge -->
@@ -705,27 +705,7 @@
     </main>
 
      <!-- ================= FOOTER ================= -->
-    <footer class="bg-[#18181B] text-slate-400 py-10 px-4 sm:px-6 lg:px-8 border-t border-zinc-800">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
-            
-            <!-- Left: Logo & Copyright -->
-            <div class="flex flex-col sm:flex-row items-center gap-3.5"> 
-                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-10 h-10 object-contain">
-                <div>
-                    <div class="text-white font-extrabold text-base tracking-tight">Flowchart Lab</div>
-                    <div class="text-xs text-slate-400 mt-0.5">
-                        &copy; 2026 Flowchart Lab. Media Pembelajaran Logika Algoritma Vokasi Indonesia.
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right: Navigation Links -->
-            <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-8 text-xs sm:text-[13px] font-medium text-slate-400">
-                <a href="{{ route('materi') }}" class="hover:text-white transition">Dokumentasi Simbol</a>
-                <a href="#bantuan" onclick="openInfoModal('Pusat Bantuan', 'Butuh bantuan seputar pengerjaan flowchart atau simulasi? Hubungi tim pendamping lab atau baca FAQ seputar aturan ANSI/ISO 5807.')" class="hover:text-white transition">Bantuan</a>
-            </div>
-        </div>
-    </footer>
+    <x-site-footer />
 
     <!-- ================= INTERACTIVE MODALS ================= -->
 
@@ -847,7 +827,7 @@
                 <p class="text-xs text-slate-500 mb-1">{{ Auth::user()->email }}</p>
                 <p class="text-xs text-slate-600 font-semibold mb-2">{{ Auth::user()->school ?? 'SMK Negeri' }}</p>
                 <span class="bg-[#FEE3A2] text-[#9A3412] font-black text-[10px] px-2.5 py-1 rounded-full uppercase tracking-wider inline-block mb-4">
-                    {{ Auth::user()->role === 'guru' ? 'Guru / Pembimbing' : 'Siswa SMK' }}
+                    {{ Auth::user()->role === 'guru' ? 'Guru / Pembimbing' : 'Siswa' }}
                 </span>
 
                 <div class="grid grid-cols-2 gap-3 text-left bg-slate-50 p-3.5 rounded-2xl mb-4 border border-slate-200/80">
